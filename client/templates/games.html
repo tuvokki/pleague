@@ -1,5 +1,25 @@
 <ion-view view-title="Games">
   <ion-content>
- 
+    <ion-list type="list-inset">
+      <ion-item
+        ng-repeat="game in games.data"
+        class="item-game item-remove-animate item-avatar"
+        type="item-text-wrap">
+
+        <div class="row">
+        <div class="col">{{game.teamRed | team}}</div>
+        <div class="col col-10">vs.</div>
+        <div class="col">{{game.teamBlue | team}}</div>
+        </div>
+
+        <div class="row">
+        <div class="col col-50">Started: {{game.startDate | calendar}} duration: {{game.startDate | duration: game.endDate}} minutes</div>
+        </div>
+        <ion-option-button class="button-assertive" ng-click="games.remove(game)">
+          Delete
+        </ion-option-button>
+
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

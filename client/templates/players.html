@@ -1,5 +1,28 @@
 <ion-view view-title="Players">
+  <ion-nav-buttons side="right">
+    <button ng-click="players.showNewPlayerModal()"
+        class="button button-clear button-positive button-icon ion-ios-personadd-outline"></button>
+  </ion-nav-buttons>
   <ion-content>
- 
+    <ion-list type="card">
+      <ion-item
+            ng-repeat="player in players.data | orderBy:'-elo'"
+            class="item-player item-remove-animate item-avatar"
+            type="item-text-wrap">
+        <!--<img ng-src="{{chat.picture}}">-->
+        <h2>{{player.name}}</h2>
+        <p>{{player.elo}}</p>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
+<script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">My Modal title</h1>
+    </ion-header-bar>
+    <ion-content>
+      Hello!
+    </ion-content>
+  </ion-modal-view>
+</script>

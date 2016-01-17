@@ -2,7 +2,8 @@
 angular
   .module('PLeague', [
     'angular-meteor',
-    'ionic'
+    'ionic',
+    'angularMoment'
   ]);
  
 if (Meteor.isCordova) {

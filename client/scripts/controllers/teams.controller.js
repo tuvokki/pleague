@@ -5,4 +5,11 @@ angular
 function TeamsCtrl ($scope, $reactive) {
   $reactive(this).attach($scope);
   console.log('in teams controller');
+
+  this.helpers({
+    data() {
+      return Teams.find();
+    }
+  });
+
 }
