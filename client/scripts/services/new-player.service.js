@@ -1,14 +1,12 @@
 angular
   .module('PLeague')
-  .service('NewPlayer', NewPLayer);
+  .service('NewPlayer', NewPlayer);
  
-function NewPLayer($rootScope, $ionicModal) {
+function NewPlayer($rootScope, $ionicModal) {
   let templateUrl = 'client/templates/new-player.html';
  
   this.showModal = showModal;
   this.hideModal = hideModal;
- 
-  ////////////
  
   function showModal () {
     this._scope = $rootScope.$new();
