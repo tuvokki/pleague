@@ -1,3 +1,4 @@
+/* global Players */
 angular
   .module('PLeague')
   .controller('LeaderboardCtrl', LeaderboardCtrl);
