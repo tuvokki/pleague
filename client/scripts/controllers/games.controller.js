@@ -1,4 +1,4 @@
-/* global Games */
+/* global Games, angular */
 angular
   .module('PLeague')
   .controller('GamesCtrl', GamesCtrl);
@@ -36,7 +36,9 @@ function GamesCtrl ($scope, $reactive, $ionicPopup, NewGame, GameScore) {
 
   this.helpers({
     data() {
-      return Games.find();
+      return Games.find(
+        { endDate: { $exists: true } }
+      );
     },
     inprogress() {
       return Games.findOne(
