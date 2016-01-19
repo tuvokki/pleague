@@ -3,26 +3,27 @@
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
-}
-.new-game-form {
-  height: 100%;
-  .team-select {
-    width: 100%;
-  }
-  .team-red {
-    position: absolute;
-    top: 10%;
-  }
-  .team-blue {
-    position: absolute;
-    bottom: 10%;
-  }
-  .game-controls {
-    position: absolute;
-    bottom: 50%;
-  }
-  .content-center {
-    margin-right: auto;
-    margin-left: auto;
+
+  .new-game-form {
+    height: 100%;
+    .team-select {
+      width: 100%;
+    }
+    .team-red {
+      position: absolute;
+      top: 10%;
+    }
+    .team-blue {
+      position: absolute;
+      bottom: 10%;
+    }
+    .game-controls {
+      position: absolute;
+      bottom: 50%;
+    }
+    .content-center {
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
 }
