@@ -1,9 +1,9 @@
-/* global Meteor */
+/* global Meteor, angular */
 angular
   .module('PLeague')
   .controller('SettingsCtrl', SettingsCtrl);
  
-function SettingsCtrl ($scope, $reactive, $state, NewUser) {
+function SettingsCtrl ($scope, $reactive, $state, $ionicPopup, $log, NewUser) {
   $reactive(this).attach($scope);
   console.log('in settings controller');
   this.showNewUserModal = showNewUserModal;
@@ -22,8 +22,7 @@ function SettingsCtrl ($scope, $reactive, $state, NewUser) {
     Meteor.loginWithPassword(this.credentials.username, this.credentials.password, function (error) {
       if (error) {
         // :(
-        console.log(error);
-        return;
+        return handleError(error);
       }
       $state.go('tab.players');
     });
@@ -41,5 +40,15 @@ function SettingsCtrl ($scope, $reactive, $state, NewUser) {
 
   function showNewUserModal() {
     NewUser.showModal();
+  }
+
+  function handleError(err) {
+    $log.error('Login error ', err);
+ 
+    $ionicPopup.alert({
+      title: err.reason || 'Login failed',
+      template: 'Please try again or create an account',
+      okType: 'button-positive button-clear'
+    });
   }
 }
