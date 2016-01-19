@@ -14,7 +14,6 @@ function PlayersCtrl ($scope, $reactive, NewPlayer) {
     }
   });
 
-
   function showNewPlayerModal() {
     NewPlayer.showModal();
   }

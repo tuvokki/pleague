@@ -3,12 +3,16 @@ angular
   .module('PLeague')
   .controller('NewGameCtrl', NewGameCtrl);
  
-function NewGameCtrl($scope, $reactive, $state, $ionicPopup, NewGame) {
+function NewGameCtrl($scope, $reactive, $state, $ionicPopup, NewGame, NewTeam) {
   $reactive(this).attach($scope);
  
   this.hideNewGameModal = hideNewGameModal;
   this.newGame = newGame;
+  this.showNewTeamModal = showNewTeamModal;
 
+  function showNewTeamModal() {
+    NewTeam.showModal();
+  }
   
   this.helpers({
     teams() {

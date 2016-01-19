@@ -3,12 +3,12 @@ angular
   .module('PLeague')
   .controller('NewTeamCtrl', NewTeamCtrl);
  
-function NewTeamCtrl($scope, $reactive, $state, $ionicPopup, NewTeam) {
+function NewTeamCtrl($scope, $reactive, $state, $ionicPopup, NewTeam, NewPlayer) {
   $reactive(this).attach($scope);
  
   this.hideNewTeamModal = hideNewTeamModal;
+  this.showNewPlayerModal = showNewPlayerModal;
   this.newTeam = newTeam;
-
   
   this.helpers({
     players() {
@@ -20,6 +20,10 @@ function NewTeamCtrl($scope, $reactive, $state, $ionicPopup, NewTeam) {
     NewTeam.hideModal();
   }
   
+  function showNewPlayerModal() {
+    NewPlayer.showModal();
+  }
+
   function newTeam() {
     try {
         Meteor.call('newTeam', {players: [this.playerOne._id, this.playerTwo._id]}, function(error){

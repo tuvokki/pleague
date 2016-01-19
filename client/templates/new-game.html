@@ -5,29 +5,29 @@
       <button class="button button-clear button-positive" ng-click="newgame.hideNewGameModal()">Cancel</button>
     </div>
   </ion-header-bar>
- 
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <form class="new-game-form">
-          <div class="team-red row row-top">
-            <label class="team-select item item-select" name="teamRed">
-                <span class="input-label">Red team</span>
-                <select>
-                    <option ng-repeat="selectteam in newgame.teams">{{ selectteam._id | team }}</option>
-                </select>
-            </label>
-          </div>
-          <div class="game-controls row row-center">
-              <ion-item ng-show="!newgame.ready" class="item-divider content-center">vs.</ion-item>
-              <button ng-show="newgame.ready" class="button button-positive button-default button-small content-center">Game on!</button>
-          </div>
-          <div class="team-blue row row-bottom">
-            <label class="team-select item item-select" name="teamBlue">
-                <span class="input-label">Blue team</span>
-                <select>
-                    <option ng-repeat="selectteam in newgame.teams">{{ selectteam._id | team }}</option>
-                </select>
-            </label>
-          </div>
-        </form>
-    </ion-content>
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
+      <button ng-click="newgame.showNewTeamModal()" class="button button-clear button-positive button-icon ion-plus-round">Add team</button>
+      <form class="new-game-form">
+        <div class="team-red row row-top">
+          <label class="team-select item item-select" name="teamRed">
+              <span class="input-label">Red team</span>
+              <select>
+                  <option ng-repeat="selectteam in newgame.teams">{{ selectteam._id | team }}</option>
+              </select>
+          </label>
+        </div>
+        <div class="game-controls row row-center">
+            <ion-item ng-show="!newgame.ready" class="item-divider content-center">vs.</ion-item>
+            <button ng-show="newgame.ready" class="button button-positive button-default button-small content-center">Game on!</button>
+        </div>
+        <div class="team-blue row row-bottom">
+          <label class="team-select item item-select" name="teamBlue">
+              <span class="input-label">Blue team</span>
+              <select>
+                  <option ng-repeat="selectteam in newgame.teams">{{ selectteam._id | team }}</option>
+              </select>
+          </label>
+        </div>
+      </form>
+  </ion-content>
 </ion-modal-view>

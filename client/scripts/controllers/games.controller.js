@@ -3,7 +3,7 @@ angular
   .module('PLeague')
   .controller('GamesCtrl', GamesCtrl);
  
-function GamesCtrl ($scope, $reactive, NewGame) {
+function GamesCtrl ($scope, $reactive, NewGame, NewTeam) {
   $reactive(this).attach($scope);
   console.log('in games controller');
   this.remove = remove;
