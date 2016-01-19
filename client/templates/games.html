@@ -1,13 +1,36 @@
 <ion-view view-title="Games">
-  <ion-nav-buttons side="right">
+  <ion-nav-buttons side="right" ng-hide="games.inprogress">
     <button ng-click="games.showNewGameModal()"
         class="button button-clear button-positive button-icon ion-plus-round"></button>
   </ion-nav-buttons>
   <ion-content>
-    {{ games.inprogress }}
+    <div class="card" ng-show="games.inprogress">
+        <div class="item item-divider">
+            Game in progress
+        </div>
+        <div class="item item-text-wrap">
+            <div class="row">
+                <div class="col">
+                   {{games.inprogress.teamRed | team}}<br>
+                   {{games.inprogress.teamRedScore }}<br>
+                   <button ng-click="games.scored('red')">Goal!</button>
+                 </div>
+                <div class="col col-10">vs.</div>
+                <div class="col">
+                   {{games.inprogress.teamBlue | team}}<br>
+                   {{games.inprogress.teamBlueScore }}<br>
+                   <button ng-click="games.scored('blue')">Goal!</button>
+                 </div>
+            </div>
+        </div>
+        <div class="item item-divider">
+            Started: {{games.inprogress.startDate | calendar}}
+        </div>
+        <pre>{{ games.inprogress }}</pre>
+    </div>
     <ion-list type="list-inset">
       <ion-item
-        ng-repeat="game in games.data"
+        ng-repeat="game in games.data | orderBy: '-startDate'"
         class="item-game item-remove-animate item-avatar"
         type="item-text-wrap">
 
