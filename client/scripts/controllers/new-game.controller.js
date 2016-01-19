@@ -47,6 +47,7 @@ function NewGameCtrl($scope, $reactive, $state, $ionicPopup, NewGame, NewTeam) {
   }
   
   function selectTeam() {
+    //TODO: team cannot have the same PLAYER as opposite team!
     console.log('team red: ' + this.teamRed);
     console.log('team blue: ' + this.teamBlue);
     if (this.teamRed && this.teamBlue && this.teamRed._id != this.teamBlue._id) {
