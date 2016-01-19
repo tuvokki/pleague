@@ -4,6 +4,7 @@
         class="button button-clear button-positive button-icon ion-plus-round"></button>
   </ion-nav-buttons>
   <ion-content>
+    {{ games.inprogress }}
     <ion-list type="list-inset">
       <ion-item
         ng-repeat="game in games.data"
