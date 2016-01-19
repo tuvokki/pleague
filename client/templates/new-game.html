@@ -11,21 +11,21 @@
         <div class="team-red row row-top">
           <label class="team-select item item-select" name="teamRed">
               <span class="input-label">Red team</span>
-              <select>
-                  <option ng-repeat="selectteam in newgame.teams">{{ selectteam._id | team }}</option>
-              </select>
+              <select ng-options="r._id | team for r in newgame.redteams track by r._id" name="teamRed" ng-model="newgame.teamRed" ng-change="newgame.selectTeam()"></select>
           </label>
         </div>
         <div class="game-controls row row-center">
-            <ion-item ng-show="!newgame.ready" class="item-divider content-center">vs.</ion-item>
-            <button ng-show="newgame.ready" class="button button-positive button-default button-small content-center">Game on!</button>
+            <!--<ion-item ng-show="newgame.ready" class="item-divider content-center">vs.</ion-item>-->
+            <div ng-show="newgame.selectMessage" class="bar bar-header bar-assertive">
+              <h1 class="title">{{ newgame.selectMessage }}</h1>
+            </div>
+            <!--<span ng-show="newgame.selectMessage">{{ newgame.selectMessage }}</span>-->
+            <button ng-disabled="newgame.enabled" ng-click="newgame.newGame()" class="button button-positive button-default button-small content-center">Game on!</button>
         </div>
         <div class="team-blue row row-bottom">
           <label class="team-select item item-select" name="teamBlue">
               <span class="input-label">Blue team</span>
-              <select>
-                  <option ng-repeat="selectteam in newgame.teams">{{ selectteam._id | team }}</option>
-              </select>
+              <select ng-options="b._id | team for b in newgame.blueteams track by b._id" name="teamBlue" ng-model="newgame.teamBlue" ng-change="newgame.selectTeam()"></select>
           </label>
         </div>
       </form>
