@@ -16,6 +16,11 @@ function GamesCtrl ($scope, $reactive, NewGame, NewTeam) {
   this.helpers({
     data() {
       return Games.find();
+    },
+    inprogress() {
+      return Games.findOne(
+        { endDate: { $exists: false } }
+      );
     }
   });
 
