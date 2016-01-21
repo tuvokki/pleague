@@ -4,29 +4,40 @@
         class="button button-clear button-positive button-icon ion-plus-round"></button>
   </ion-nav-buttons>
   <ion-content>
-    <div class="card" ng-show="games.inprogress">
+    <div class="card game-inprogress" ng-show="games.inprogress">
         <div class="item item-divider">
             Game in progress
         </div>
         <div class="item item-text-wrap">
             <div class="row">
                 <div class="col">
-                   {{games.inprogress.teamRed | team}}<br>
-                   {{games.inprogress.teamRedScore }}<br>
-                   <button ng-click="games.scored('red')">Goal!</button>
-                 </div>
-                <div class="col">vs.</div>
+                  <div class="row">
+                    <div class="col"><h1>{{games.inprogress.teamRedScore }}</h1></div>
+                  </div>
+                  <div class="row">
+                    <div class="col">{{games.inprogress.teamRed | team}}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col"><button class="button button-assertive" ng-click="games.scored('red')">Goal!</button></div>
+                  </div>
+                </div>
+                <div class="col col-center content-center">vs.</div>
                 <div class="col">
-                   {{games.inprogress.teamBlue | team}}<br>
-                   {{games.inprogress.teamBlueScore }}<br>
-                   <button ng-click="games.scored('blue')">Goal!</button>
-                 </div>
+                  <div class="row">
+                    <div class="col"><h1>{{games.inprogress.teamBlueScore }}</h1></div>
+                  </div>
+                  <div class="row">
+                    <div class="col">{{games.inprogress.teamBlue | team}}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col"><button class="button button-positive" ng-click="games.scored('blue')">Goal!</button></div>
+                  </div>
+                </div>
             </div>
         </div>
         <div class="item item-divider">
             Started: {{games.inprogress.startDate | calendar}}
         </div>
-        <pre>{{ games.inprogress }}</pre>
     </div>
     <ion-list type="list-inset">
       <ion-item
@@ -36,13 +47,14 @@
 
         <div class="row">
           <div class="col">{{game.teamRed | team}}</div>
-          <div class="col">vs.</div>
+          <div class="col col-center content-center">vs.</div>
           <div class="col">{{game.teamBlue | team}}</div>
         </div>
 
         <div class="row">
           <div class="col">Started: {{game.startDate | calendar}} duration: {{game.startDate | duration: game.endDate}} minutes</div>
         </div>
+        
         <ion-option-button class="button-assertive" ng-click="games.remove(game)">
           Delete
         </ion-option-button>

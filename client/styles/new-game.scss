@@ -4,6 +4,20 @@
   -moz-background-size: cover;
   background-size: cover;
 
+  .game-inprogress {
+    .content-center {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+  
+  .item-game {
+    .content-center {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
   .new-game-form {
     height: 100%;
     .team-select {

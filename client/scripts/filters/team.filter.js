@@ -1,4 +1,4 @@
-/* global Teams */
+/* global Teams, Players */
 angular
   .module('PLeague')
   .filter('team', team);
