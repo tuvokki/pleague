@@ -35,6 +35,16 @@ function GamesCtrl ($scope, $reactive, $ionicPopup, NewGame, GameScore) {
   }
 
   this.helpers({
+    isAdmin() {
+      let user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1 } });
+      if (user) {
+        this.role = user.profile.role;
+        if (this.role === 'admin') {
+          return true;
+        }
+      }
+      return false;
+    },
     data() {
       return Games.find(
         { endDate: { $exists: true } }
