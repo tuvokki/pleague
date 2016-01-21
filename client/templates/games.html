@@ -15,7 +15,7 @@
                    {{games.inprogress.teamRedScore }}<br>
                    <button ng-click="games.scored('red')">Goal!</button>
                  </div>
-                <div class="col col-10">vs.</div>
+                <div class="col">vs.</div>
                 <div class="col">
                    {{games.inprogress.teamBlue | team}}<br>
                    {{games.inprogress.teamBlueScore }}<br>
@@ -31,17 +31,17 @@
     <ion-list type="list-inset">
       <ion-item
         ng-repeat="game in games.data | orderBy: '-startDate'"
-        class="item-game item-remove-animate item-avatar"
+        class="item-game item-text-wrap"
         type="item-text-wrap">
 
         <div class="row">
-        <div class="col">{{game.teamRed | team}}</div>
-        <div class="col col-10">vs.</div>
-        <div class="col">{{game.teamBlue | team}}</div>
+          <div class="col">{{game.teamRed | team}}</div>
+          <div class="col">vs.</div>
+          <div class="col">{{game.teamBlue | team}}</div>
         </div>
 
         <div class="row">
-        <div class="col col-50">Started: {{game.startDate | calendar}} duration: {{game.startDate | duration: game.endDate}} minutes</div>
+          <div class="col">Started: {{game.startDate | calendar}} duration: {{game.startDate | duration: game.endDate}} minutes</div>
         </div>
         <ion-option-button class="button-assertive" ng-click="games.remove(game)">
           Delete
