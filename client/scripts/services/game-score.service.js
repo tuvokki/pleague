@@ -12,7 +12,7 @@ function GameScore($rootScope, $ionicModal) {
         $set: { teamRedScore: inprogress.teamRedScore + 1 }
       });
       console.log('red scored!');
-      if (inprogress.teamRedScore++ > 6) {
+      if (inprogress.teamRedScore++ > 5) {
         Games.update(inprogress._id, {
           $set: { winner: inprogress.teamRed,
           endDate: Date.now() }
@@ -63,7 +63,7 @@ function GameScore($rootScope, $ionicModal) {
         $set: { teamBlueScore: inprogress.teamBlueScore + 1 }
       });
       console.log('blue scored!');
-      if (inprogress.teamBlueScore++ > 6) {
+      if (inprogress.teamBlueScore++ > 5) {
         Games.update(inprogress._id, {
           $set: { winner: inprogress.teamBlue,
           endDate: Date.now() }
