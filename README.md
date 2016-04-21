@@ -19,19 +19,12 @@ Run the meteor command in the directory
 
 This creates a bunch of outputs which end with:
 
-
-> meteor [[[[[ ~\D\research\pleague ]]]]]
-> 
-> => Started proxy.
-> => Started MongoDB.
-> => Started your app.
-> 
-> => App running at: http://localhost:3000/    Type Control-C twice to stop.
-
+![image](https://cloud.githubusercontent.com/assets/181719/14711685/a536d7fa-07da-11e6-8bbd-170ce02d9634.png)
 
 You have just started a local mongoDB and the meteor server. Open a browser on http://localhost:3000/ and see (a totally empty) application.
 
 Last step is to create a user in the `settings` tab called `admin` with a password of your choice. A user with this name is hardcoded as admin user 
+
 ![image](https://cloud.githubusercontent.com/assets/181719/14711614/518a01ae-07da-11e6-8226-6e2e98c10581.png)
 
 (todo: [create an issue](https://github.com/tuvokki/pleague/issues/new) for this...)
