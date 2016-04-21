@@ -1,14 +1,14 @@
 <ion-view view-title="Leaderboard">
   <ion-content>
     <ion-list type="list-inset">
-      <ion-item
-            ng-repeat="player in leaderboard.data | orderBy:'-elo'"
-            class="item-player item-remove-animate item-avatar"
-            type="item-text-wrap">
-        <!--<img ng-src="{{chat.picture}}">-->
-        <h2>{{player.name}}</h2>
-        <p>{{player.elo}}</p>
-      </ion-item>
+      <div ng-repeat="player in leaderboard.data | orderBy:'-elo'">
+        <a class="item item-avatar" href="#" ng-class="{ 'leader': $first }">
+          <span class="ranking">{{ $index + 1 }}</span>
+          <h2>{{player.name}}</h2>
+          <p>ELO: {{player.elo}}</p>
+          <img src="/img/leader.gif" class="leadergif" ng-if="$first">
+        </a>      
+      </div>
     </ion-list>
   </ion-content>
 </ion-view>
