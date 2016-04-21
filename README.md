@@ -29,6 +29,6 @@ This creates a bunch of outputs which end with:
 > => App running at: http://localhost:3000/    Type Control-C twice to stop.
 
 
-This will start a local mongoDB and the meteor server. Open a browser on http://localhost:3000/ and see (a totally empty) application.
+You have just started a local mongoDB and the meteor server. Open a browser on http://localhost:3000/ and see (a totally empty) application.
 
 Last step is to create a user in the `settings` tab called `admin` with a password of your choice. A user with this name is hardcoded as admin user (todo: [create an issue](https://github.com/tuvokki/pleague/issues/new) for this...)
