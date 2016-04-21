@@ -1,0 +1,56 @@
+import { Controller } from '../entities';
+
+export default class SettingsCtrl extends Controller {
+  constructor() {
+    super(...arguments);
+
+    console.log('in settings controller');
+
+    this.currentUser = function () {
+      if (Meteor.user() == null) {
+        return true;
+      }
+      return false;
+    }
+
+    this.helpers({
+    });
+
+  }
+
+  doLoginAction() {
+    let that = this;
+    Meteor.loginWithPassword(this.credentials.username, this.credentials.password, (error) => {
+      if (error) {
+        // :(
+        return that.handleError(error);
+      }
+      that.$state.go('tab.players');
+    });
+  }
+
+  doLogoutAction() {
+    let that = this;
+    Meteor.logout(function () {
+      // Redirect to login
+      that.$state.go('tab.settings');
+    });
+  }
+
+  showNewUserModal() {
+    this.NewUser.showModal();
+  }
+
+  handleError(err) {
+    this.$log.error('Login error ', err);
+
+    this.$ionicPopup.alert({
+      title: err.reason || 'Login failed',
+      template: 'Please try again or create an account',
+      okType: 'button-positive button-clear'
+    });
+  }
+
+}
+
+SettingsCtrl.$inject = ['$scope', '$ionicPopup', '$state', '$log', 'NewUser'];
