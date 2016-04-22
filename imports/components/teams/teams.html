@@ -1,8 +1,16 @@
-<ion-view view-title="Teams">
+<ion-nav-bar class="bar-stable">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+    <ion-nav-title>
+      Teams
+    </ion-nav-title>
   <ion-nav-buttons side="right">
     <button ng-click="teams.showNewTeamModal()"
         class="button button-clear button-positive button-icon ion-plus-round"></button>
   </ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-view view-title="Teams">
   <ion-content>
     <ion-list type="list-inset">
       <ion-item

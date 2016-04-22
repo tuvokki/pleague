@@ -1,4 +1,5 @@
 import { Controller } from '../entities';
+import { Players } from '/imports/api/players.js';
 
 export default class NewTeamCtrl extends Controller {
   constructor() {

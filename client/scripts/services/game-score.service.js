@@ -1,4 +1,5 @@
 import { Service } from '../entities';
+import { Players } from '/imports/api/players.js';
 
 export default class GameScore extends Service {
   constructor() {

@@ -1,4 +1,5 @@
 import { Filter } from '../entities';
+import { Players } from '/imports/api/players.js';
 
 export default class player extends Filter {
   filter(player_id) {

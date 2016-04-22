@@ -12,8 +12,7 @@ export default class RoutesConfig extends Config {
       url: '/leaderboard',
       views: {
         'tab-leaderboard': {
-          templateUrl: 'client/templates/leaderboard.html',
-          controller: 'LeaderboardCtrl as leaderboard'
+          template: '<leader-board></leader-board>'
         }
       }
     })
@@ -21,8 +20,7 @@ export default class RoutesConfig extends Config {
       url: '/players',
       views: {
         'tab-players': {
-          templateUrl: 'client/templates/players.html',
-          controller: 'PlayersCtrl as players'
+          template: '<players></players>'
         }
       }
     })
@@ -30,8 +28,7 @@ export default class RoutesConfig extends Config {
       url: '/teams',
       views: {
         'tab-teams': {
-          templateUrl: 'client/templates/teams.html',
-          controller: 'TeamsCtrl as teams'
+          template: '<teams></teams>'
         }
       }
     })
@@ -39,8 +36,7 @@ export default class RoutesConfig extends Config {
       url: '/games',
       views: {
         'tab-games': {
-          templateUrl: 'client/templates/games.html',
-          controller: 'GamesCtrl as games'
+          template: '<games></games>'
         }
       }
     })
@@ -48,8 +44,7 @@ export default class RoutesConfig extends Config {
       url: '/settings',
       views: {
         'tab-settings': {
-          templateUrl: 'client/templates/settings.html',
-          controller: 'SettingsCtrl as settings'
+          template: '<settings></settings>'
         }
       }
     });

@@ -5,18 +5,18 @@ import 'angular-meteor';
 import 'angular-sanitize';
 import 'angular-ui-router';
 import 'ionic-scripts';
+import leaderBoard from '/imports/components/leaderBoard/leaderBoard';
+import players from '/imports/components/players/players';
+import teams from '/imports/components/teams/teams';
+import games from '/imports/components/games/games';
+import settings from '/imports/components/settings/settings';
 import todosList from '/imports/components/todosList/todosList';
 
 // Modules
 import Definer from '../definer';
-import LeaderboardCtrl from '../controllers/leaderboard.controller';
-import PlayersCtrl from '../controllers/players.controller';
 import NewPlayerCtrl from '../controllers/new-player.controller';
-import GamesCtrl from '../controllers/games.controller';
 import NewGameCtrl from '../controllers/new-game.controller';
-import TeamsCtrl from '../controllers/teams.controller';
 import NewTeamCtrl from '../controllers/new-team.controller';
-import SettingsCtrl from '../controllers/settings.controller';
 import NewUserCtrl from '../controllers/new-user.controller';
 import RoutesConfig from '../routes';
 
@@ -38,18 +38,18 @@ import PlayerNameFilter from '../filters/player-name.filter.js';
 const App = angular.module('PLeague', [
   'angular-meteor',
   'ionic',
+  'leaderBoard',
+  'players',
+  'teams',
+  'games',
+  'settings',
   'todosList'
 ]);
 
 new Definer(App)
-  .define(LeaderboardCtrl)
-  .define(PlayersCtrl)
   .define(NewPlayerCtrl)
-  .define(GamesCtrl)
   .define(NewGameCtrl)
-  .define(TeamsCtrl)
   .define(NewTeamCtrl)
-  .define(SettingsCtrl)
   .define(NewUserCtrl)
   .define(GameScore)
   .define(NewUser)

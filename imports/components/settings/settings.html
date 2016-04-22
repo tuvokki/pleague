@@ -1,4 +1,12 @@
-<ion-view view-title="Settings">
+<ion-nav-bar class="bar-stable">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+    <ion-nav-title>
+      Settings
+    </ion-nav-title>
+</ion-nav-bar>
+
+<ion-view>
   <ion-content class="padding">
     
     <ion-item class="card padding" ng-show="settings.currentUser()">
@@ -21,7 +29,6 @@
     <ion-item class="card padding" ng-show="!settings.currentUser()">
       <button class="button button-block" ng-click="settings.doLogoutAction()">Log out</button>
     </ion-item>
-    <todos-list></todos-list>
     
   </ion-content>
 </ion-view>

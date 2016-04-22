@@ -1,4 +1,6 @@
-/* global Teams, Players */
+import { Players } from '/imports/api/players.js';
+import { Teams } from '/imports/api/teams.js';
+
 angular
   .module('PLeague')
   .filter('team', team);

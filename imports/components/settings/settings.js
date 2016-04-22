@@ -1,8 +1,12 @@
-import { Controller } from '../entities';
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
+import { Players } from '../../api/players.js';
 
-export default class SettingsCtrl extends Controller {
-  constructor() {
-    super(...arguments);
+import template from './settings.html';
+
+class SettingsCtrl {
+  constructor($scope) {
+    $scope.viewModel(this);
 
     console.log('in settings controller');
 
@@ -54,3 +58,12 @@ export default class SettingsCtrl extends Controller {
 }
 
 SettingsCtrl.$inject = ['$scope', '$ionicPopup', '$state', '$log', 'NewUser'];
+
+export default angular.module('settings', [
+  angularMeteor
+])
+  .component('settings', {
+    templateUrl: 'imports/components/settings/settings.html',
+    controller: ['$scope', SettingsCtrl],
+    controllerAs: 'settings'
+  });

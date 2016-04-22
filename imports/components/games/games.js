@@ -1,8 +1,13 @@
-import { Controller } from '../entities';
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
+import { Players } from '/imports/api/players.js';
+import { Games } from '/imports/api/games.js';
 
-export default class GamesCtrl extends Controller {
-  constructor() {
-    super(...arguments);
+import template from './games.html';
+
+class GamesCtrl {
+  constructor($scope) {
+    $scope.viewModel(this);
 
     console.log('in games controller');
 
@@ -62,3 +67,12 @@ export default class GamesCtrl extends Controller {
 }
 
 GamesCtrl.$inject = ['$scope', '$ionicPopup', 'NewGame', 'GameScore'];
+
+export default angular.module('games', [
+  angularMeteor
+])
+  .component('games', {
+    templateUrl: 'imports/components/games/games.html',
+    controller: ['$scope', GamesCtrl],
+    controllerAs: 'games'
+  });

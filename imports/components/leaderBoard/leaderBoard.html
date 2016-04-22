@@ -1,3 +1,11 @@
+<ion-nav-bar class="bar-stable">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+  <ion-nav-title>
+    Leaderboard
+  </ion-nav-title>
+</ion-nav-bar>
+
 <ion-view view-title="Leaderboard">
   <ion-content>
     <ion-list type="list-inset">
@@ -7,7 +15,7 @@
           <h2>{{player.name}}</h2>
           <p>ELO: {{player.elo}}</p>
           <img src="/img/leader.gif" class="leadergif" ng-if="$first">
-        </a>      
+        </a>
       </div>
     </ion-list>
   </ion-content>

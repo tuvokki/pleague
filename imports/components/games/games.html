@@ -1,3 +1,17 @@
+<ion-nav-bar class="bar-stable">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+    <ion-nav-title>
+      Games
+    </ion-nav-title>
+  <ion-nav-buttons side="left">
+    <pre>{{ games.role }}</pre>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right" ng-hide="games.inprogress">
+    <button ng-click="games.showNewGameModal()" class="button button-clear button-positive button-icon ion-plus-round"></button>
+  </ion-nav-buttons>
+</ion-nav-bar>
+
 <ion-view view-title="Games">
   <ion-nav-buttons side="left">
     <pre>{{ games.role }}</pre>
