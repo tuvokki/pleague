@@ -30,7 +30,9 @@ import NewUser from '../services/new-user.service';
 // Filters
 import CalendarFilter from '../filters/calendar.filter';
 import DurationFilter from '../filters/duration.filter';
-
+import ExcludeFromFilter from '../filters/exclude-from.filter.js';
+import PlayerFilter from '../filters/player.filter.js';
+import PlayerNameFilter from '../filters/player-name.filter.js';
  
 // App
 const App = angular.module('PLeague', [
@@ -56,6 +58,9 @@ new Definer(App)
   .define(NewPlayer)
   .define(CalendarFilter)
   .define(DurationFilter)
+  .define(ExcludeFromFilter)
+  .define(PlayerFilter)
+  .define(PlayerNameFilter)
   .define(RoutesConfig);
  
 // Startup
