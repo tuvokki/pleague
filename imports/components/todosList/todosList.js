@@ -5,11 +5,11 @@ import template from './todosList.html';
 class TodosListCtrl {
   constructor() {
     this.tasks = [{
-      text: 'This is task 1'
+      text: 'Finish rewrite based on <a href="http://www.angular-meteor.com/tutorials/whatsapp/">Angular-Meteor & ionic</a>'
     }, {
-        text: 'This is task 2'
+        text: 'Modularize more based on <a href="https://www.meteor.com/tutorials/angular/creating-an-app">the official tutorial</a>'
       }, {
-        text: 'This is task 3'
+        text: 'Do something about those <a href="https://github.com/tuvokki/pleague/issues">issues</a>'
       }];
   }
 }
