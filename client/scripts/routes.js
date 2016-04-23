@@ -24,6 +24,14 @@ export default class RoutesConfig extends Config {
         }
       }
     })
+    .state('tab.newplayer', {
+      url: '/players/new',
+      views: {
+        'tab-players': {
+          template: '<newplayer></newplayer>'
+        }
+      }
+    })
     .state('tab.teams', {
       url: '/teams',
       views: {
@@ -45,6 +53,14 @@ export default class RoutesConfig extends Config {
       views: {
         'tab-games': {
           template: '<games></games>'
+        }
+      }
+    })
+    .state('tab.newgame', {
+      url: '/games/new',
+      views: {
+        'tab-games': {
+          template: '<newgame></newgame>'
         }
       }
     })

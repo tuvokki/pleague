@@ -17,13 +17,8 @@ class PlayersCtrl {
     });
 
   }
-  
-  showNewPlayerModal() {
-    this.NewPlayer.showModal();
-  }
-}
 
-PlayersCtrl.$inject = ['$scope', 'NewPlayer'];
+}
 
 export default angular.module('players', [
   angularMeteor

@@ -1,8 +1,8 @@
-<ion-modal-view ng-controller="NewGameCtrl as newgame" class="new-game-pane">
+<ion-view class="new-game-pane">
   <ion-header-bar>
     <h1 class="title">New Game</h1>
     <div class="buttons">
-      <button class="button button-clear button-positive" ng-click="newgame.hideNewGameModal()">Cancel</button>
+      <button class="button button-clear button-positive" ng-click="newgame.goBack()">Cancel</button>
     </div>
   </ion-header-bar>
   <ion-content overflow-scroll="true" padding="true" class="has-header">
@@ -30,4 +30,4 @@
         </div>
       </form>
   </ion-content>
-</ion-modal-view>
+</ion-view>

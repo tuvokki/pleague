@@ -6,8 +6,10 @@ import { Games } from '/imports/api/games.js';
 import template from './games.html';
 
 class GamesCtrl {
-  constructor($scope) {
+  constructor($scope, $state, $ionicPopup) {
     $scope.viewModel(this);
+    this.$state = $state;
+    this.$ionicPopup = $ionicPopup;
 
     console.log('in games controller');
 
@@ -56,7 +58,7 @@ class GamesCtrl {
         }
       });
     } else {
-      this.NewGame.showModal();
+      this.$state.go('tab.newgame');
     }
   }
 
@@ -66,13 +68,11 @@ class GamesCtrl {
 
 }
 
-GamesCtrl.$inject = ['$scope', '$ionicPopup', 'NewGame', 'GameScore'];
-
 export default angular.module('games', [
   angularMeteor
 ])
   .component('games', {
     templateUrl: 'imports/components/games/games.html',
-    controller: ['$scope', GamesCtrl],
+    controller: ['$scope', '$state', '$ionicPopup', GamesCtrl],
     controllerAs: 'games'
   });

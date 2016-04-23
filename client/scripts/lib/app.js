@@ -7,16 +7,16 @@ import 'angular-ui-router';
 import 'ionic-scripts';
 import leaderBoard from '/imports/components/leaderBoard/leaderBoard';
 import players from '/imports/components/players/players';
+import newplayer from '/imports/components/players/new-player';
 import teams from '/imports/components/teams/teams';
 import newteam from '/imports/components/teams/new-team';
 import games from '/imports/components/games/games';
+import newgame from '/imports/components/games/new-game';
 import settings from '/imports/components/settings/settings';
 import todosList from '/imports/components/todosList/todosList';
 
 // Modules
 import Definer from '../definer';
-import NewPlayerCtrl from '../controllers/new-player.controller';
-import NewGameCtrl from '../controllers/new-game.controller';
 import NewUserCtrl from '../controllers/new-user.controller';
 import RoutesConfig from '../routes';
 
@@ -39,16 +39,16 @@ const App = angular.module('PLeague', [
   'ionic',
   'leaderBoard',
   'players',
+  'newplayer',
   'teams',
   'newteam',
   'games',
+  'newgame',
   'settings',
   'todosList'
 ]);
 
 new Definer(App)
-  .define(NewPlayerCtrl)
-  .define(NewGameCtrl)
   .define(NewUserCtrl)
   .define(GameScore)
   .define(NewUser)

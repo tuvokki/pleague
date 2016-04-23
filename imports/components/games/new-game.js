@@ -1,8 +1,18 @@
-import { Controller } from '../entities';
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
+import { Players } from '/imports/api/players.js';
+import { Teams } from '/imports/api/teams.js';
 
-export default class NewGameCtrl extends Controller {
-  constructor() {
-    super(...arguments);
+import template from '/imports/components/games/new-game.html';
+
+class NewGameCtrl {
+  constructor($scope, $state, $ionicPopup, $ionicHistory) {
+    $scope.viewModel(this);
+    this.$state = $state;
+    this.$ionicPopup = $ionicPopup;
+    this.$ionicHistory = $ionicHistory;
+
+    console.log('in new-game controller');
 
     this.enabled = true;
 
@@ -14,14 +24,6 @@ export default class NewGameCtrl extends Controller {
         return Teams.find({});
       }
     });
-  }
-
-  showNewTeamModal() {
-    this.NewTeam.showModal();
-  }
-
-  hideNewGameModal() {
-    this.NewGame.hideModal();
   }
 
   selectTeam() {
@@ -39,6 +41,10 @@ export default class NewGameCtrl extends Controller {
     }
   }
 
+  goBack() {
+    this.$ionicHistory.goBack();
+  }
+  
   newGame() {
     let that = this;
     try {
@@ -53,7 +59,7 @@ export default class NewGameCtrl extends Controller {
             console.log('Thank you for not eating my delicious ice cream cone');
           });
         } else {
-          that.hideNewGameModal();
+          that.$ionicHistory.goBack();
         }
       });
     } catch (e) {
@@ -63,4 +69,11 @@ export default class NewGameCtrl extends Controller {
   }
 }
 
-NewGameCtrl.$inject = ['$scope', '$ionicPopup', 'NewGame', 'NewTeam'];
+export default angular.module('newgame', [
+  angularMeteor
+])
+  .component('newgame', {
+    templateUrl: 'imports/components/games/new-game.html',
+    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewGameCtrl],
+    controllerAs: 'newgame'
+  });

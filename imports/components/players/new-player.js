@@ -1,8 +1,14 @@
-import { Controller } from '../entities';
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
+
+import template from '/imports/components/players/new-player.html';
  
-export default class NewPlayerCtrl extends Controller {
-  constructor() {
-    super(...arguments);
+class NewPlayerCtrl {
+  constructor($scope, $state, $ionicPopup, $ionicHistory) {
+    $scope.viewModel(this);
+    this.$state = $state;
+    this.$ionicPopup = $ionicPopup;
+    this.$ionicHistory = $ionicHistory;
 
     console.log('in new-player controller');
     
@@ -14,8 +20,8 @@ export default class NewPlayerCtrl extends Controller {
     });
   }
 
-  hideNewPlayerModal() {
-    this.NewPlayer.hideModal();
+  goBack() {
+    this.$ionicHistory.goBack();
   }
   
   newPlayer() {
@@ -32,7 +38,8 @@ export default class NewPlayerCtrl extends Controller {
                     console.log('Thank you for not eating my delicious ice cream cone');
                 });
             } else {
-                that.hideNewPlayerModal();
+                debugger;
+                that.$ionicHistory.goBack();
             }
         });
     } catch (e) {
@@ -41,5 +48,12 @@ export default class NewPlayerCtrl extends Controller {
     }
   }  
 }
- 
-NewPlayerCtrl.$inject = ['$scope', '$ionicPopup', 'NewPlayer'];
+
+export default angular.module('newplayer', [
+  angularMeteor
+])
+  .component('newplayer', {
+    templateUrl: 'imports/components/players/new-player.html',
+    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewPlayerCtrl],
+    controllerAs: 'newplayer'
+  });

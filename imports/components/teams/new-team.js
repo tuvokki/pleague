@@ -5,11 +5,10 @@ import { Players } from '/imports/api/players.js';
 import template from '/imports/components/teams/new-team.html';
 
 class NewTeamCtrl {
-  constructor($scope, $state, $ionicPopup, NewPlayer) {
+  constructor($scope, $state, $ionicPopup) {
     $scope.viewModel(this);
     this.$state = $state;
     this.$ionicPopup = $ionicPopup;
-    this.NewPlayer = NewPlayer;
     
     console.log('in new-team controller');
 
@@ -21,11 +20,9 @@ class NewTeamCtrl {
   }
 
   showNewPlayerModal() {
-    this.NewPlayer.showModal();
+    this.$state.go('tab.newplayer');
   }
-  test(){
-    console.log('test');
-  }
+
   newTeam() {
     let that = this;
     try {
@@ -40,7 +37,7 @@ class NewTeamCtrl {
             console.log('Thank you for not eating my delicious ice cream cone');
           });
         } else {
-          that.$state.go('tab.teams')
+          that.$state.go('tab.teams');
         }
       });
     } catch (e) {
@@ -51,12 +48,11 @@ class NewTeamCtrl {
 
 }
 
-
 export default angular.module('newteam', [
   angularMeteor
 ])
   .component('newteam', {
     templateUrl: 'imports/components/teams/new-team.html',
-    controller: ['$scope', '$state', '$ionicPopup', 'NewPlayer', NewTeamCtrl],
+    controller: ['$scope', '$state', '$ionicPopup', NewTeamCtrl],
     controllerAs: 'newteam'
   });
