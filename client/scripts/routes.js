@@ -71,6 +71,14 @@ export default class RoutesConfig extends Config {
           template: '<settings></settings>'
         }
       }
+    })
+    .state('tab.newuser', {
+      url: '/user/new',
+      views: {
+        'tab-settings': {
+          template: '<newuser></newuser>'
+        }
+      }
     });
      
     this.  $urlRouterProvider.otherwise('tab/leaderboard');

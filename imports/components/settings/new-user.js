@@ -1,8 +1,14 @@
-import { Controller } from '../entities';
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
 
-export default class NewUserCtrl extends Controller {
-  constructor() {
-    super(...arguments);
+import template from '/imports/components/settings/new-user.html';
+
+class NewUserCtrl {
+  constructor($scope, $state, $ionicPopup, $ionicHistory) {
+    $scope.viewModel(this);
+    this.$state = $state;
+    this.$ionicPopup = $ionicPopup;
+    this.$ionicHistory = $ionicHistory;
 
     console.log('in new-user controller');
     this.credentials = {};
@@ -12,10 +18,6 @@ export default class NewUserCtrl extends Controller {
         return Players.find({});
       }
     });
-  }
-  
-  hideNewUserModal() {
-    this.NewUser.hideModal();
   }
   
   allReady() {
@@ -43,7 +45,7 @@ export default class NewUserCtrl extends Controller {
           console.log(error);
           return;
         }
-        that.hideNewUserModal();
+        // that.hideNewUserModal();
         that.$state.go('tab.players');
       });
 
@@ -55,4 +57,11 @@ export default class NewUserCtrl extends Controller {
  
 }
 
-NewUserCtrl.$inject = ['$scope', '$state', '$ionicPopup', 'NewUser'];
+export default angular.module('newuser', [
+  angularMeteor
+])
+  .component('newuser', {
+    templateUrl: 'imports/components/settings/new-user.html',
+    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewUserCtrl],
+    controllerAs: 'newuser'
+  });

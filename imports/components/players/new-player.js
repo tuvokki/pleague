@@ -2,7 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 
 import template from '/imports/components/players/new-player.html';
- 
+
 class NewPlayerCtrl {
   constructor($scope, $state, $ionicPopup, $ionicHistory) {
     $scope.viewModel(this);

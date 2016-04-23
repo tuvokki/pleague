@@ -13,18 +13,15 @@ import newteam from '/imports/components/teams/new-team';
 import games from '/imports/components/games/games';
 import newgame from '/imports/components/games/new-game';
 import settings from '/imports/components/settings/settings';
+import newuser from '/imports/components/settings/new-user';
 import todosList from '/imports/components/todosList/todosList';
 
 // Modules
 import Definer from '../definer';
-import NewUserCtrl from '../controllers/new-user.controller';
 import RoutesConfig from '../routes';
 
 // Services
 import GameScore from '../services/game-score.service';
-import NewPlayer from '../services/new-player.service';
-import NewGame from '../services/new-game.service';
-import NewUser from '../services/new-user.service';
 
 // Filters
 import CalendarFilter from '../filters/calendar.filter';
@@ -45,15 +42,12 @@ const App = angular.module('PLeague', [
   'games',
   'newgame',
   'settings',
+  'newuser',
   'todosList'
 ]);
 
 new Definer(App)
-  .define(NewUserCtrl)
   .define(GameScore)
-  .define(NewUser)
-  .define(NewGame)
-  .define(NewPlayer)
   .define(CalendarFilter)
   .define(DurationFilter)
   .define(ExcludeFromFilter)
