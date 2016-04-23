@@ -1,12 +1,13 @@
-<ion-modal-view ng-controller="NewTeamCtrl as newteam" class="new-team-pane">
+<ion-modal-view class="new-team-pane" ng-controller="NewTeamCtrl as newteam">
   <ion-header-bar>
     <h1 class="title">New Team</h1>
     <div class="buttons">
-      <button class="button button-clear button-positive" ng-click="newteam.hideNewTeamModal()">Cancel</button>
+      <button class="button button-clear button-positive" ng-click="modal.hide()">Cancel</button>
     </div>
   </ion-header-bar>
  
     <ion-content overflow-scroll="true" padding="true" class="has-header">
+      <button class="button button-clear button-positive" ng-click="modal.test()">Test</button>
         <form class="new-team-form">
           <div class="player-one row row-top">
             <label class="player-select item item-select" name="playerOne">

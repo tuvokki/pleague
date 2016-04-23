@@ -1,9 +1,13 @@
-import { Controller } from '../entities';
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
 import { Players } from '/imports/api/players.js';
 
-export default class NewTeamCtrl extends Controller {
-  constructor() {
-    super(...arguments);
+// import template from './new-team.html';
+// import template from '/imports/components/teams/new-team.html';
+
+class NewTeamCtrl {
+  constructor($scope, $state, $ionicPopup, NewTeam, NewPlayer) {
+    $scope.viewModel(this);
 
     console.log('in new-team controller');
 
@@ -21,7 +25,7 @@ export default class NewTeamCtrl extends Controller {
   showNewPlayerModal() {
     this.NewPlayer.showModal();
   }
-
+  
   newTeam() {
     let that = this;
     try {
@@ -47,4 +51,12 @@ export default class NewTeamCtrl extends Controller {
 
 }
 
-NewTeamCtrl.$inject = ['$scope', '$state', '$ionicPopup', 'NewTeam', 'NewPlayer'];
+export default angular.module('newteam', [
+  angularMeteor
+])
+    .controller('NewTeamCtrl', ['$scope', '$state', '$ionicPopup', 'NewTeam', 'NewPlayer', NewTeamCtrl]);
+  // .component('newteam', {
+  //   templateUrl: 'imports/components/teams/new-team.html',
+  //   controller: ['$scope', '$state', '$ionicPopup', 'NewTeam', 'NewPlayer', NewTeamCtrl],
+  //   controllerAs: 'newteam'
+  // });

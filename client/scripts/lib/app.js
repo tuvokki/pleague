@@ -8,6 +8,7 @@ import 'ionic-scripts';
 import leaderBoard from '/imports/components/leaderBoard/leaderBoard';
 import players from '/imports/components/players/players';
 import teams from '/imports/components/teams/teams';
+import newteam from '/imports/components/teams/new-team';
 import games from '/imports/components/games/games';
 import settings from '/imports/components/settings/settings';
 import todosList from '/imports/components/todosList/todosList';
@@ -16,7 +17,6 @@ import todosList from '/imports/components/todosList/todosList';
 import Definer from '../definer';
 import NewPlayerCtrl from '../controllers/new-player.controller';
 import NewGameCtrl from '../controllers/new-game.controller';
-import NewTeamCtrl from '../controllers/new-team.controller';
 import NewUserCtrl from '../controllers/new-user.controller';
 import RoutesConfig from '../routes';
 
@@ -24,8 +24,8 @@ import RoutesConfig from '../routes';
 import GameScore from '../services/game-score.service';
 import NewPlayer from '../services/new-player.service';
 import NewGame from '../services/new-game.service';
-import NewTeam from '../services/new-team.service';
 import NewUser from '../services/new-user.service';
+import newteamservice from '/imports/services/new-team.service';
 
 // Filters
 import CalendarFilter from '../filters/calendar.filter';
@@ -41,6 +41,8 @@ const App = angular.module('PLeague', [
   'leaderBoard',
   'players',
   'teams',
+  'newteam',
+  'newteamservice',
   'games',
   'settings',
   'todosList'
@@ -49,12 +51,10 @@ const App = angular.module('PLeague', [
 new Definer(App)
   .define(NewPlayerCtrl)
   .define(NewGameCtrl)
-  .define(NewTeamCtrl)
   .define(NewUserCtrl)
   .define(GameScore)
   .define(NewUser)
   .define(NewGame)
-  .define(NewTeam)
   .define(NewPlayer)
   .define(CalendarFilter)
   .define(DurationFilter)
