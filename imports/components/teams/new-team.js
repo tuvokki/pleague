@@ -5,10 +5,11 @@ import { Players } from '/imports/api/players.js';
 import template from '/imports/components/teams/new-team.html';
 
 class NewTeamCtrl {
-  constructor($scope, $state, $ionicPopup, NewTeam, NewPlayer) {
+  constructor($scope, $state, $ionicPopup, NewPlayer) {
     $scope.viewModel(this);
     this.$state = $state;
     this.$ionicPopup = $ionicPopup;
+    this.NewPlayer = NewPlayer;
     
     console.log('in new-team controller');
 
@@ -17,10 +18,6 @@ class NewTeamCtrl {
         return Players.find({});
       }
     });
-  }
-
-  hideNewTeamModal() {
-    this.NewTeam.hideModal();
   }
 
   showNewPlayerModal() {
@@ -60,6 +57,6 @@ export default angular.module('newteam', [
 ])
   .component('newteam', {
     templateUrl: 'imports/components/teams/new-team.html',
-    controller: ['$scope', '$state', '$ionicPopup', NewTeamCtrl],
+    controller: ['$scope', '$state', '$ionicPopup', 'NewPlayer', NewTeamCtrl],
     controllerAs: 'newteam'
   });

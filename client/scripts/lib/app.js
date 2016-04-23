@@ -25,7 +25,6 @@ import GameScore from '../services/game-score.service';
 import NewPlayer from '../services/new-player.service';
 import NewGame from '../services/new-game.service';
 import NewUser from '../services/new-user.service';
-import newteamservice from '/imports/services/new-team.service';
 
 // Filters
 import CalendarFilter from '../filters/calendar.filter';
@@ -42,7 +41,6 @@ const App = angular.module('PLeague', [
   'players',
   'teams',
   'newteam',
-  'newteamservice',
   'games',
   'settings',
   'todosList'
