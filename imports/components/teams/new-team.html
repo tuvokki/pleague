@@ -1,30 +1,29 @@
-<ion-modal-view class="new-team-pane" ng-controller="NewTeamCtrl as newteam">
+<ion-view class="new-team-pane">
   <ion-header-bar>
     <h1 class="title">New Team</h1>
     <div class="buttons">
-      <button class="button button-clear button-positive" ng-click="modal.hide()">Cancel</button>
+      <button class="button button-clear button-positive" ui-sref="tab.teams">Cancel</button>
     </div>
   </ion-header-bar>
- 
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-      <button class="button button-clear button-positive" ng-click="modal.test()">Test</button>
-        <form class="new-team-form">
-          <div class="player-one row row-top">
-            <label class="player-select item item-select" name="playerOne">
+
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
+    <form class="new-team-form">
+      <div class="player-one row row-top">
+        <label class="player-select item item-select" name="playerOne">
                 <span class="input-label">Player One</span>
                 <select ng-options="c.name for c in newteam.players track by c._id" ng-model="newteam.playerOne"></select>
             </label>
-          </div>
-          <div class="player-two row row-center">
-            <label class="player-select item item-select" name="playerTwo">
+      </div>
+      <div class="player-two row row-center">
+        <label class="player-select item item-select" name="playerTwo">
                 <span class="input-label">Player Two</span>
                 <select ng-options="c.name for c in newteam.players track by c._id" ng-model="newteam.playerTwo"></select>
             </label>
-          </div>
-          <div class="row row-bottom">
-            <button ng-click="newteam.showNewPlayerModal()" class="button button-clear button-positive button-icon ion-plus-round">Add player</button>
-            <button class="button button-positive button-default button-small content-center" ng-click="newteam.newTeam()">Create</button>
-          </div>
-        </form>
-    </ion-content>
-</ion-modal-view>
+      </div>
+      <div class="row row-bottom">
+        <button ng-click="newteam.showNewPlayerModal()" class="button button-clear button-positive button-icon ion-plus-round">Add player</button>
+        <button class="button button-positive button-default button-small content-center" ng-click="newteam.newTeam()">Create</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

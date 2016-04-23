@@ -2,13 +2,14 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import { Players } from '/imports/api/players.js';
 
-// import template from './new-team.html';
-// import template from '/imports/components/teams/new-team.html';
+import template from '/imports/components/teams/new-team.html';
 
 class NewTeamCtrl {
   constructor($scope, $state, $ionicPopup, NewTeam, NewPlayer) {
     $scope.viewModel(this);
-
+    this.$state = $state;
+    this.$ionicPopup = $ionicPopup;
+    
     console.log('in new-team controller');
 
     this.helpers({
@@ -25,7 +26,9 @@ class NewTeamCtrl {
   showNewPlayerModal() {
     this.NewPlayer.showModal();
   }
-  
+  test(){
+    console.log('test');
+  }
   newTeam() {
     let that = this;
     try {
@@ -40,7 +43,7 @@ class NewTeamCtrl {
             console.log('Thank you for not eating my delicious ice cream cone');
           });
         } else {
-          that.hideNewTeamModal();
+          that.$state.go('tab.teams')
         }
       });
     } catch (e) {
@@ -51,12 +54,12 @@ class NewTeamCtrl {
 
 }
 
+
 export default angular.module('newteam', [
   angularMeteor
 ])
-    .controller('NewTeamCtrl', ['$scope', '$state', '$ionicPopup', 'NewTeam', 'NewPlayer', NewTeamCtrl]);
-  // .component('newteam', {
-  //   templateUrl: 'imports/components/teams/new-team.html',
-  //   controller: ['$scope', '$state', '$ionicPopup', 'NewTeam', 'NewPlayer', NewTeamCtrl],
-  //   controllerAs: 'newteam'
-  // });
+  .component('newteam', {
+    templateUrl: 'imports/components/teams/new-team.html',
+    controller: ['$scope', '$state', '$ionicPopup', NewTeamCtrl],
+    controllerAs: 'newteam'
+  });

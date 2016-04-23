@@ -32,6 +32,14 @@ export default class RoutesConfig extends Config {
         }
       }
     })
+    .state('tab.newteam', {
+      url: '/teams/new',
+      views: {
+        'tab-teams': {
+          template: '<newteam></newteam>'
+        }
+      }
+    })
     .state('tab.games', {
       url: '/games',
       views: {
