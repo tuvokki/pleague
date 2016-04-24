@@ -27,4 +27,14 @@ export default angular.module('teams', [
     templateUrl: 'imports/components/teams/teams.html',
     controller: ['$scope', TeamsCtrl],
     controllerAs: 'teams'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.teams', {
+      url: '/teams',
+      views: {
+        'tab-teams': {
+          template: '<teams></teams>'
+        }
+      }
+    })
   });

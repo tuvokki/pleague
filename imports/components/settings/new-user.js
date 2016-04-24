@@ -65,4 +65,14 @@ export default angular.module('newuser', [
     templateUrl: 'imports/components/settings/new-user.html',
     controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewUserCtrl],
     controllerAs: 'newuser'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.newuser', {
+      url: '/user/new',
+      views: {
+        'tab-settings': {
+          template: '<newuser></newuser>'
+        }
+      }
+    })
   });

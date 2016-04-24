@@ -56,4 +56,14 @@ export default angular.module('newteam', [
     templateUrl: 'imports/components/teams/new-team.html',
     controller: ['$scope', '$state', '$ionicPopup',  '$ionicHistory', NewTeamCtrl],
     controllerAs: 'newteam'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.newteam', {
+      url: '/teams/new',
+      views: {
+        'tab-teams': {
+          template: '<newteam></newteam>'
+        }
+      }
+    })
   });

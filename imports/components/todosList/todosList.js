@@ -22,4 +22,14 @@ export default angular.module('todosList', [
   .component('todosList', {
     templateUrl: 'imports/components/todosList/todosList.html',
     controller: ['$scope', TodosListCtrl]
+  // })
+  // .config(($stateProvider) => {
+  //     $stateProvider.state('tab.todos', {
+  //     url: '/todos',
+  //     views: {
+  //       'tab-todos': {
+  //         template: '<todos></todos>'
+  //       }
+  //     }
+  //   })
   });

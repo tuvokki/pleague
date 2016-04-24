@@ -27,4 +27,14 @@ export default angular.module('players', [
     templateUrl: 'imports/components/players/players.html',
     controller: ['$scope', PlayersCtrl],
     controllerAs: 'players'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.players', {
+      url: '/players',
+      views: {
+        'tab-players': {
+          template: '<players></players>'
+        }
+      }
+    })
   });

@@ -76,4 +76,14 @@ export default angular.module('newgame', [
     templateUrl: 'imports/components/games/new-game.html',
     controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewGameCtrl],
     controllerAs: 'newgame'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.newgame', {
+      url: '/games/new',
+      views: {
+        'tab-games': {
+          template: '<newgame></newgame>'
+        }
+      }
+    })
   });

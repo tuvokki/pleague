@@ -55,4 +55,14 @@ export default angular.module('newplayer', [
     templateUrl: 'imports/components/players/new-player.html',
     controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewPlayerCtrl],
     controllerAs: 'newplayer'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.newplayer', {
+      url: '/players/new',
+      views: {
+        'tab-players': {
+          template: '<newplayer></newplayer>'
+        }
+      }
+    })
   });

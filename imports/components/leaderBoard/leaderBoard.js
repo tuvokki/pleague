@@ -25,4 +25,14 @@ export default angular.module('leaderBoard', [
     templateUrl: 'imports/components/leaderBoard/leaderBoard.html',
     controller: ['$scope', LeaderboardCtrl],
     controllerAs: 'leaderboard'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.leaderboard', {
+      url: '/leaderboard',
+      views: {
+        'tab-leaderboard': {
+          template: '<leader-board></leader-board>'
+        }
+      }
+    })
   });

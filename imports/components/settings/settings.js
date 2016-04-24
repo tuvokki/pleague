@@ -63,4 +63,14 @@ export default angular.module('settings', [
     templateUrl: 'imports/components/settings/settings.html',
     controller: ['$scope', '$ionicPopup', '$state', '$log', SettingsCtrl],
     controllerAs: 'settings'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.settings', {
+      url: '/settings',
+      views: {
+        'tab-settings': {
+          template: '<settings></settings>'
+        }
+      }
+    })
   });

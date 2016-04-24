@@ -76,4 +76,14 @@ export default angular.module('games', [
     templateUrl: 'imports/components/games/games.html',
     controller: ['$scope', '$state', '$ionicPopup', 'gameScoreService', GamesCtrl],
     controllerAs: 'games'
+  })
+  .config(($stateProvider) => {
+      $stateProvider.state('tab.games', {
+      url: '/games',
+      views: {
+        'tab-games': {
+          template: '<games></games>'
+        }
+      }
+    })
   });
