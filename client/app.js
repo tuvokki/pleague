@@ -51,6 +51,7 @@ App.config(
         abstract: true,
         templateUrl: 'client/tabs.html'
       });
+
     $urlRouterProvider.otherwise('tab/leaderboard');
   }
 );
