@@ -5,9 +5,11 @@ import { Players } from '../../api/players.js';
 import template from './settings.html';
 
 class SettingsCtrl {
-  constructor($scope, $state) {
+  constructor($scope, $ionicPopup, $state, $log) {
     $scope.viewModel(this);
+    this.$ionicPopup = $ionicPopup; 
     this.$state = $state;
+    this.$log = $log; 
     
     console.log('in settings controller');
 
@@ -42,10 +44,6 @@ class SettingsCtrl {
     });
   }
 
-  showNewUserModal() {
-    this.NewUser.showModal();
-  }
-
   handleError(err) {
     this.$log.error('Login error ', err);
 
@@ -58,13 +56,11 @@ class SettingsCtrl {
 
 }
 
-SettingsCtrl.$inject = ['$scope', '$ionicPopup', '$state', '$log', 'NewUser'];
-
 export default angular.module('settings', [
   angularMeteor
 ])
   .component('settings', {
     templateUrl: 'imports/components/settings/settings.html',
-    controller: ['$scope', '$state', SettingsCtrl],
+    controller: ['$scope', '$ionicPopup', '$state', '$log', SettingsCtrl],
     controllerAs: 'settings'
   });
