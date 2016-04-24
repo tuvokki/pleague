@@ -11,9 +11,11 @@ Clone a version of the repo to your development computer
 
 `git clone git@github.com:tuvokki/pleague.git` (or use the github GUI tool)
 
-Run the meteor command in the directory
+Install npm dependencies and run the meteor command in the directory
 
 `cd pleague`
+
+`npm install`
 
 `meteor`
 

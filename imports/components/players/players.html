@@ -1,0 +1,21 @@
+<ion-nav-bar class="bar-stable">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+    <ion-nav-title>
+      Players
+    </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button ui-sref="tab.newplayer"
+        class="button button-clear button-positive button-icon ion-ios-personadd-outline"></button>
+  </ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-view view-title="Players">
+  <ion-content>
+    <div class="row" ng-repeat="player in players.data | orderBy:'name'">
+      <div class="col col-50"><h4>{{ player.name }}</h4></div>
+      <div class="col">Elo: {{ player.elo }}</div>
+      <div class="col">Joined {{ player.joinDate | calendar }}</div>
+    </div>
+  </ion-content>
+</ion-view>

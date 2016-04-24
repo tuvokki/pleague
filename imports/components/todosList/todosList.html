@@ -1,0 +1,9 @@
+<header>
+  <h1>Todo List</h1>
+</header>
+
+<ul>
+  <li ng-repeat="task in $ctrl.tasks">
+    <p ng-bind-html="task.text"></p>
+  </li>
+</ul>
