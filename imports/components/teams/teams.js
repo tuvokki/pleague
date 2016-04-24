@@ -6,9 +6,8 @@ import { Teams } from '/imports/api/teams.js';
 import template from './teams.html';
 
 class TeamsCtrl {
-  constructor($scope, $ionicNavBarDelegate) {
+  constructor($scope) {
     $scope.viewModel(this);
-    $ionicNavBarDelegate.title('Teams');
     
     console.log('in teams controller');
 
@@ -26,6 +25,6 @@ export default angular.module('teams', [
 ])
   .component('teams', {
     templateUrl: 'imports/components/teams/teams.html',
-    controller: ['$scope', '$ionicNavBarDelegate', TeamsCtrl],
+    controller: ['$scope', TeamsCtrl],
     controllerAs: 'teams'
   });
