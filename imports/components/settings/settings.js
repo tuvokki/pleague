@@ -5,9 +5,10 @@ import { Players } from '../../api/players.js';
 import template from './settings.html';
 
 class SettingsCtrl {
-  constructor($scope) {
+  constructor($scope, $state) {
     $scope.viewModel(this);
-
+    this.$state = $state;
+    
     console.log('in settings controller');
 
     this.currentUser = function () {
@@ -64,6 +65,6 @@ export default angular.module('settings', [
 ])
   .component('settings', {
     templateUrl: 'imports/components/settings/settings.html',
-    controller: ['$scope', SettingsCtrl],
+    controller: ['$scope', '$state', SettingsCtrl],
     controllerAs: 'settings'
   });

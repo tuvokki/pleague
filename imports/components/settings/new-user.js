@@ -1,5 +1,6 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import { Players } from '../../api/players.js';
 
 import template from '/imports/components/settings/new-user.html';
 
@@ -46,7 +47,7 @@ class NewUserCtrl {
           return;
         }
         // that.hideNewUserModal();
-        that.$state.go('tab.players');
+        that.$state.go('tab.settings');
       });
 
     } catch (e) {
