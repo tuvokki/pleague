@@ -16,12 +16,12 @@ import settings from '/imports/components/settings/settings';
 import newuser from '/imports/components/settings/new-user';
 import todosList from '/imports/components/todosList/todosList';
 
+// Services
+import gamescoreservice from '/imports/services/game-score.service';
+
 // Modules
 import Definer from '../definer';
 import RoutesConfig from '../routes';
-
-// Services
-import GameScore from '../services/game-score.service';
 
 // Filters
 import CalendarFilter from '../filters/calendar.filter';
@@ -43,11 +43,11 @@ const App = angular.module('PLeague', [
   'newgame',
   'settings',
   'newuser',
+  'services',
   'todosList'
 ]);
 
 new Definer(App)
-  .define(GameScore)
   .define(CalendarFilter)
   .define(DurationFilter)
   .define(ExcludeFromFilter)

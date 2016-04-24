@@ -1,9 +1,10 @@
-import { Service } from '../entities';
+import angularMeteor from 'angular-meteor';
 import { Players } from '/imports/api/players.js';
+import { Teams } from '/imports/api/teams.js';
+import { Games } from '/imports/api/games.js';
 
-export default class GameScore extends Service {
+class GameScoreService {
   constructor() {
-    super(...arguments);
   }
 
   scored(team, inprogress) {
@@ -131,7 +132,13 @@ export default class GameScore extends Service {
       percent: Math.round(percentage * 100)
     };
   }
-
+  
+  static factory(){
+    return new GameScoreService();
+  }
 }
 
-GameScore.$inject = ['$rootScope', '$ionicModal'];
+export default angular.module('services', [
+  angularMeteor
+])
+  .factory('gameScoreService', GameScoreService.factory);

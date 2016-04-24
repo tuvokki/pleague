@@ -38,7 +38,6 @@ class NewPlayerCtrl {
                     console.log('Thank you for not eating my delicious ice cream cone');
                 });
             } else {
-                debugger;
                 that.$ionicHistory.goBack();
             }
         });

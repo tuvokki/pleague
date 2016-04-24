@@ -6,10 +6,11 @@ import { Games } from '/imports/api/games.js';
 import template from './games.html';
 
 class GamesCtrl {
-  constructor($scope, $state, $ionicPopup) {
+  constructor($scope, $state, $ionicPopup, gameScoreService) {
     $scope.viewModel(this);
     this.$state = $state;
     this.$ionicPopup = $ionicPopup;
+    this.gameScoreService = gameScoreService;
 
     console.log('in games controller');
 
@@ -39,7 +40,7 @@ class GamesCtrl {
   }
 
   scored(team) {
-    this.GameScore.scored(team, this.inprogress);
+    this.gameScoreService.scored(team, this.inprogress);
   }
 
   showNewGameModal() {
@@ -73,6 +74,6 @@ export default angular.module('games', [
 ])
   .component('games', {
     templateUrl: 'imports/components/games/games.html',
-    controller: ['$scope', '$state', '$ionicPopup', GamesCtrl],
+    controller: ['$scope', '$state', '$ionicPopup', 'gameScoreService', GamesCtrl],
     controllerAs: 'games'
   });

@@ -5,10 +5,11 @@ import { Players } from '/imports/api/players.js';
 import template from '/imports/components/teams/new-team.html';
 
 class NewTeamCtrl {
-  constructor($scope, $state, $ionicPopup) {
+  constructor($scope, $state, $ionicPopup, $ionicHistory) {
     $scope.viewModel(this);
     this.$state = $state;
     this.$ionicPopup = $ionicPopup;
+    this.$ionicHistory = $ionicHistory;
     
     console.log('in new-team controller');
 
@@ -37,7 +38,7 @@ class NewTeamCtrl {
             console.log('Thank you for not eating my delicious ice cream cone');
           });
         } else {
-          that.$state.go('tab.teams');
+          that.$ionicHistory.goBack();
         }
       });
     } catch (e) {
@@ -53,6 +54,6 @@ export default angular.module('newteam', [
 ])
   .component('newteam', {
     templateUrl: 'imports/components/teams/new-team.html',
-    controller: ['$scope', '$state', '$ionicPopup', NewTeamCtrl],
+    controller: ['$scope', '$state', '$ionicPopup',  '$ionicHistory', NewTeamCtrl],
     controllerAs: 'newteam'
   });
