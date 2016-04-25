@@ -49,10 +49,10 @@ class NewGameCtrl {
       }      
     } else {
       if (this.selectWhatPlayer == 'defense') {
-        this.teamRed.defender = id;
+        this.teamBlue.defender = id;
         this.selectWhatPlayer = 'offence';
       } else {
-        this.teamRed.attacker = id;
+        this.teamBlue.attacker = id;
         //reset
         this.selectWhatPlayer = 'defense';
         this.selectTeam = 'red';
@@ -66,7 +66,7 @@ class NewGameCtrl {
 
   selectTeam() {
     //TODO: team cannot have the same PLAYER as opposite team!
-    console.log('team red: ' + this.teamRed);
+    console.log('team red: ' + this.teamBlue);
     console.log('team blue: ' + this.teamBlue);
     if (this.teamRed && this.teamBlue && this.teamRed._id != this.teamBlue._id) {
       delete this.selectMessage;
