@@ -15,10 +15,15 @@ class NewGameCtrl {
     console.log('in new-game controller');
 
     this.enabled = true;
-
+    this.selectWhatPlayer = 'defense';
+    this.selectTeam = 'red';
+    this.selectedPlayers = [];
+    this.teamRed = {};
+    this.teamBlue = {};
+    
     this.helpers({
       players: () => {
-        return Players.find({});
+        return Players.find({ _id: { $nin: this.getReactively('selectedPlayers') } }, { sort: { name: 1 } });
       },
       redteams: () => {
         return Teams.find({});
@@ -31,6 +36,32 @@ class NewGameCtrl {
   
   selectPlayer(id) {
     console.log("selected: " + id);
+    this.selectedPlayers = this.selectedPlayers.concat([id]);
+    // TODO: the following code relies heavily on the sequential nature of the team select and should be replaced with a selectstate
+    if (this.selectTeam == 'red') {
+      if (this.selectWhatPlayer == 'defense') {
+        this.teamRed.defender = id;
+        this.selectWhatPlayer = 'offence';
+      } else {
+        this.teamRed.attacker = id;
+        this.selectWhatPlayer = 'defense';
+        this.selectTeam = 'blue';
+      }      
+    } else {
+      if (this.selectWhatPlayer == 'defense') {
+        this.teamRed.defender = id;
+        this.selectWhatPlayer = 'offence';
+      } else {
+        this.teamRed.attacker = id;
+        //reset
+        this.selectWhatPlayer = 'defense';
+        this.selectTeam = 'red';
+      }      
+    }
+    if (this.selectedPlayers.length == 4) {
+      this.newGame();
+      this.$state.go('tab.games');
+    }
   }
 
   selectTeam() {
@@ -66,7 +97,7 @@ class NewGameCtrl {
             console.log('Thank you for not eating my delicious ice cream cone');
           });
         } else {
-          that.$ionicHistory.goBack();
+          // that.$ionicHistory.goBack();
         }
       });
     } catch (e) {
@@ -74,6 +105,31 @@ class NewGameCtrl {
       console.log(e);
     }
   }
+  
+    // TODO: copied from the new-team.js component
+    newTeam() {
+    let that = this;
+    try {
+      Meteor.call('newTeam', { players: [this.playerOne._id, this.playerTwo._id] }, (error, result) => {
+        if (error) {
+          // var alertPopup = that.$ionicPopup.alert({
+          //   title: 'Error adding Team',
+          //   template: error.reason
+          // });
+
+          // alertPopup.then((res) => {
+          //   console.log('Thank you for not eating my delicious ice cream cone');
+          // });
+        } else {
+          // that.$ionicHistory.goBack();
+        }
+      });
+    } catch (e) {
+      console.log('Hjalp!!');
+      console.log(e);
+    }
+  }
+
 }
 
 export default angular.module('newgame', [
