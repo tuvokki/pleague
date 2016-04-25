@@ -5,29 +5,22 @@
       <button class="button button-clear button-positive" ng-click="newgame.goBack()">Cancel</button>
     </div>
   </ion-header-bar>
-  <ion-content overflow-scroll="true" padding="true" class="has-header">
-      <button ui-sref="tab.newteam" class="button button-clear button-positive button-icon ion-plus-round">Add team</button>
-      <form class="new-game-form">
-        <div class="team-red row row-top">
-          <label class="team-select item item-select" name="teamRed">
-              <span class="input-label">Red team</span>
-              <select ng-options="r._id | team for r in newgame.redteams track by r._id" name="teamRed" ng-model="newgame.teamRed" ng-change="newgame.selectTeam()"></select>
-          </label>
-        </div>
-        <div class="game-controls row row-center">
-            <!--<ion-item ng-show="newgame.ready" class="item-divider content-center">vs.</ion-item>-->
-            <div ng-show="newgame.selectMessage" class="bar bar-header bar-assertive">
-              <h1 class="title">{{ newgame.selectMessage }}</h1>
-            </div>
-            <!--<span ng-show="newgame.selectMessage">{{ newgame.selectMessage }}</span>-->
-            <button ng-disabled="newgame.enabled" ng-click="newgame.newGame()" class="button button-positive button-default button-small content-center">Game on!</button>
-        </div>
-        <div class="team-blue row row-bottom">
-          <label class="team-select item item-select" name="teamBlue">
-              <span class="input-label">Blue team</span>
-              <select ng-options="b._id | team for b in newgame.blueteams track by b._id" name="teamBlue" ng-model="newgame.teamBlue" ng-change="newgame.selectTeam()"></select>
-          </label>
-        </div>
-      </form>
+  <ion-header class="bar bar-subheader"
+    ng-class="{ 'bar-assertive': newgame.selectTeam == 'red', 'bar-positive': newgame.selectTeam == 'blue' }"
+  ><h2>Select {{ newgame.selectTeam }} {{ newgame.selectWhatPlayer }}</h2></ion-header>
+  <ion-content overflow-scroll="true" padding="true" class="has-header"
+    ng-class="{ 'bg-assertive': newgame.selectTeam == 'red', 'bg-positive': newgame.selectTeam == 'blue' }">
+    <ion-list type="list-inset">
+      <div ng-repeat="player in newgame.players">
+        <ion-item
+              ng-click="newgame.selectPlayer(player._id)"
+              class="item-team item-remove-animate"
+              type="item-text-wrap"
+              ng-class="{ 'bg-assertive': newgame.selectTeam == 'red', 'bg-positive': newgame.selectTeam == 'blue' }">
+
+          <h3>{{ player.name }}</h3>
+        </ion-item>
+      </div>
+    </ion-list>
   </ion-content>
 </ion-view>

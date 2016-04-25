@@ -1,9 +1,15 @@
 .new-game-pane {
-  background: url(img/soccerfield.png) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
+  // background: url(img/soccerfield.png) no-repeat center center fixed; 
+  // -webkit-background-size: cover;
+  // -moz-background-size: cover;
+  // background-size: cover;
 
+  .bg-assertive {
+    background-color: #ef473a;
+  }
+  .bg-positive {
+    background-color: #387ef5;;
+  }
   .game-inprogress {
     .content-center {
       margin-right: auto;

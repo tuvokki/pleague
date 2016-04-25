@@ -24,6 +24,9 @@ import services from '/imports/services/game-score.service';
 // Filters
 import filters from '/imports/filters/filters';
  
+// Directives
+import directives from '/imports/directives/directives';
+ 
 // App
 const App = angular.module('PLeague', [
   'angular-meteor',
@@ -39,6 +42,7 @@ const App = angular.module('PLeague', [
   'newuser',
   'services',
   'filters',
+  'directives',
   'todosList'
 ]);
 
