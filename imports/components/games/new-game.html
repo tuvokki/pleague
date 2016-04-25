@@ -5,14 +5,18 @@
       <button class="button button-clear button-positive" ng-click="newgame.goBack()">Cancel</button>
     </div>
   </ion-header-bar>
-  <ion-header class="bar bar-subheader" ng-class="{ 'bar-assertive': newgame.selectTeam == 'red', 'bar-positive': newgame.selectTeam == 'blue' }">Select {{ newgame.selectTeam }} {{ newgame.selectWhatPlayer }}</ion-header>
-  <ion-content overflow-scroll="true" padding="true" class="has-header">
+  <ion-header class="bar bar-subheader"
+    ng-class="{ 'bar-assertive': newgame.selectTeam == 'red', 'bar-positive': newgame.selectTeam == 'blue' }"
+  ><h2>Select {{ newgame.selectTeam }} {{ newgame.selectWhatPlayer }}</h2></ion-header>
+  <ion-content overflow-scroll="true" padding="true" class="has-header"
+    ng-class="{ 'bg-assertive': newgame.selectTeam == 'red', 'bg-positive': newgame.selectTeam == 'blue' }">
     <ion-list type="list-inset">
       <div ng-repeat="player in newgame.players">
         <ion-item
               ng-click="newgame.selectPlayer(player._id)"
-              class="item-team item-remove-animate item-avatar"
-              type="item-text-wrap">
+              class="item-team item-remove-animate"
+              type="item-text-wrap"
+              ng-class="{ 'bg-assertive': newgame.selectTeam == 'red', 'bg-positive': newgame.selectTeam == 'blue' }">
 
           <h3>{{ player.name }}</h3>
         </ion-item>
