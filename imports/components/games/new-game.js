@@ -17,6 +17,9 @@ class NewGameCtrl {
     this.enabled = true;
 
     this.helpers({
+      players: () => {
+        return Players.find({});
+      },
       redteams: () => {
         return Teams.find({});
       },
@@ -24,6 +27,10 @@ class NewGameCtrl {
         return Teams.find({});
       }
     });
+  }
+  
+  selectPlayer(id) {
+    console.log("selected: " + id);
   }
 
   selectTeam() {
