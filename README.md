@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tuvokki/pleague.svg?branch=master)](https://travis-ci.org/tuvokki/pleague)
+
 # pleague
 A league system for the company fußball
 
