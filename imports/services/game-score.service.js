@@ -8,6 +8,9 @@ class GameScoreService {
   }
 
   scored(team, inprogress) {
+    let red = Teams.findOne({ _id: inprogress.teamRed });
+    let blue = Teams.findOne({ _id: inprogress.teamBlue });
+    
     if (team === 'red') {
       Games.update(inprogress._id, {
         $set: { teamRedScore: inprogress.teamRedScore + 1 }
@@ -21,44 +24,7 @@ class GameScoreService {
           }
         });
 
-
-        let red = Teams.findOne({ _id: inprogress.teamRed });
-        let blue = Teams.findOne({ _id: inprogress.teamBlue });
-
-        let redp1 = Players.findOne({ _id: red.players[0] });
-        let redp2 = Players.findOne({ _id: red.players[1] });
-        let bluep1 = Players.findOne({ _id: blue.players[0] });
-        let bluep2 = Players.findOne({ _id: blue.players[1] });
-
-        let redelo = (redp1.elo + redp2.elo) / 2;
-        let blueelo = (bluep1.elo + bluep2.elo) / 2;
-
-        var elochanged = this.calculateELORatingChange(redelo, blueelo, 150);
-        console.log(elochanged);
-
-        Players.update({ _id: redp1._id },
-          {
-            $set: { elo: redp1.elo + elochanged.win }
-          }
-        )
-        Players.update({ _id: redp2._id },
-          {
-            $set: { elo: redp2.elo + elochanged.win }
-          }
-        )
-        Players.update({ _id: bluep1._id },
-          {
-            $set: { elo: bluep1.elo + elochanged.loss }
-          }
-        )
-        Players.update({ _id: bluep2._id },
-          {
-            $set: { elo: bluep2.elo + elochanged.loss }
-          }
-        )
-
-
-
+	this.updateELO(red,blue);
         console.log('red won!');
       }
     } else {
@@ -73,48 +39,45 @@ class GameScoreService {
             endDate: Date.now()
           }
         });
-
-
-        let red = Teams.findOne({ _id: inprogress.teamRed });
-        let blue = Teams.findOne({ _id: inprogress.teamBlue });
-
-        let redp1 = Players.findOne({ _id: red.players[0] });
-        let redp2 = Players.findOne({ _id: red.players[1] });
-        let bluep1 = Players.findOne({ _id: blue.players[0] });
-        let bluep2 = Players.findOne({ _id: blue.players[1] });
-
-        let redelo = (redp1.elo + redp2.elo) / 2;
-        let blueelo = (bluep1.elo + bluep2.elo) / 2;
-
-        let elochanged = this.calculateELORatingChange(redelo, blueelo, 150);
-        console.log(elochanged);
-
-        Players.update({ _id: bluep1._id },
-          {
-            $set: { elo: bluep1.elo + elochanged.win }
-          }
-        )
-        Players.update({ _id: bluep2._id },
-          {
-            $set: { elo: bluep2.elo + elochanged.win }
-          }
-        )
-        Players.update({ _id: redp1._id },
-          {
-            $set: { elo: redp1.elo + elochanged.loss }
-          }
-        )
-        Players.update({ _id: redp2._id },
-          {
-            $set: { elo: redp2.elo + elochanged.loss }
-          }
-        )
-
-
-
+	
+	this.updateELO(blue,red);
         console.log('blue won!');
       }
     }
+  }
+
+  updateELO(winTeam,looseTeam) {
+        let winp1 = Players.findOne({ _id: winTeam.players[0] });
+        let winp2 = Players.findOne({ _id: winTeam.players[1] });
+        let loosep1 = Players.findOne({ _id: looseTeam.players[0] });
+        let loosep2 = Players.findOne({ _id: looseTeam.players[1] });
+
+        let winelo = (winp1.elo + winp2.elo) / 2;
+        let looseelo = (loosep1.elo + loosep2.elo) / 2;
+
+        let elochanged = this.calculateELORatingChange(winelo, looseelo, 150);
+        console.log(elochanged);
+	
+	Players.update({ _id: winp1._id },
+          {
+            $inc: { elo: elochanged.win }
+          }
+        )
+        Players.update({ _id: winp2._id },
+          {
+            $inc: { elo: elochanged.win }
+          }
+        )
+        Players.update({ _id: loosep1._id },
+          {
+            $inc: { elo: elochanged.loss }
+          }
+        )
+        Players.update({ _id: loosep2._id },
+          {
+            $inc: { elo: elochanged.loss }
+          }
+        )
   }
 
   /**
