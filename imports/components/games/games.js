@@ -27,7 +27,7 @@ class GamesCtrl {
       },
       data() {
         return Games.find(
-          { endDate: { $exists: true } }, { limit: 5 }
+          { endDate: { $exists: true } }, { limit: 5 , sort: { startDate: -1} }
         );
       },
       inprogress() {
