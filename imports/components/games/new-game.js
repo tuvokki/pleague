@@ -73,8 +73,26 @@ class NewGameCtrl {
   newGame() {
     let that = this;
 
-    let teamRedStub = this.newTeam(this.teamRed.players);
-    let teamBlueStub = this.newTeam(this.teamBlue.players);
+    // lazy create a new team, and save the id to administrate a game
+    let teamRedStub = { _id: this.newTeam(this.teamRed.players)._id };
+    let teamBlueStub = { _id: this.newTeam(this.teamBlue.players)._id };
+    // now we have teams, lets enhance them with the attacker/defender info
+    teamRedStub.attacker = {
+      _id: this.teamRed.attacker,
+      goals: 0
+    };
+    teamRedStub.defender = {
+      _id: this.teamRed.defender,
+      goals: 0
+    };
+    teamBlueStub.attacker = {
+      _id: this.teamBlue.attacker,
+      goals: 0
+    };
+    teamBlueStub.defender = {
+      _id: this.teamBlue.defender,
+      goals: 0
+    };
 
     try {
       Meteor.call('newGame', { teamRed: teamRedStub, teamBlue: teamBlueStub }, (error) => {

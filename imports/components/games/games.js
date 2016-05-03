@@ -6,11 +6,12 @@ import { Games } from '/imports/api/games.js';
 import template from './games.html';
 
 class GamesCtrl {
-  constructor($scope, $state, $ionicPopup, gameScoreService) {
+  constructor($scope, $state, $ionicPopup, $ionicListDelegate, gameScoreService) {
     $scope.viewModel(this);
     this.$state = $state;
     this.$ionicPopup = $ionicPopup;
     this.gameScoreService = gameScoreService;
+    this.$ionicListDelegate = $ionicListDelegate;
 
     console.log('in games controller');
 
@@ -74,7 +75,9 @@ class GamesCtrl {
       confirmPopup.then((res) => {
         if (res) {
           Games.remove(game._id);
+          this.$ionicListDelegate.closeOptionButtons();
         } else {
+          this.$ionicListDelegate.closeOptionButtons();
           return;
         }
       });
@@ -87,8 +90,7 @@ export default angular.module('games', [
 ])
   .component('games', {
     templateUrl: 'imports/components/games/games.html',
-    controller: ['$scope', '$state', '$ionicPopup', 'gameScoreService', GamesCtrl],
-    controllerAs: 'games'
+    controller: ['$scope', '$state', '$ionicPopup', '$ionicListDelegate', 'gameScoreService', GamesCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.games', {

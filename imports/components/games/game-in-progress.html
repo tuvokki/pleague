@@ -1,0 +1,49 @@
+<div class="card game-inprogress">
+  <div class="item item-divider">
+    Game in progress
+    <a ng-click="$ctrl.trashGameInProgressModal()" class="item-icon-right">
+        <i class="icon ion-trash-a"></i>
+    </a>
+  </div>
+  <div class="item item-text-wrap">
+
+        <div class="row">
+          <div class="col">
+            <h1>{{ $ctrl.game.teamRedScore }}</h1>
+          </div>
+          <div class="col">
+            <h1>{{ $ctrl.game.teamBlueScore }}</h1>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)">
+              <h3>{{ $ctrl.game.teamRed.defender._id | player_name }}</h3>scored!
+            </button>
+          </div>
+          <div class="col">
+            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)">
+              <h3>{{ $ctrl.game.teamBlue.defender._id | player_name }}</h3>scored!
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)">
+              <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }}</h3>scored!
+            </button>
+          </div>
+          <div class="col">
+            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)">
+              <h3>{{ $ctrl.game.teamBlue.attacker._id | player_name }}</h3>scored!
+            </button>
+          </div>
+        </div>
+
+  </div>
+  <div class="item item-divider">
+    Started: {{$ctrl.game.startDate | calendar}}
+  </div>
+</div>

@@ -7,31 +7,50 @@ class GameScoreService {
   constructor() {
   }
 
-  scored(team, inprogress) {
-    let red = Teams.findOne({ _id: inprogress.teamRed });
-    let blue = Teams.findOne({ _id: inprogress.teamBlue });
-    
-    if (team === 'red') {
-      Games.update(inprogress._id, {
-        $set: { teamRedScore: inprogress.teamRedScore + 1 }
-      });
-      console.log('red scored!');
+  scored(teamId, player, inprogress) {
+    if (inprogress.teamRed._id == teamId) // red scored
+    {
+      if (inprogress.teamRed.attacker._id == player) {
+        inprogress.teamRed.attacker.goals++;
+        Games.update(inprogress._id, {
+          $inc: { teamRedScore: 1 },
+          $set: { teamRed: inprogress.teamRed }
+        });
+      } else {
+        inprogress.teamRed.defender.goals++;
+        Games.update(inprogress._id, {
+          $inc: { teamRedScore: 1 },
+          $set: { teamRed: inprogress.teamRed }
+        });
+      }
+
+      console.log('red scored! by player: ', player);
       if (inprogress.teamRedScore++ > 5) {
         Games.update(inprogress._id, {
           $set: {
-            winner: inprogress.teamRed,
+            winner: inprogress.teamRed._id,
             endDate: Date.now()
           }
         });
 
-	this.updateELO(red,blue);
+        this.updateELO(inprogress.teamRed._id, inprogress.teamBlue._id);
         console.log('red won!');
       }
     } else {
-      Games.update(inprogress._id, {
-        $set: { teamBlueScore: inprogress.teamBlueScore + 1 }
-      });
-      console.log('blue scored!');
+      if (inprogress.teamBlue.attacker._id == player) {
+        inprogress.teamBlue.attacker.goals++;
+        Games.update(inprogress._id, {
+          $inc: { teamBlueScore: 1 },
+          $set: { teamBlue: inprogress.teamBlue }
+        });
+      } else {
+        inprogress.teamBlue.attacker.goals++;
+        Games.update(inprogress._id, {
+          $inc: { teamBlueScore: 1 },
+          $set: { teamBlue: inprogress.teamBlue }
+        });
+      }
+      console.log('blue scored! by player: ', player);
       if (inprogress.teamBlueScore++ > 5) {
         Games.update(inprogress._id, {
           $set: {
@@ -39,51 +58,53 @@ class GameScoreService {
             endDate: Date.now()
           }
         });
-	
-	this.updateELO(blue,red);
+
+        this.updateELO(inprogress.teamBlue._id, inprogress.teamRed._id);
         console.log('blue won!');
       }
     }
   }
 
-  updateELO(winTeam,looseTeam) {
-        let winp1 = Players.findOne({ _id: winTeam.players[0] });
-        let winp2 = Players.findOne({ _id: winTeam.players[1] });
-        let loosep1 = Players.findOne({ _id: looseTeam.players[0] });
-        let loosep2 = Players.findOne({ _id: looseTeam.players[1] });
+  updateELO(winTeamId, looseTeamId) {
+    let winTeam = Teams.findOne({ _id: winTeamId });
+    let looseTeam = Teams.findOne({ _id: looseTeamId });
+    let winp1 = Players.findOne({ _id: winTeam.players[0] });
+    let winp2 = Players.findOne({ _id: winTeam.players[1] });
+    let loosep1 = Players.findOne({ _id: looseTeam.players[0] });
+    let loosep2 = Players.findOne({ _id: looseTeam.players[1] });
 
-        let winelo = (winp1.elo + winp2.elo) / 2;
-        let looseelo = (loosep1.elo + loosep2.elo) / 2;
+    let winelo = (winp1.elo + winp2.elo) / 2;
+    let looseelo = (loosep1.elo + loosep2.elo) / 2;
 
-        let elochanged = this.calculateELORatingChange(winelo, looseelo, 150);
-        console.log(elochanged);
-	
-	Players.update({ _id: winp1._id },
-          {
-            $inc: { elo: elochanged.win }
-          }
-        )
-        Players.update({ _id: winp2._id },
-          {
-            $inc: { elo: elochanged.win }
-          }
-        )
-        Players.update({ _id: loosep1._id },
-          {
-            $inc: { elo: elochanged.loss }
-          }
-        )
-        Players.update({ _id: loosep2._id },
-          {
-            $inc: { elo: elochanged.loss }
-          }
-        )
+    let elochanged = this.calculateELORatingChange(winelo, looseelo, 150);
+    console.log(elochanged);
+
+    Players.update({ _id: winp1._id },
+      {
+        $inc: { elo: elochanged.win }
+      }
+    )
+    Players.update({ _id: winp2._id },
+      {
+        $inc: { elo: elochanged.win }
+      }
+    )
+    Players.update({ _id: loosep1._id },
+      {
+        $inc: { elo: elochanged.loss }
+      }
+    )
+    Players.update({ _id: loosep2._id },
+      {
+        $inc: { elo: elochanged.loss }
+      }
+    )
   }
 
   /**
    * This method will calculate the change in a player's
    * Elo rating after playing a single game against another player.
-   * The value K is the maximum change in rating. 
+   * The value K is the maximum change in rating.
    **/
   calculateELORatingChange(elo1, elo2, k) {
     var percentage = 1 / (1 + Math.pow(10, (elo2 - elo1) / 400));
@@ -95,7 +116,7 @@ class GameScoreService {
       percent: Math.round(percentage * 100)
     };
   }
-  
+
   static factory(){
     return new GameScoreService();
   }

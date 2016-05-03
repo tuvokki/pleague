@@ -14,6 +14,7 @@ import teams from '/imports/components/teams/teams';
 import newteam from '/imports/components/teams/new-team';
 import games from '/imports/components/games/games';
 import newgame from '/imports/components/games/new-game';
+import gameinprogress from '/imports/components/games/game-in-progress'
 import settings from '/imports/components/settings/settings';
 import newuser from '/imports/components/settings/new-user';
 import todosList from '/imports/components/todosList/todosList';
@@ -23,10 +24,10 @@ import services from '/imports/services/game-score.service';
 
 // Filters
 import filters from '/imports/filters/filters';
- 
+
 // Directives
 import directives from '/imports/directives/directives';
- 
+
 // App
 const App = angular.module('PLeague', [
   'angular-meteor',
@@ -38,6 +39,7 @@ const App = angular.module('PLeague', [
   'newteam',
   'games',
   'newgame',
+  'gameinprogress',
   'settings',
   'newuser',
   'services',
@@ -59,7 +61,7 @@ App.config(
     $urlRouterProvider.otherwise('tab/leaderboard');
   }
 );
- 
+
 // Startup
 if (Meteor.isCordova) {
   angular.element(document).on('deviceready', onReady);
@@ -67,7 +69,7 @@ if (Meteor.isCordova) {
 else {
   angular.element(document).ready(onReady);
 }
- 
+
 function onReady() {
   angular.bootstrap(document, ['PLeague']);
 }
