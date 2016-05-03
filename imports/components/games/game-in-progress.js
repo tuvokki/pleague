@@ -2,6 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import { Players } from '/imports/api/players.js';
 import { Teams } from '/imports/api/teams.js';
+import { Games } from '/imports/api/games.js';
 
 import template from '/imports/components/games/game-in-progress.html';
 
@@ -30,7 +31,18 @@ class GameInProgressCtrl {
   }
 
   trashGameInProgressModal() {
-    console.log(this.game);
+    let confirmPopup = this.$ionicPopup.confirm({
+      title: 'Trash this game?',
+      template: 'This will end this game. The scored goals will not result in any change in ELO standings.<br><b>Do you want to end this game?</b>'
+    });
+
+    confirmPopup.then((res) => {
+      if (res) {
+        Games.remove(this.game._id);
+      } else {
+        return;
+      }
+    });
   }
 }
 
