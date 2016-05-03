@@ -49,6 +49,9 @@ export default angular.module('filters', [
     return (team_id) => {
       if (!team_id) return;
       let ss = Teams.findOne({ _id: team_id });
+      if (!ss) {
+        ss = Teams.findOne({ _id: team_id._id });
+      }
       if (ss) {
         if (ss.name) {
           return ss.name;
