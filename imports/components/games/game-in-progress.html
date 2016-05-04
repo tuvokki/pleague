@@ -19,12 +19,12 @@
         <div class="row">
           <div class="col">
             <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)">
-              <h3>{{ $ctrl.game.teamRed.defender._id | player_name }}</h3>scored!
+              <h3>{{ $ctrl.game.teamRed.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.defender.goals }})
             </button>
           </div>
           <div class="col">
             <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)">
-              <h3>{{ $ctrl.game.teamBlue.defender._id | player_name }}</h3>scored!
+              <h3>{{ $ctrl.game.teamBlue.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamBlue.defender.goals }})
             </button>
           </div>
         </div>
@@ -32,12 +32,12 @@
         <div class="row">
           <div class="col">
             <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)">
-              <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }}</h3>scored!
+              <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.attacker.goals }})
             </button>
           </div>
           <div class="col">
             <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)">
-              <h3>{{ $ctrl.game.teamBlue.attacker._id | player_name }}</h3>scored!
+              <h3>{{ $ctrl.game.teamBlue.attacker._id | player_name }}</h3>scored! ({{ $ctrl.game.teamBlue.attacker.goals }})
             </button>
           </div>
         </div>
