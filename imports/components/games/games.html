@@ -21,12 +21,12 @@
         <div class="row">
           <div class="col">
             <h3>{{game.teamRed | team}}</h3>
-            <h1 class="title score">{{ game.teamRedScore }}</h1>
+            <h1 class="title score">{{ game.teamRedScore }} <sup>({{ game.winner === game.teamRed._id ? "+" + game.eloChange : "-" + game.eloChange }})</sup></h1>
           </div>
           <div class="col col-center content-center">vs.</div>
           <div class="col">
             <h3>{{game.teamBlue | team}}</h3>
-            <h1 class="title score">{{ game.teamBlueScore }}</h1>
+            <h1 class="title score">{{ game.teamBlueScore }} <sup>({{ game.winner === game.teamRed._id ? "-" + game.eloChange : "+" + game.eloChange }})</sup></h1>
           </div>
         </div>
         <div class="col">
