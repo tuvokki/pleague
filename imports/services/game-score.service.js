@@ -62,15 +62,46 @@ class GameScoreService {
             eloChange: eloChange
           }
         });
-
-        
-
         console.log('blue won!');
       }
     }
   }
 
   updateELO(winTeamId, looseTeamId) {
+
+    let eloChange = this.getTeamEloOnWin(winTeamId, looseTeamId);
+    console.log(eloChange);
+    let winTeam = Teams.findOne({ _id: winTeamId });
+    let looseTeam = Teams.findOne({ _id: looseTeamId });
+    let winp1 = Players.findOne({ _id: winTeam.players[0] });
+    let winp2 = Players.findOne({ _id: winTeam.players[1] });
+    let loosep1 = Players.findOne({ _id: looseTeam.players[0] });
+    let loosep2 = Players.findOne({ _id: looseTeam.players[1] });
+
+    Players.update({ _id: winp1._id },
+      {
+        $inc: { elo: eloChange }
+      }
+    )
+    Players.update({ _id: winp2._id },
+      {
+        $inc: { elo: eloChange }
+      }
+    )
+    Players.update({ _id: loosep1._id },
+      {
+        $inc: { elo: -eloChange }
+      }
+    )
+    Players.update({ _id: loosep2._id },
+      {
+        $inc: { elo: -eloChange }
+      }
+    )
+    return eloChange;
+  }
+
+  getTeamEloOnWin(winTeamId, looseTeamId) {
     let winTeam = Teams.findOne({ _id: winTeamId });
     let looseTeam = Teams.findOne({ _id: looseTeamId });
     let winp1 = Players.findOne({ _id: winTeam.players[0] });
@@ -83,33 +114,9 @@ class GameScoreService {
     // Maximum movement of ELO in 1 match
     let maxEloMovement = 75;
 
-    let elochanged = this.calculateELORatingChange(winelo, looseelo, maxEloMovement);
-
-    console.log(elochanged);
-
-    Players.update({ _id: winp1._id },
-      {
-        $inc: { elo: elochanged.win }
-      }
-    )
-    Players.update({ _id: winp2._id },
-      {
-        $inc: { elo: elochanged.win }
-      }
-    )
-    Players.update({ _id: loosep1._id },
-      {
-        $inc: { elo: -elochanged.win }
-      }
-    )
-    Players.update({ _id: loosep2._id },
-      {
-        $inc: { elo: -elochanged.win }
-      }
-    )
-    return elochanged;
+    let eloChanged = this.calculateELORatingChange(winelo, looseelo, maxEloMovement);
+    return eloChanged.win;
   }
-
   /**
    * This method will calculate the change in a player's
    * Elo rating after playing a single game against another player.
