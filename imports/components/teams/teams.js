@@ -8,7 +8,7 @@ import template from './teams.html';
 class TeamsCtrl {
   constructor($scope) {
     $scope.viewModel(this);
-    
+
     console.log('in teams controller');
 
     this.helpers({
@@ -25,8 +25,7 @@ export default angular.module('teams', [
 ])
   .component('teams', {
     templateUrl: 'imports/components/teams/teams.html',
-    controller: ['$scope', TeamsCtrl],
-    controllerAs: 'teams'
+    controller: ['$scope', TeamsCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.teams', {

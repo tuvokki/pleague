@@ -2,7 +2,7 @@
   <ion-nav-back-button>
   </ion-nav-back-button>
     <ion-nav-title>
-      Teams
+      Team ranking
     </ion-nav-title>
   <ion-nav-buttons side="right">
     <!--button ui-sref="tab.newteam"
@@ -14,13 +14,13 @@
   <ion-content>
     <ion-list type="list-inset">
       <ion-item
-            ng-repeat="team in teams.data"
+            ng-repeat="team in $ctrl.data | teamElo | orderBy:['teamElo']:true"
             class="item-team item-remove-animate item-avatar"
             type="item-text-wrap">
 
         <h3 ng-if="team.teamName">{{ team.teamName }}</h3>
-        <h3 ng-if="!team.teamName">Anonymous  team</h3>
-        {{ team.players[0] | player_name }} and {{ team.players[1] | player_name }}
+        {{ team.players[0] | player_name }} and {{ team.players[1] | player_name }}<br>
+        Team ELO: {{ team.teamElo }}
       </ion-item>
     </ion-list>
   </ion-content>

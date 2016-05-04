@@ -23,8 +23,6 @@ class GameScoreService {
           $set: { teamRed: inprogress.teamRed }
         });
       }
-
-      console.log('red scored! by player: ', player);
       if (inprogress.teamRedScore++ > 5) {
         var eloChange = this.updateELO(inprogress.teamRed._id, inprogress.teamBlue._id);
         Games.update(inprogress._id, {
@@ -51,7 +49,6 @@ class GameScoreService {
           $set: { teamBlue: inprogress.teamBlue }
         });
       }
-      console.log('blue scored! by player: ', player);
       if (inprogress.teamBlueScore++ > 5) {
 
         var eloChange = this.updateELO(inprogress.teamBlue._id, inprogress.teamRed._id);
@@ -70,7 +67,7 @@ class GameScoreService {
   updateELO(winTeamId, looseTeamId) {
 
     let eloChange = this.getTeamEloOnWin(winTeamId, looseTeamId);
-    console.log(eloChange);
+    console.log('ELO changed by: ', eloChange);
     let winTeam = Teams.findOne({ _id: winTeamId });
     let looseTeam = Teams.findOne({ _id: looseTeamId });
     let winp1 = Players.findOne({ _id: winTeam.players[0] });
