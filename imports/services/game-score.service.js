@@ -80,8 +80,10 @@ class GameScoreService {
 
     let winelo = (winp1.elo + winp2.elo) / 2;
     let looseelo = (loosep1.elo + loosep2.elo) / 2;
+    // Maximum movement of ELO in 1 match
+    let maxEloMovement = 75;
 
-    let elochanged = this.calculateELORatingChange(winelo, looseelo, 25);
+    let elochanged = this.calculateELORatingChange(winelo, looseelo, maxEloMovement);
 
     console.log(elochanged);
 
