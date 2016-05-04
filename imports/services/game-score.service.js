@@ -45,7 +45,7 @@ class GameScoreService {
           $set: { teamBlue: inprogress.teamBlue }
         });
       } else {
-        inprogress.teamBlue.attacker.goals++;
+        inprogress.teamBlue.defender.goals++;
         Games.update(inprogress._id, {
           $inc: { teamBlueScore: 1 },
           $set: { teamBlue: inprogress.teamBlue }
@@ -53,7 +53,7 @@ class GameScoreService {
       }
       console.log('blue scored! by player: ', player);
       if (inprogress.teamBlueScore++ > 5) {
-        
+
         var eloChange = this.updateELO(inprogress.teamBlue._id, inprogress.teamRed._id);
         Games.update(inprogress._id, {
           $set: {
