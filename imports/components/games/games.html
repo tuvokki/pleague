@@ -21,20 +21,36 @@
         <div class="row">
           <div class="col">
             <h3>{{game.teamRed | team}}</h3>
-            <h1 class="title score">{{ game.teamRedScore }} <sup>({{ game.winner === game.teamRed._id ? "+" + game.eloChange : "-" + game.eloChange }})</sup></h1>
           </div>
           <div class="col col-center content-center">vs.</div>
           <div class="col">
             <h3>{{game.teamBlue | team}}</h3>
-            <h1 class="title score">{{ game.teamBlueScore }} <sup>({{ game.winner === game.teamRed._id ? "-" + game.eloChange : "+" + game.eloChange }})</sup></h1>
           </div>
         </div>
-        <div class="col">
+        <div class="row">
+          <div class="col">
+            <span class="title score">{{ game.teamRedScore }}</span>
+          </div>
+          <div class="col col-center content-center"></div>
+          <div class="col">
+            <span class="title score">{{ game.teamBlueScore }}</span>
+          </div>
         </div>
         <div class="row">
-          <div class="col">Started: {{game.startDate | calendar}} duration: {{game.startDate | duration: game.endDate}} minutes</div>
+          <div class="col">
+            <sup>({{ game.winner === game.teamRed._id ? "+" + game.eloChange : "-" + game.eloChange }})</sup>
+          </div>
+          <div class="col col-center content-center"></div>
+          <div class="col">
+            <sup>({{ game.winner === game.teamRed._id ? "-" + game.eloChange : "+" + game.eloChange }})</sup>
+          </div>
         </div>
-        <div class="col">
+
+        <div class="row">
+          <div class="col">
+            <sup>Started: {{game.startDate | calendar}}</sup><br/>
+            <sup>Duration: {{game.startDate | duration: game.endDate}} minutes</sup>
+          </div>
         </div>
         <ion-option-button class="button-assertive" ng-click="$ctrl.remove(game)">
           Delete
