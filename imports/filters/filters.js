@@ -13,7 +13,14 @@ export default angular.module('filters', [
 
       let x = moment(to).diff(from, 'milliseconds');
       let tempTime = moment.duration(x);
-      return tempTime.minutes() + ":" + tempTime.seconds();
+      return moment.utc(x).format("mm:ss");
+      // let seconds = 0;
+      // if (tempTime.seconds() < 10) {
+      //   seconds = "0" + tempTime.seconds();
+      // } else {
+      //   seconds = tempTime.seconds();
+      // }
+      // return tempTime.minutes() + ":" + seconds;
     }
   })
   .filter('excludeFrom', () => {
