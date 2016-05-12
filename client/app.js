@@ -29,6 +29,8 @@ import filters from '/imports/filters/filters';
 // Directives
 import directives from '/imports/directives/directives';
 
+console.log(Meteor.Device.isPhone());
+
 // App
 const App = angular.module('PLeague', [
   'angular-meteor',
@@ -60,7 +62,11 @@ App.config(
         templateUrl: 'client/tabs.html'
       });
 
-    $urlRouterProvider.otherwise('tab/dashboard');
+      if ( Meteor.Device.isPhone() ) {
+        $urlRouterProvider.otherwise('tab/games');
+      } else {
+        $urlRouterProvider.otherwise('tab/dashboard');
+      }
   }
 );
 
