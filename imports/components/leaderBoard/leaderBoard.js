@@ -2,16 +2,17 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import { Players } from '../../api/players.js';
 
-import template from './leaderBoard.html';
+import boardTemplate from './leaderBoard.html';
+import listTemplate from './leaderBoardList.html';
 
 class LeaderboardCtrl {
   constructor($scope) {
     $scope.viewModel(this);
-    
+
     console.log('in leaderBoard controller');
 
     this.helpers({
-      data() {
+      playersList() {
         return Players.find();
       }
     });
@@ -23,8 +24,10 @@ export default angular.module('leaderBoard', [
 ])
   .component('leaderBoard', {
     templateUrl: 'imports/components/leaderBoard/leaderBoard.html',
-    controller: ['$scope', LeaderboardCtrl],
-    controllerAs: 'leaderboard'
+  })
+  .component('leaderBoardList', {
+    templateUrl: 'imports/components/leaderBoard/leaderBoardList.html',
+    controller: ['$scope', LeaderboardCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.leaderboard', {

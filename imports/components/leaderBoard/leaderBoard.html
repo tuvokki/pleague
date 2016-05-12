@@ -8,15 +8,6 @@
 
 <ion-view view-title="Leaderboard">
   <ion-content>
-    <ion-list type="list-inset">
-      <div ng-repeat="player in leaderboard.data | orderBy:'-elo'">
-        <a class="item item-avatar" href="#" ng-class="{ 'leader': $first }">
-          <span class="ranking">{{ $index + 1 }}</span>
-          <h2>{{player.name}}</h2>
-          <p>ELO: {{player.elo}}</p>
-          <img src="/img/leader.gif" class="leadergif" ng-if="$first">
-        </a>
-      </div>
-    </ion-list>
+    <leader-board-list></leader-board-list>
   </ion-content>
 </ion-view>

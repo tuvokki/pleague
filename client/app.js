@@ -7,6 +7,7 @@ import 'angular-ui-router';
 import 'ionic-scripts';
 
 // Components
+import dashBoard from '/imports/components/dashBoard/dashBoard';
 import leaderBoard from '/imports/components/leaderBoard/leaderBoard';
 import players from '/imports/components/players/players';
 import newplayer from '/imports/components/players/new-player';
@@ -28,10 +29,13 @@ import filters from '/imports/filters/filters';
 // Directives
 import directives from '/imports/directives/directives';
 
+console.log(Meteor.Device.isPhone());
+
 // App
 const App = angular.module('PLeague', [
   'angular-meteor',
   'ionic',
+  'dashBoard',
   'leaderBoard',
   'players',
   'newplayer',
@@ -58,7 +62,11 @@ App.config(
         templateUrl: 'client/tabs.html'
       });
 
-    $urlRouterProvider.otherwise('tab/leaderboard');
+      if ( Meteor.Device.isPhone() ) {
+        $urlRouterProvider.otherwise('tab/games');
+      } else {
+        $urlRouterProvider.otherwise('tab/dashboard');
+      }
   }
 );
 
