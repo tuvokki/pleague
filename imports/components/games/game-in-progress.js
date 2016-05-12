@@ -7,9 +7,10 @@ import { Games } from '/imports/api/games.js';
 import template from '/imports/components/games/game-in-progress.html';
 
 class GameInProgressCtrl {
-  constructor($scope, $state, $ionicPopup, $ionicHistory, gameScoreService) {
+  constructor($scope, $state, $filter, $ionicPopup, $ionicHistory, gameScoreService) {
     $scope.viewModel(this);
     this.$state = $state;
+    this.$filter = $filter;
     this.$ionicPopup = $ionicPopup;
     this.$ionicHistory = $ionicHistory;
     this.gameScoreService = gameScoreService;
@@ -23,6 +24,11 @@ class GameInProgressCtrl {
         return Players.find({}, { sort: { name: 1 } });
       }
     });
+  }
+
+  duration() {
+    if (this.game)
+      return this.$filter('duration')(this.game.startDate, Date.now());
   }
 
   scored(teamId, player) {
@@ -51,8 +57,9 @@ export default angular.module('gameinprogress', [
 ])
   .component('gameInProgress', {
     templateUrl: 'imports/components/games/game-in-progress.html',
-    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory',  'gameScoreService', GameInProgressCtrl],
+    controller: ['$scope', '$state', '$filter', '$ionicPopup', '$ionicHistory',  'gameScoreService', GameInProgressCtrl],
     bindings: {
-      game: '<'
+      game: '<',
+      controls: '<'
     }
   });

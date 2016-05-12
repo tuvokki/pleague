@@ -7,6 +7,7 @@ import 'angular-ui-router';
 import 'ionic-scripts';
 
 // Components
+import dashBoard from '/imports/components/dashBoard/dashBoard';
 import leaderBoard from '/imports/components/leaderBoard/leaderBoard';
 import players from '/imports/components/players/players';
 import newplayer from '/imports/components/players/new-player';
@@ -32,6 +33,7 @@ import directives from '/imports/directives/directives';
 const App = angular.module('PLeague', [
   'angular-meteor',
   'ionic',
+  'dashBoard',
   'leaderBoard',
   'players',
   'newplayer',
@@ -58,7 +60,7 @@ App.config(
         templateUrl: 'client/tabs.html'
       });
 
-    $urlRouterProvider.otherwise('tab/leaderboard');
+    $urlRouterProvider.otherwise('tab/dashboard');
   }
 );
 

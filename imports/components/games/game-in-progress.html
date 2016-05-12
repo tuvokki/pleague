@@ -1,7 +1,7 @@
 <div class="card game-inprogress">
   <div class="item item-divider">
     Game in progress
-    <a ng-click="$ctrl.trashGameInProgressModal()" class="item-icon-right">
+    <a ng-click="$ctrl.trashGameInProgressModal()" class="item-icon-right" ng-if="$ctrl.controls">
         <i class="icon ion-trash-a"></i>
     </a>
   </div>
@@ -18,32 +18,44 @@
 
         <div class="row">
           <div class="col">
-            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)">
+            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamRed.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.defender.goals }})
             </button>
+            <span ng-if="!$ctrl.controls">
+              <h3>{{ $ctrl.game.teamRed.defender._id | player_name }} scored {{ $ctrl.game.teamRed.defender.goals }} goals</h3>
+            </span>
           </div>
           <div class="col">
-            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)">
+            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamBlue.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamBlue.defender.goals }})
             </button>
+            <span ng-if="!$ctrl.controls">
+              <h3>{{ $ctrl.game.teamBlue.defender._id | player_name }} scored {{ $ctrl.game.teamBlue.defender.goals }} goals</h3>
+            </span>
           </div>
         </div>
 
         <div class="row">
           <div class="col">
-            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)">
+            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.attacker.goals }})
             </button>
+            <span ng-if="!$ctrl.controls">
+              <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }} scored {{ $ctrl.game.teamRed.attacker.goals }} goals</h3>
+            </span>
           </div>
           <div class="col">
-            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)">
+            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamBlue.attacker._id | player_name }}</h3>scored! ({{ $ctrl.game.teamBlue.attacker.goals }})
             </button>
+            <span ng-if="!$ctrl.controls">
+              <h3>{{ $ctrl.game.teamBlue.attacker._id | player_name }} scored {{ $ctrl.game.teamBlue.attacker.goals }} goals</h3>
+            </span>
           </div>
         </div>
 
   </div>
   <div class="item item-divider">
-    Started: {{$ctrl.game.startDate | calendar}}
+    Started: {{$ctrl.game.startDate | calendar}} duration: {{ $ctrl.duration() }} minutes
   </div>
 </div>

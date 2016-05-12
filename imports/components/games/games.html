@@ -14,9 +14,9 @@
 
 <ion-view view-title="Games">
   <ion-content>
-    <game-in-progress ng-show="$ctrl.inprogress" game="$ctrl.inprogress"></game-in-progress>
+    <game-in-progress ng-show="$ctrl.inprogress" game="$ctrl.inprogress" controls="true"></game-in-progress>
     <ion-list type="list-inset">
-      <ion-item ng-repeat="game in $ctrl.data | orderBy: '-startDate'" class="item-game item-text-wrap" type="item-text-wrap">
+      <ion-item ng-repeat="game in $ctrl.gamesList | orderBy: '-startDate'" class="item-game item-text-wrap" type="item-text-wrap">
 
         <div class="row">
           <div class="col">
