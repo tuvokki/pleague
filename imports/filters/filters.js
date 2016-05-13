@@ -78,18 +78,18 @@ export default angular.module('filters', [
       }
     }
   })
-  .filter('teamElo', () => {
-    return (teams) => {
-      if (!teams) return;
-      for(var i=0; i<teams.length; i++) {
-        let team = teams[i];
-        let p0 = Players.findOne({ _id: team.players[0] });
-        let p1 = Players.findOne({ _id: team.players[1] });
-        team.teamElo = (p0.elo + p1.elo);
-      }
-      return teams;
-    }
-  })
+  // .filter('teamElo', () => {
+  //   return (teams) => {
+  //     if (!teams) return;
+  //     for(var i=0; i<teams.length; i++) {
+  //       let team = teams[i];
+  //       let p0 = Players.findOne({ _id: team.players[0] });
+  //       let p1 = Players.findOne({ _id: team.players[1] });
+  //       team.teamElo = (p0.elo + p1.elo);
+  //     }
+  //     return teams;
+  //   }
+  // })
   .filter('calendar', () => {
     return (time) => {
       if (!time) return;

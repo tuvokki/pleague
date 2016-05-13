@@ -5,6 +5,8 @@ import { Games } from '/imports/api/games.js';
 
 class GameScoreService {
   constructor() {
+    // Maximum movement of ELO in 1 match
+    this.maxEloMovement = 75;
   }
 
   scored(teamId, player, inprogress) {
@@ -95,6 +97,21 @@ class GameScoreService {
         $inc: { elo: -eloChange }
       }
     )
+
+    let teamEloChanged = this.calculateELORatingChange(winTeam.teamElo, looseTeam.teamElo, this.maxEloMovement);
+    console.log('Team ELO change by: ', teamEloChanged);
+
+    Teams.update({ _id: winTeam._id },
+      {
+        $inc: { teamElo: teamEloChanged.win }
+      }
+    );
+    Teams.update({ _id: looseTeam._id },
+      {
+        $inc: { teamElo: teamEloChanged.loss }
+      }
+    );
+
     return eloChange;
   }
 
@@ -108,10 +125,8 @@ class GameScoreService {
 
     let winelo = (winp1.elo + winp2.elo) / 2;
     let looseelo = (loosep1.elo + loosep2.elo) / 2;
-    // Maximum movement of ELO in 1 match
-    let maxEloMovement = 75;
 
-    let eloChanged = this.calculateELORatingChange(winelo, looseelo, maxEloMovement);
+    let eloChanged = this.calculateELORatingChange(winelo, looseelo, this.maxEloMovement);
     return eloChanged.win;
   }
   /**

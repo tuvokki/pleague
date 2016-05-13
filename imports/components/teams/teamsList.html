@@ -1,6 +1,6 @@
 <ion-list type="list-inset">
   <ion-item
-        ng-repeat="team in $ctrl.teamsList | teamElo | orderBy:['teamElo']:true | limitTo:$ctrl.max"
+        ng-repeat="team in $ctrl.teamsList | orderBy:['teamElo']:true | limitTo:$ctrl.max"
         class="item-team item-remove-animate item-avatar"
         type="item-text-wrap">
 
