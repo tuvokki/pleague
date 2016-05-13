@@ -29,8 +29,6 @@ import filters from '/imports/filters/filters';
 // Directives
 import directives from '/imports/directives/directives';
 
-console.log(Meteor.Device.isPhone());
-
 // App
 const App = angular.module('PLeague', [
   'angular-meteor',
@@ -52,6 +50,15 @@ const App = angular.module('PLeague', [
   'todosList'
 ]);
 
+class TabCtrl {
+  constructor($scope, $state) {
+    $scope.viewModel(this);
+    console.log('in tab controller', $state.current.data.showDash);
+    this.showDash = $state.current.data.showDash;
+  }
+  // let showDash = Meteor.Device.isDesktop();
+}
+
 // Routes
 App.config(
   ($stateProvider, $urlRouterProvider) => {
@@ -59,22 +66,30 @@ App.config(
       .state('tab', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'client/tabs.html'
+        templateUrl: 'client/tabs.html',
+        controller: ['$scope', '$state', TabCtrl],
+        controllerAs: '$ctrl', //why? *sigh* why?
+        data: {
+          showDash: Meteor.Device.isDesktop()
+        }
       });
 
-      if ( Meteor.Device.isPhone() ) {
-        $urlRouterProvider.otherwise('tab/games');
-      } else {
-        $urlRouterProvider.otherwise('tab/dashboard');
-      }
+    if (Meteor.Device.isPhone()) {
+      $urlRouterProvider.otherwise('tab/games');
+    } else {
+      $urlRouterProvider.otherwise('tab/dashboard');
+    }
   }
 );
+
+// App.constant('config', {
+//   showDash: Meteor.Device.isDesktop()
+// })
 
 // Startup
 if (Meteor.isCordova) {
   angular.element(document).on('deviceready', onReady);
-}
-else {
+} else {
   angular.element(document).ready(onReady);
 }
 
