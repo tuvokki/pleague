@@ -48,9 +48,11 @@ class PlayersCtrl {
   submitName(name) {
     console.log(name);
     this.modal.hide();
+    this.$ionicListDelegate.closeOptionButtons();
   }
   closeModal() {
     this.modal.hide();
+    this.$ionicListDelegate.closeOptionButtons();
   }
 
   eloPenalty(player) {
