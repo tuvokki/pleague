@@ -42,13 +42,16 @@ class PlayersCtrl {
   }
 
   changeNameModal(player) {
-    console.log('change name for: ', player.name);
     this.changePlayer = player;
     this.modal.show();
   }
 
-  submitName(name) {
-    console.log(name);
+  submitName() {
+    Players.update({ _id: this.changePlayer._id },
+    {
+      $set: { name: this.changePlayer.name }
+    });
+    
     this.modal.hide();
     this.$ionicListDelegate.closeOptionButtons();
   }
