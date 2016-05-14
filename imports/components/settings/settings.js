@@ -14,13 +14,16 @@ class SettingsCtrl {
     console.log('in settings controller');
 
     this.currentUser = function () {
-      if (Meteor.user() == null) {
+      if (Meteor.user() != null) {
         return true;
       }
       return false;
     }
 
     this.helpers({
+      users() {
+        return Meteor.users.find()
+      }
     });
 
   }
