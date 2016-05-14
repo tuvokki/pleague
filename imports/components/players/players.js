@@ -42,6 +42,8 @@ class PlayersCtrl {
   }
 
   changeNameModal(player) {
+    console.log('change name for: ', player.name);
+    this.changePlayer = player;
     this.modal.show();
   }
 
