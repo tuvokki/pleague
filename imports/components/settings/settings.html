@@ -8,27 +8,27 @@
 
 <ion-view>
   <ion-content class="padding">
-    
-    <ion-item class="card padding" ng-show="settings.currentUser()">
+
+    <ion-item class="card padding" ng-show="$ctrl.currentUser()">
       <div class="item-text-wrap padding">
         Enter User Name and Password to Login to Application
       </div>
 
       <label class="item item-input">
-        <input type="text" ng-model="settings.credentials.username" placeholder="UserName" />
+        <input type="text" ng-model="$ctrl.credentials.username" placeholder="UserName" />
       </label>
       <label class="item item-input">
-        <input type="password" ng-model="settings.credentials.password" placeholder="Password" />
+        <input type="password" ng-model="$ctrl.credentials.password" placeholder="Password" />
       </label>
       <div class="padding">
-        <button class="button button-block" ng-click="settings.doLoginAction()">Login</button>
+        <button class="button button-block" ng-click="$ctrl.doLoginAction()">Login</button>
         <button class="button button-block" ui-sref="tab.newuser">Create Account</button>
       </div>
     </ion-item>
-    
-    <ion-item class="card padding" ng-show="!settings.currentUser()">
-      <button class="button button-block" ng-click="settings.doLogoutAction()">Log out</button>
+
+    <ion-item class="card padding" ng-show="!$ctrl.currentUser()">
+      <button class="button button-block" ng-click="$ctrl.doLogoutAction()">Log out</button>
     </ion-item>
-    
+
   </ion-content>
 </ion-view>

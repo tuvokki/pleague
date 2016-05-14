@@ -7,10 +7,10 @@ import template from './settings.html';
 class SettingsCtrl {
   constructor($scope, $ionicPopup, $state, $log) {
     $scope.viewModel(this);
-    this.$ionicPopup = $ionicPopup; 
+    this.$ionicPopup = $ionicPopup;
     this.$state = $state;
-    this.$log = $log; 
-    
+    this.$log = $log;
+
     console.log('in settings controller');
 
     this.currentUser = function () {
@@ -27,6 +27,12 @@ class SettingsCtrl {
 
   doLoginAction() {
     let that = this;
+    if (!this.credentials.username) {
+      return this.handleError({ reason: 'No username supplied', template: 'You need a username, or create an account.' });
+    }
+    if (!this.credentials.password) {
+      return this.handleError({ reason: 'No password supplied', template: 'You need a password, or create an account.' });
+    }
     Meteor.loginWithPassword(this.credentials.username, this.credentials.password, (error) => {
       if (error) {
         // :(
@@ -49,7 +55,7 @@ class SettingsCtrl {
 
     this.$ionicPopup.alert({
       title: err.reason || 'Login failed',
-      template: 'Please try again or create an account',
+      template: err.template || 'Please try again or create an account',
       okType: 'button-positive button-clear'
     });
   }
@@ -61,8 +67,7 @@ export default angular.module('settings', [
 ])
   .component('settings', {
     templateUrl: 'imports/components/settings/settings.html',
-    controller: ['$scope', '$ionicPopup', '$state', '$log', SettingsCtrl],
-    controllerAs: 'settings'
+    controller: ['$scope', '$ionicPopup', '$state', '$log', SettingsCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.settings', {
