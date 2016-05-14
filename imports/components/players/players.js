@@ -3,31 +3,61 @@ import angularMeteor from 'angular-meteor';
 import { Players } from '/imports/api/players.js';
 
 import template from './players.html';
+import templateForm from './player-name-form.html';
 
 class PlayersCtrl {
-  constructor($scope, $ionicPopup, $ionicListDelegate) {
+  constructor($scope, $ionicPopup, $ionicModal, $ionicListDelegate) {
     $scope.viewModel(this);
     this.$ionicPopup = $ionicPopup;
     this.$ionicListDelegate = $ionicListDelegate;
-    
+    this.$ionicModal = $ionicModal;
+
     console.log('in players controller');
 
     this.showPlayerInfo = 0;
-    
+
     this.helpers({
       data() {
         return Players.find();
       }
     });
 
+    let that = this;
+    this.$ionicModal.fromTemplateUrl('imports/components/players/player-name-form.html', {
+      scope: $scope,
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    }).then(function(modal) {
+      that.modal = modal;
+    });
+
   }
-  
+
   toggleInfo(player) {
     if (this.showPlayerInfo == player._id) {
       this.showPlayerInfo = 0;
     } else {
       this.showPlayerInfo = player._id;
     }
+  }
+
+  changeNameModal(player) {
+    this.changePlayer = player;
+    this.modal.show();
+  }
+
+  submitName() {
+    Players.update({ _id: this.changePlayer._id },
+    {
+      $set: { name: this.changePlayer.name }
+    });
+    
+    this.modal.hide();
+    this.$ionicListDelegate.closeOptionButtons();
+  }
+  closeModal() {
+    this.modal.hide();
+    this.$ionicListDelegate.closeOptionButtons();
   }
 
   eloPenalty(player) {
@@ -56,8 +86,7 @@ export default angular.module('players', [
 ])
   .component('players', {
     templateUrl: 'imports/components/players/players.html',
-    controller: ['$scope', '$ionicPopup', '$ionicListDelegate', PlayersCtrl],
-    controllerAs: 'players'
+    controller: ['$scope', '$ionicPopup',  '$ionicModal', '$ionicListDelegate', PlayersCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.players', {

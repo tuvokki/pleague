@@ -11,7 +11,7 @@ class NewPlayerCtrl {
     this.$ionicHistory = $ionicHistory;
 
     console.log('in new-player controller');
-    
+
     this.helpers({
         //   find all other users
         // users() {
@@ -23,7 +23,7 @@ class NewPlayerCtrl {
   goBack() {
     this.$ionicHistory.goBack();
   }
-  
+
   newPlayer() {
     let that = this;
     try {
@@ -45,7 +45,7 @@ class NewPlayerCtrl {
         console.log('Hjalp!!');
         console.log(e);
     }
-  }  
+  }
 }
 
 export default angular.module('newplayer', [
@@ -53,8 +53,7 @@ export default angular.module('newplayer', [
 ])
   .component('newplayer', {
     templateUrl: 'imports/components/players/new-player.html',
-    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewPlayerCtrl],
-    controllerAs: 'newplayer'
+    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewPlayerCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.newplayer', {
