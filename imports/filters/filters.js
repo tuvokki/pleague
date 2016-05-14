@@ -13,7 +13,14 @@ export default angular.module('filters', [
 
       let x = moment(to).diff(from, 'milliseconds');
       let tempTime = moment.duration(x);
-      return tempTime.minutes() + ":" + tempTime.seconds();
+      return moment.utc(x).format("mm:ss");
+      // let seconds = 0;
+      // if (tempTime.seconds() < 10) {
+      //   seconds = "0" + tempTime.seconds();
+      // } else {
+      //   seconds = tempTime.seconds();
+      // }
+      // return tempTime.minutes() + ":" + seconds;
     }
   })
   .filter('excludeFrom', () => {
@@ -71,6 +78,18 @@ export default angular.module('filters', [
       }
     }
   })
+  // .filter('teamElo', () => {
+  //   return (teams) => {
+  //     if (!teams) return;
+  //     for(var i=0; i<teams.length; i++) {
+  //       let team = teams[i];
+  //       let p0 = Players.findOne({ _id: team.players[0] });
+  //       let p1 = Players.findOne({ _id: team.players[1] });
+  //       team.teamElo = (p0.elo + p1.elo);
+  //     }
+  //     return teams;
+  //   }
+  // })
   .filter('calendar', () => {
     return (time) => {
       if (!time) return;

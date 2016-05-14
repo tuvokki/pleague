@@ -26,7 +26,7 @@ class GamesCtrl {
         }
         return false;
       },
-      data() {
+      gamesList() {
         return Games.find(
           { endDate: { $exists: true } }, { limit: 5 , sort: { startDate: -1} }
         );

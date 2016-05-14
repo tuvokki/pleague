@@ -3,16 +3,17 @@ import angularMeteor from 'angular-meteor';
 import { Players } from '/imports/api/players.js';
 import { Teams } from '/imports/api/teams.js';
 
-import template from './teams.html';
+import tabTemplate from './teams.html';
+import listTemplate from './teamsList.html';
 
 class TeamsCtrl {
   constructor($scope) {
     $scope.viewModel(this);
-    
+
     console.log('in teams controller');
 
     this.helpers({
-      data() {
+      teamsList() {
         return Teams.find();
       }
     });
@@ -24,9 +25,14 @@ export default angular.module('teams', [
   angularMeteor
 ])
   .component('teams', {
-    templateUrl: 'imports/components/teams/teams.html',
+    templateUrl: 'imports/components/teams/teams.html'
+  })
+  .component('teamsList', {
+    templateUrl: 'imports/components/teams/teamsList.html',
     controller: ['$scope', TeamsCtrl],
-    controllerAs: 'teams'
+    bindings: {
+      max: '<'
+    }
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.teams', {

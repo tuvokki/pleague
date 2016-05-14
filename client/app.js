@@ -7,6 +7,7 @@ import 'angular-ui-router';
 import 'ionic-scripts';
 
 // Components
+import dashBoard from '/imports/components/dashBoard/dashBoard';
 import leaderBoard from '/imports/components/leaderBoard/leaderBoard';
 import players from '/imports/components/players/players';
 import newplayer from '/imports/components/players/new-player';
@@ -32,6 +33,7 @@ import directives from '/imports/directives/directives';
 const App = angular.module('PLeague', [
   'angular-meteor',
   'ionic',
+  'dashBoard',
   'leaderBoard',
   'players',
   'newplayer',
@@ -48,6 +50,15 @@ const App = angular.module('PLeague', [
   'todosList'
 ]);
 
+class TabCtrl {
+  constructor($scope, $state) {
+    $scope.viewModel(this);
+    console.log('in tab controller', $state.current.data.showDash);
+    this.showDash = $state.current.data.showDash;
+  }
+  // let showDash = Meteor.Device.isDesktop();
+}
+
 // Routes
 App.config(
   ($stateProvider, $urlRouterProvider) => {
@@ -55,18 +66,30 @@ App.config(
       .state('tab', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'client/tabs.html'
+        templateUrl: 'client/tabs.html',
+        controller: ['$scope', '$state', TabCtrl],
+        controllerAs: '$ctrl', //why? *sigh* why?
+        data: {
+          showDash: Meteor.Device.isDesktop()
+        }
       });
 
-    $urlRouterProvider.otherwise('tab/leaderboard');
+    if (Meteor.Device.isPhone()) {
+      $urlRouterProvider.otherwise('tab/games');
+    } else {
+      $urlRouterProvider.otherwise('tab/dashboard');
+    }
   }
 );
+
+// App.constant('config', {
+//   showDash: Meteor.Device.isDesktop()
+// })
 
 // Startup
 if (Meteor.isCordova) {
   angular.element(document).on('deviceready', onReady);
-}
-else {
+} else {
   angular.element(document).ready(onReady);
 }
 

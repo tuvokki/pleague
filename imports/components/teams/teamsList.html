@@ -1,0 +1,12 @@
+<ion-list type="list-inset">
+  <ion-item
+        ng-repeat="team in $ctrl.teamsList | orderBy:['teamElo']:true | limitTo:$ctrl.max"
+        class="item-team item-remove-animate item-avatar"
+        type="item-text-wrap">
+
+    <h3 ng-if="team.teamName">{{ team.teamName }}</h3>
+    {{ team.players[0] | player_name }} and {{ team.players[1] | player_name }}<br>
+    Team ELO: {{ team.teamElo }}
+  </ion-item>
+</ion-list>
+<button ui-sref="tab.teams" ng-if="$ctrl.max">More</button>
