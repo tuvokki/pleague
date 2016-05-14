@@ -17,10 +17,10 @@ class PlayersCtrl {
     this.showPlayerInfo = 0;
 
     this.currentUser = function () {
-      if (Meteor.user() == null) {
-        return false;
+      if (Meteor.user() != null) {
+        return true;
       }
-      return true;
+      return false;
     }
 
     this.isAdmin = function () {
@@ -32,7 +32,7 @@ class PlayersCtrl {
     }
 
     this.helpers({
-      data() {
+      players() {
         return Players.find();
       }
     });
