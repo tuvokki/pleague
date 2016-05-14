@@ -16,6 +16,21 @@ class PlayersCtrl {
 
     this.showPlayerInfo = 0;
 
+    this.currentUser = function () {
+      if (Meteor.user() == null) {
+        return false;
+      }
+      return true;
+    }
+
+    this.isAdmin = function () {
+      console.log(Meteor.user());
+      if (Meteor.user() != null && Meteor.user().username == 'admin') {
+        return true;
+      }
+      return false;
+    }
+
     this.helpers({
       data() {
         return Players.find();
@@ -51,7 +66,7 @@ class PlayersCtrl {
     {
       $set: { name: this.changePlayer.name }
     });
-    
+
     this.modal.hide();
     this.$ionicListDelegate.closeOptionButtons();
   }

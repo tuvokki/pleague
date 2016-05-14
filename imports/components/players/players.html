@@ -17,10 +17,10 @@
         <h2><i class="icon ion-person"></i> {{ player.name }}</h2>
         <span class="badge" ng-class="player.elo < 1500 ? 'badge-assertive' : 'badge-balanced'">{{ player.elo }}</span>
         <span ng-if="$ctrl.showPlayerInfo == player._id">Joined {{ player.joinDate | calendar }}</span>
-        <ion-option-button class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
+        <ion-option-button ng-if="$ctrl.currentUser()" class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
           Change name
         </ion-option-button>
-        <ion-option-button class="button-assertive" ng-click="$ctrl.eloPenalty(player)">
+        <ion-option-button ng-if="$ctrl.isAdmin()" class="button-assertive" ng-click="$ctrl.eloPenalty(player)">
           Elo penalty
         </ion-option-button>
       </ion-item>
