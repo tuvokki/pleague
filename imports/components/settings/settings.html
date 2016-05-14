@@ -29,6 +29,10 @@
     <ion-item class="card padding" ng-show="$ctrl.currentUser()">
       <button class="button button-block" ng-click="$ctrl.doLogoutAction()">Log out</button>
     </ion-item>
-
+    <ion-list type="list-inset">
+      <ion-item ng-if="$ctrl.isAdmin()" ng-repeat="user in $ctrl.users" class="item-text-wrap" type="item-text-wrap">
+        {{ user.username }}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

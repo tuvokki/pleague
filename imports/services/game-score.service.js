@@ -150,7 +150,7 @@ class GameScoreService {
   }
 }
 
-export default angular.module('services', [
+export default angular.module('gameservice', [
   angularMeteor
 ])
   .factory('gameScoreService', GameScoreService.factory);

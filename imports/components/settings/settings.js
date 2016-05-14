@@ -5,19 +5,21 @@ import { Players } from '../../api/players.js';
 import template from './settings.html';
 
 class SettingsCtrl {
-  constructor($scope, $ionicPopup, $state, $log) {
+  constructor($scope, $ionicPopup, $state, $log, usersService) {
     $scope.viewModel(this);
     this.$ionicPopup = $ionicPopup;
     this.$state = $state;
     this.$log = $log;
+    this.usersService = usersService;
 
     console.log('in settings controller');
 
     this.currentUser = function () {
-      if (Meteor.user() != null) {
-        return true;
-      }
-      return false;
+      return usersService.currentUser();
+    }
+
+    this.isAdmin = function () {
+      return usersService.isAdmin();
     }
 
     this.helpers({
@@ -70,7 +72,7 @@ export default angular.module('settings', [
 ])
   .component('settings', {
     templateUrl: 'imports/components/settings/settings.html',
-    controller: ['$scope', '$ionicPopup', '$state', '$log', SettingsCtrl]
+    controller: ['$scope', '$ionicPopup', '$state', '$log', 'usersService', SettingsCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.settings', {

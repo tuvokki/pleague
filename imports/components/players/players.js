@@ -6,29 +6,23 @@ import template from './players.html';
 import templateForm from './player-name-form.html';
 
 class PlayersCtrl {
-  constructor($scope, $ionicPopup, $ionicModal, $ionicListDelegate) {
+  constructor($scope, $ionicPopup, $ionicModal, $ionicListDelegate, usersService) {
     $scope.viewModel(this);
     this.$ionicPopup = $ionicPopup;
     this.$ionicListDelegate = $ionicListDelegate;
     this.$ionicModal = $ionicModal;
+    this.usersService = usersService;
 
     console.log('in players controller');
 
     this.showPlayerInfo = 0;
 
     this.currentUser = function () {
-      if (Meteor.user() != null) {
-        return true;
-      }
-      return false;
+      return usersService.currentUser();
     }
 
     this.isAdmin = function () {
-      console.log(Meteor.user());
-      if (Meteor.user() != null && Meteor.user().username == 'admin') {
-        return true;
-      }
-      return false;
+      return usersService.isAdmin();
     }
 
     this.helpers({
@@ -101,7 +95,7 @@ export default angular.module('players', [
 ])
   .component('players', {
     templateUrl: 'imports/components/players/players.html',
-    controller: ['$scope', '$ionicPopup',  '$ionicModal', '$ionicListDelegate', PlayersCtrl]
+    controller: ['$scope', '$ionicPopup',  '$ionicModal', '$ionicListDelegate', 'usersService', PlayersCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.players', {

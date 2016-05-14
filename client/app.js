@@ -21,7 +21,8 @@ import newuser from '/imports/components/settings/new-user';
 import todosList from '/imports/components/todosList/todosList';
 
 // Services
-import services from '/imports/services/game-score.service';
+import gameservice from '/imports/services/game-score.service';
+import userservice from '/imports/services/users.service';
 
 // Filters
 import filters from '/imports/filters/filters';
@@ -44,7 +45,8 @@ const App = angular.module('PLeague', [
   'gameinprogress',
   'settings',
   'newuser',
-  'services',
+  'gameservice',
+  'userservice',
   'filters',
   'directives',
   'todosList'
