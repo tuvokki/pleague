@@ -14,11 +14,18 @@ class SettingsCtrl {
 
     console.log('in settings controller');
 
-    this.currentUser = function () {
+    this.fullname = () => {
+      if(Meteor.user())
+      {
+        return Meteor.user().profile.firstname + ' ' + Meteor.user().profile.lastname;
+      }
+    }
+
+    this.currentUser = () => {
       return usersService.currentUser();
     }
 
-    this.isAdmin = function () {
+    this.isAdmin = () => {
       return usersService.isAdmin();
     }
 
