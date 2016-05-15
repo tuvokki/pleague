@@ -10,11 +10,11 @@ if (!admin) {
       username: 'admin',
       email: 'admin@tuvok.nl',
       password: 'secret',
-      role: 'admin',
       profile: {
         //publicly visible fields like firstname goes here
         firstname: 'Lt. Commander',
-        lastname: 'Tuvok'
+        lastname: 'Tuvok',
+        role: 'admin'
       }
     });
 
