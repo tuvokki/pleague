@@ -13,7 +13,6 @@ class UsersService {
   }
 
   isAdmin() {
-    console.log(Meteor.user());
     if (Meteor.user() != null && Meteor.user().profile.role == 'admin') {
       return true;
     }
