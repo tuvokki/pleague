@@ -13,32 +13,36 @@ class NewUserCtrl {
 
     console.log('in new-user controller');
     this.credentials = {};
-    
+
     this.helpers({
       players() {
         return Players.find({});
       }
     });
   }
-  
+
+  goBack() {
+    this.$state.go('tab.settings');
+  }
+
   allReady() {
-    if (this.credentials.username && this.credentials.email && this.credentials.password && this.profile.firstname && this.profile.lastname ) {
+    if (this.credentials.username && this.credentials.email && this.credentials.password && this.profile.firstname && this.profile.lastname) {
       return true;
     }
     return false;
   }
-  
+
   newUser() {
     let that = this;
     try {
       Accounts.createUser({
         username: this.credentials.username,
-        email : this.credentials.email,
-        password : this.credentials.password,
-        profile  : {
-            //publicly visible fields like firstname goes here
-            firstname: this.profile.firstname,
-            lastname: this.profile.lastname
+        email: this.credentials.email,
+        password: this.credentials.password,
+        profile: {
+          //publicly visible fields like firstname goes here
+          firstname: this.profile.firstname,
+          lastname: this.profile.lastname
         }
       }, (error) => {
         if (error) {
@@ -51,23 +55,22 @@ class NewUserCtrl {
       });
 
     } catch (e) {
-        console.log('Hjalp!!');
-        console.log(e);
+      console.log('Hjalp!!');
+      console.log(e);
     }
-  }  
- 
+  }
+
 }
 
 export default angular.module('newuser', [
-  angularMeteor
-])
+    angularMeteor
+  ])
   .component('newuser', {
     templateUrl: 'imports/components/settings/new-user.html',
-    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewUserCtrl],
-    controllerAs: 'newuser'
+    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewUserCtrl]
   })
   .config(($stateProvider) => {
-      $stateProvider.state('tab.newuser', {
+    $stateProvider.state('tab.newuser', {
       url: '/user/new',
       views: {
         'tab-settings': {
