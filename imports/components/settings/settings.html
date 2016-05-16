@@ -30,7 +30,10 @@
       <ion-item ng-if="$ctrl.isAdmin()" ng-repeat="user in $ctrl.users" class="item-text-wrap item-avatar item-icon-right" type="item-text-wrap">
         <img ng-src="/img/ionic.png" ng-if="user.profile.role == 'admin'">
         {{ user.username }}<br>
-        <ion-option-button class="button-assertive" ng-click="remove(chat)" ng-if="user.profile.role != 'admin'">
+        <ion-option-button class="button-stable" ng-click="$ctrl.toggleAdmin(user)" ng-if="user.username != 'admin'">
+          Toggle admin
+        </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="$ctrl.remove(user)" ng-if="user.profile.role != 'admin'">
           Delete
         </ion-option-button>
       </ion-item>
