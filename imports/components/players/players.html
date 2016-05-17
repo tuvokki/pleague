@@ -13,11 +13,13 @@
 <ion-view view-title="Players">
   <ion-content>
     <ion-list type="list-inset">
-      <ion-item ng-repeat="player in $ctrl.players | orderBy:'name'" class="item-text-wrap" type="item-text-wrap" ng-click="$ctrl.toggleInfo(player)">
+      <ion-item ng-repeat="player in $ctrl.players | orderBy:'name'" class="item-text-wrap" type="item-text-wrap"
+        ng-click="$ctrl.toggleInfo(player)"
+        ng-class="{'yours': $ctrl.canChangeName(player)}">
         <h2><i class="icon ion-person"></i> {{ player.name }}</h2>
         <span class="badge" ng-class="player.elo < 1500 ? 'badge-assertive' : 'badge-balanced'">{{ player.elo }}</span>
         <span ng-if="$ctrl.showPlayerInfo == player._id">Joined {{ player.joinDate | calendar }}</span>
-        <ion-option-button ng-if="$ctrl.hasClaimed()" class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
+        <ion-option-button ng-if="$ctrl.canChangeName(player)" class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
           Change name
         </ion-option-button>
         <ion-option-button ng-if="$ctrl.canClaim(player)" class="button-stable" ng-click="$ctrl.claimPlayer(player)">

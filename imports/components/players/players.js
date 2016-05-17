@@ -54,16 +54,19 @@ class PlayersCtrl {
     }
   }
 
-  canClaim(player) {
-    if (this.hasClaimed()) return false; //the user already has a claimed player
-
+  isClaimed(player) {
     const unclaimedPlayers = Players.find({
       belongsTo: { $exists: false}
     }).fetch();
 
     return unclaimedPlayers.some(function(p){
-      return p._id == player._id; // the player is already claimed
+      return p._id == player._id;
     });
+  }
+
+  canClaim(player) {
+    if (this.hasClaimed()) return false; // the current user already claimed a player
+    return this.isClaimed(player); // the player is already claimed
   }
 
   claimPlayer(player) {
@@ -80,6 +83,12 @@ class PlayersCtrl {
       this.showPlayerInfo = 0;
     } else {
       this.showPlayerInfo = player._id;
+    }
+  }
+
+  canChangeName(player) {
+    if (Meteor.user()) {
+      return player.belongsTo == Meteor.user()._id
     }
   }
 
