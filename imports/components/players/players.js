@@ -17,7 +17,7 @@ class PlayersCtrl {
 
     this.showPlayerInfo = 0;
 
-    this.currentUser = function () {
+    this.currentUser = function () { // todo: ??
       return usersService.currentUser();
     }
 
@@ -42,6 +42,39 @@ class PlayersCtrl {
 
   }
 
+  hasClaimed() {
+    if (Meteor.user()) {
+      const claimedPlayers = Players.find({
+        belongsTo: { $exists: true}
+      }).fetch();
+
+      return claimedPlayers.some(function(p){
+        return p.belongsTo == Meteor.user()._id;
+      });
+    }
+  }
+
+  canClaim(player) {
+    if (this.hasClaimed()) return false; //the user already has a claimed player
+
+    const unclaimedPlayers = Players.find({
+      belongsTo: { $exists: false}
+    }).fetch();
+
+    return unclaimedPlayers.some(function(p){
+      return p._id == player._id; // the player is already claimed
+    });
+  }
+
+  claimPlayer(player) {
+    // debugger;
+    Players.update( player._id, {
+      $set: {
+        belongsTo: Meteor.user()._id
+      }
+    });
+  }
+
   toggleInfo(player) {
     if (this.showPlayerInfo == player._id) {
       this.showPlayerInfo = 0;
@@ -64,6 +97,7 @@ class PlayersCtrl {
     this.modal.hide();
     this.$ionicListDelegate.closeOptionButtons();
   }
+
   closeModal() {
     this.modal.hide();
     this.$ionicListDelegate.closeOptionButtons();
