@@ -18,7 +18,10 @@
         ng-class="{'yours': $ctrl.canChangeName(player)}">
         <h2><i class="icon ion-person"></i> {{ player.name }}</h2>
         <span class="badge" ng-class="player.elo < 1500 ? 'badge-assertive' : 'badge-balanced'">{{ player.elo }}</span>
-        <span ng-if="$ctrl.showPlayerInfo == player._id">Joined {{ player.joinDate | calendar }}</span>
+        <span ng-if="$ctrl.showPlayerInfo == player._id">
+          Joined {{ player.joinDate | calendar }}<br>
+          <span ng-if="$ctrl.isClaimed(player)">{{ $ctrl.claimedBy(player) }}</span>
+        </span>
         <ion-option-button ng-if="$ctrl.canChangeName(player)" class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
           Change name
         </ion-option-button>

@@ -64,6 +64,10 @@ class PlayersCtrl {
     });
   }
 
+  claimedBy(player) {
+    return Meteor.users.find({ _id: player.belongsTo });
+  }
+
   canClaim(player) {
     if (this.hasClaimed()) return false; // the current user already claimed a player
     return this.isClaimed(player); // the player is already claimed

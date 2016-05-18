@@ -27,8 +27,8 @@
       <button class="button button-block" ng-click="$ctrl.doLogoutAction()">Log out</button>
     </ion-item>
     <ion-list type="list-inset">
-      <ion-item ng-if="$ctrl.isAdmin()" ng-repeat="user in $ctrl.users" class="item-text-wrap item-avatar item-icon-right" type="item-text-wrap">
-        <img ng-src="/img/ionic.png" ng-if="user.profile.role == 'admin'">
+      <ion-item ng-if="$ctrl.isAdmin()" ng-repeat="user in $ctrl.users" class="item-text-wrap item-icon-left" type="item-text-wrap">
+        <i ng-if="user.profile.role == 'admin'" class="icon ion-alert"></i>
         {{ user.username }}<br>
         <ion-option-button class="button-stable" ng-click="$ctrl.toggleAdmin(user)" ng-if="user.username != 'admin'">
           Toggle admin
