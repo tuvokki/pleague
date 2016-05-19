@@ -56,7 +56,7 @@ class PlayersCtrl {
 
   isClaimed(player) {
     const unclaimedPlayers = Players.find({
-      belongsTo: { $exists: false}
+      belongsTo: { $exists: true}
     }).fetch();
 
     return unclaimedPlayers.some(function(p){
@@ -65,9 +65,7 @@ class PlayersCtrl {
   }
 
   claimedBy(player) {
-    let lala = Meteor.users.find({ _id: player.belongsTo });
-    console.log(lala);
-    return lala;
+    return Meteor.users.findOne({ _id: player.belongsTo }).profile.firstname;
   }
 
   canClaim(player) {
