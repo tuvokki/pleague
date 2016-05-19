@@ -69,11 +69,10 @@ class SettingsCtrl {
 
     confirmPopup.then((res) => {
       if (res) {
-        let adminProfile = user.profile;
-        adminProfile.role = 'admin';
-        Meteor.users.update({ _id: user._id },
-        {
-          $set: { profile: adminProfile }
+        Meteor.call('makeAdmin', user._id, (error) => {
+            if (error) {
+              console.log(error);
+            }
         });
       } else {
         return;
@@ -90,11 +89,10 @@ class SettingsCtrl {
 
     confirmPopup.then((res) => {
       if (res) {
-        let userProfile = user.profile;
-        delete userProfile.role;
-        Meteor.users.update({ _id: user._id },
-        {
-          $set: { profile: userProfile }
+        Meteor.call('revokeAdmin', user._id, (error) => {
+            if (error) {
+              console.log(error);
+            }
         });
       } else {
         return;
@@ -116,7 +114,7 @@ class SettingsCtrl {
         // :(
         return that.handleError(error);
       }
-      that.$state.go('tab.settings');
+      that.$state.go('tab.players'); // this doen't seem to do anything
     });
   }
 
