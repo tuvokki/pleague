@@ -35,6 +35,7 @@ class NewUserCtrl {
   newUser() {
     let that = this;
     try {
+      // TODO: this is insecure, should be moved to serverside call:http://guide.meteor.com/accounts.html
       Accounts.createUser({
         username: this.credentials.username,
         email: this.credentials.email,

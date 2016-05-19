@@ -45,7 +45,11 @@ class SettingsCtrl {
 
     confirmPopup.then((res) => {
       if (res) {
-        Meteor.users.remove({ _id: user._id });
+        Meteor.call('removeUser', user._id, (error) => {
+            if (error) {
+              console.log(error);
+            }
+        });
       } else {
         return;
       }
