@@ -18,6 +18,7 @@ class GameInProgressCtrl {
     console.log('in gameInProgress controller');
 
     this.enabled = true;
+    this.showControls = this.controls ? true : false;
 
     this.helpers({
       players: () => {

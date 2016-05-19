@@ -65,7 +65,9 @@ class PlayersCtrl {
   }
 
   claimedBy(player) {
-    return Meteor.users.find({ _id: player.belongsTo });
+    let lala = Meteor.users.find({ _id: player.belongsTo });
+    console.log(lala);
+    return lala;
   }
 
   canClaim(player) {
@@ -74,12 +76,12 @@ class PlayersCtrl {
   }
 
   claimPlayer(player) {
-    // debugger;
     Players.update( player._id, {
       $set: {
         belongsTo: Meteor.user()._id
       }
     });
+    this.$ionicListDelegate.closeOptionButtons();
   }
 
   toggleInfo(player) {

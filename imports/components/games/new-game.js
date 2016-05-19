@@ -6,9 +6,10 @@ import { Teams } from '/imports/api/teams.js';
 import template from '/imports/components/games/new-game.html';
 
 class NewGameCtrl {
-  constructor($scope, $state, $ionicPopup, $ionicHistory) {
+  constructor($scope, $state, $stateParams, $ionicPopup, $ionicHistory) {
     $scope.viewModel(this);
     this.$state = $state;
+    this.$stateParams = $stateParams;
     this.$ionicPopup = $ionicPopup;
     this.$ionicHistory = $ionicHistory;
 
@@ -67,7 +68,11 @@ class NewGameCtrl {
   }
 
   goBack() {
-    this.$state.go('tab.games');
+    if (this.$stateParams.returnTab) {
+      this.$state.go(this.$stateParams.returnTab);
+    } else {
+      this.$state.go('tab.games');
+    }
   }
 
   newGame() {
@@ -106,7 +111,8 @@ class NewGameCtrl {
             console.log('Thank you for not eating my delicious ice cream cone');
           });
         } else {
-          this.$state.go('tab.games');
+          delete this.$stateParams.returnTab;
+          this.goBack();
         }
       });
     } catch (e) {
@@ -132,12 +138,12 @@ export default angular.module('newgame', [
 ])
   .component('newgame', {
     templateUrl: 'imports/components/games/new-game.html',
-    controller: ['$scope', '$state', '$ionicPopup', '$ionicHistory', NewGameCtrl],
+    controller: ['$scope', '$state', '$stateParams', '$ionicPopup', '$ionicHistory', NewGameCtrl],
     controllerAs: 'newgame'
   })
   .config(($stateProvider) => {
     $stateProvider.state('tab.newgame', {
-      url: '/games/new',
+      url: '/games/new/?returnTab',
       views: {
         'tab-games': {
           template: '<newgame></newgame>'
