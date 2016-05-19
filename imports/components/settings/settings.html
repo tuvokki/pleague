@@ -24,6 +24,7 @@
 
     <ion-item class="card padding" ng-show="$ctrl.currentUser()">
       You are logged in as {{ $ctrl.fullname() }}.
+      <span ng-if="$ctrl.claimedPlayer">You have claimed {{ $ctrl.claimedPlayer }}.</span>
       <button class="button button-block" ng-click="$ctrl.doLogoutAction()">Log out</button>
     </ion-item>
     <ion-list type="list-inset">
