@@ -30,7 +30,7 @@ class DashboardCtrl {
   }
 
   showNewGameModal() {
-    this.$state.go('tab.newgame', {returnTab: 'tab.dashboard'});
+    this.$state.go('tab.newgame');
   }
 }
 

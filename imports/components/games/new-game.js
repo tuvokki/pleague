@@ -143,7 +143,7 @@ export default angular.module('newgame', [
   })
   .config(($stateProvider) => {
     $stateProvider.state('tab.newgame', {
-      url: '/games/new/?returnTab',
+      url: '/games/new',
       views: {
         'tab-games': {
           template: '<newgame></newgame>'
