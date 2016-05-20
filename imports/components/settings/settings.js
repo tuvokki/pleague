@@ -5,34 +5,120 @@ import { Players } from '../../api/players.js';
 import template from './settings.html';
 
 class SettingsCtrl {
-  constructor($scope, $ionicPopup, $state, $log) {
+  constructor($scope, $ionicPopup, $state, $log, $ionicListDelegate, usersService) {
     $scope.viewModel(this);
-    this.$ionicPopup = $ionicPopup; 
+    this.$ionicPopup = $ionicPopup;
     this.$state = $state;
-    this.$log = $log; 
-    
+    this.$log = $log;
+    this.$ionicListDelegate = $ionicListDelegate;
+    this.usersService = usersService;
+
     console.log('in settings controller');
 
-    this.currentUser = function () {
-      if (Meteor.user() == null) {
-        return true;
+    this.fullname = () => {
+      if(Meteor.user())
+      {
+        return Meteor.user().profile.firstname + ' ' + Meteor.user().profile.lastname;
       }
-      return false;
+    }
+
+    this.currentUser = () => {
+      return usersService.currentUser();
+    }
+
+    this.isAdmin = () => {
+      return usersService.isAdmin();
     }
 
     this.helpers({
+      users() {
+        return Meteor.users.find()
+      }
+    });
+  }
+
+  remove(user) {
+    let confirmPopup = this.$ionicPopup.confirm({
+      title: 'Remove ' + user.username,
+      template: 'Remove <b>' + user.username + '</b>?'
     });
 
+    confirmPopup.then((res) => {
+      if (res) {
+        Meteor.call('removeUser', user._id, (error) => {
+            if (error) {
+              console.log(error);
+            }
+        });
+      } else {
+        return;
+      }
+      this.$ionicListDelegate.closeOptionButtons();
+    });
+  }
+
+  toggleAdmin(user) {
+    if (user.profile.role == 'admin') {
+      this.revokeAdmin(user);
+    } else {
+      this.makeAdmin(user);
+    }
+  }
+
+  makeAdmin(user) {
+    let confirmPopup = this.$ionicPopup.confirm({
+      title: 'Make ' + user.username + ' admin?',
+      template: 'Do you really want to invest all that power to <b>' + user.username + '</b>? It will surely give some trouble.'
+    });
+
+    confirmPopup.then((res) => {
+      if (res) {
+        Meteor.call('makeAdmin', user._id, (error) => {
+            if (error) {
+              console.log(error);
+            }
+        });
+      } else {
+        return;
+      }
+      this.$ionicListDelegate.closeOptionButtons();
+    });
+  }
+
+  revokeAdmin(user) {
+    let confirmPopup = this.$ionicPopup.confirm({
+      title: 'Revoke admin powers from ' + user.username + '?',
+      template: 'Do you really want to kick <b>' + user.username + '</b> back to the realms of ordinary users? A wise descision.'
+    });
+
+    confirmPopup.then((res) => {
+      if (res) {
+        Meteor.call('revokeAdmin', user._id, (error) => {
+            if (error) {
+              console.log(error);
+            }
+        });
+      } else {
+        return;
+      }
+      this.$ionicListDelegate.closeOptionButtons();
+    });
   }
 
   doLoginAction() {
     let that = this;
+    if (!this.credentials.username) {
+      return this.handleError({ reason: 'No username supplied', template: 'You need a username, or create an account.' });
+    }
+    if (!this.credentials.password) {
+      return this.handleError({ reason: 'No password supplied', template: 'You need a password, or create an account.' });
+    }
     Meteor.loginWithPassword(this.credentials.username, this.credentials.password, (error) => {
       if (error) {
         // :(
         return that.handleError(error);
       }
-      that.$state.go('tab.players');
+      that.$state.go('tab.players'); // this doen't seem to do anything
     });
   }
 
@@ -49,7 +135,7 @@ class SettingsCtrl {
 
     this.$ionicPopup.alert({
       title: err.reason || 'Login failed',
-      template: 'Please try again or create an account',
+      template: err.template || 'Please try again or create an account',
       okType: 'button-positive button-clear'
     });
   }
@@ -61,8 +147,7 @@ export default angular.module('settings', [
 ])
   .component('settings', {
     templateUrl: 'imports/components/settings/settings.html',
-    controller: ['$scope', '$ionicPopup', '$state', '$log', SettingsCtrl],
-    controllerAs: 'settings'
+    controller: ['$scope', '$ionicPopup', '$state', '$log', '$ionicListDelegate', 'usersService', SettingsCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.settings', {

@@ -5,6 +5,7 @@ import { Teams } from '/imports/api/teams.js';
 
 import tabTemplate from './teams.html';
 import listTemplate from './teamsList.html';
+import detailTemplate from './teamDetail.html';
 
 class TeamsCtrl {
   constructor($scope) {
@@ -32,6 +33,14 @@ export default angular.module('teams', [
     controller: ['$scope', TeamsCtrl],
     bindings: {
       max: '<'
+    }
+  })
+  .component('teamDetail', {
+    templateUrl: 'imports/components/teams/teamDetail.html',
+    controller: ['$scope', TeamsCtrl],
+    bindings: {
+      team: '<',
+      rank: '<'
     }
   })
   .config(($stateProvider) => {

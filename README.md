@@ -27,8 +27,6 @@ This creates a bunch of outputs which end with:
 
 You have just started a local mongoDB and the meteor server. Open a browser on http://localhost:3000/ and see (a totally empty) application.
 
-Last step is to create a user in the `settings` tab called `admin` with a password of your choice. A user with this name is hardcoded as admin user 
+On first boot a user called `admin` with a password of `secret` is created for you.
 
-![image](https://cloud.githubusercontent.com/assets/181719/14711614/518a01ae-07da-11e6-8226-6e2e98c10581.png)
-
-(todo: [create an issue](https://github.com/tuvokki/pleague/issues/new) for this...)
+(todo: [create an issue](https://github.com/tuvokki/pleague/issues/new) to not hardcode the password...)

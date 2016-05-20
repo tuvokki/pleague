@@ -6,18 +6,27 @@ import template from './players.html';
 import templateForm from './player-name-form.html';
 
 class PlayersCtrl {
-  constructor($scope, $ionicPopup, $ionicModal, $ionicListDelegate) {
+  constructor($scope, $ionicPopup, $ionicModal, $ionicListDelegate, usersService) {
     $scope.viewModel(this);
     this.$ionicPopup = $ionicPopup;
     this.$ionicListDelegate = $ionicListDelegate;
     this.$ionicModal = $ionicModal;
+    this.usersService = usersService;
 
     console.log('in players controller');
 
     this.showPlayerInfo = 0;
 
+    this.currentUser = function () { // todo: ??
+      return usersService.currentUser();
+    }
+
+    this.isAdmin = function () {
+      return usersService.isAdmin();
+    }
+
     this.helpers({
-      data() {
+      players() {
         return Players.find();
       }
     });
@@ -33,11 +42,57 @@ class PlayersCtrl {
 
   }
 
+  hasClaimed() {
+    if (Meteor.user()) {
+      const claimedPlayers = Players.find({
+        belongsTo: { $exists: true}
+      }).fetch();
+
+      return claimedPlayers.some(function(p){
+        return p.belongsTo == Meteor.user()._id;
+      });
+    }
+  }
+
+  isClaimed(player) {
+    const unclaimedPlayers = Players.find({
+      belongsTo: { $exists: true}
+    }).fetch();
+
+    return unclaimedPlayers.some(function(p){
+      return p._id == player._id;
+    });
+  }
+
+  claimedBy(player) {
+    return Meteor.users.findOne({ _id: player.belongsTo }).profile.firstname;
+  }
+
+  canClaim(player) {
+    if (this.hasClaimed()) return false; // the current user already claimed a player
+    return this.isClaimed(player); // the player is already claimed
+  }
+
+  claimPlayer(player) {
+    Players.update( player._id, {
+      $set: {
+        belongsTo: Meteor.user()._id
+      }
+    });
+    this.$ionicListDelegate.closeOptionButtons();
+  }
+
   toggleInfo(player) {
     if (this.showPlayerInfo == player._id) {
       this.showPlayerInfo = 0;
     } else {
       this.showPlayerInfo = player._id;
+    }
+  }
+
+  canChangeName(player) {
+    if (Meteor.user()) {
+      return player.belongsTo == Meteor.user()._id
     }
   }
 
@@ -51,10 +106,11 @@ class PlayersCtrl {
     {
       $set: { name: this.changePlayer.name }
     });
-    
+
     this.modal.hide();
     this.$ionicListDelegate.closeOptionButtons();
   }
+
   closeModal() {
     this.modal.hide();
     this.$ionicListDelegate.closeOptionButtons();
@@ -86,7 +142,7 @@ export default angular.module('players', [
 ])
   .component('players', {
     templateUrl: 'imports/components/players/players.html',
-    controller: ['$scope', '$ionicPopup',  '$ionicModal', '$ionicListDelegate', PlayersCtrl]
+    controller: ['$scope', '$ionicPopup',  '$ionicModal', '$ionicListDelegate', 'usersService', PlayersCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.players', {

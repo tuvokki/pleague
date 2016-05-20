@@ -6,8 +6,9 @@ import { Games } from '../../api/games.js';
 import template from './dashBoard.html';
 
 class DashboardCtrl {
-  constructor($scope) {
+  constructor($scope, $state) {
     $scope.viewModel(this);
+    this.$state = $state;
 
     console.log('in dashBoard controller');
 
@@ -19,8 +20,17 @@ class DashboardCtrl {
         return Games.findOne(
           { endDate: { $exists: false } }
         );
+      },
+      lastGame() {
+        return Games.findOne(
+          { endDate: { $exists: true } }, { limit: 1 , sort: { startDate: -1} }
+        );
       }
     });
+  }
+
+  showNewGameModal() {
+    this.$state.go('tab.newgame');
   }
 }
 
@@ -29,7 +39,7 @@ export default angular.module('dashBoard', [
 ])
   .component('dashBoard', {
     templateUrl: 'imports/components/dashBoard/dashBoard.html',
-    controller: ['$scope', DashboardCtrl]
+    controller: ['$scope', '$state', DashboardCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.dashboard', {

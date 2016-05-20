@@ -16,12 +16,14 @@ import newteam from '/imports/components/teams/new-team';
 import games from '/imports/components/games/games';
 import newgame from '/imports/components/games/new-game';
 import gameinprogress from '/imports/components/games/game-in-progress'
+import gamedetail from '/imports/components/games/game-detail'
 import settings from '/imports/components/settings/settings';
 import newuser from '/imports/components/settings/new-user';
 import todosList from '/imports/components/todosList/todosList';
 
 // Services
-import services from '/imports/services/game-score.service';
+import gameservice from '/imports/services/game-score.service';
+import userservice from '/imports/services/users.service';
 
 // Filters
 import filters from '/imports/filters/filters';
@@ -42,9 +44,11 @@ const App = angular.module('PLeague', [
   'games',
   'newgame',
   'gameinprogress',
+  'gamedetail',
   'settings',
   'newuser',
-  'services',
+  'gameservice',
+  'userservice',
   'filters',
   'directives',
   'todosList'

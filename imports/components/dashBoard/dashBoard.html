@@ -13,7 +13,11 @@
         <leader-board-list></leader-board-list>
       </div>
       <div class="col">
-        <game-in-progress ng-show="$ctrl.inprogress" game="$ctrl.inprogress"></game-in-progress>
+        <game-in-progress ng-show="$ctrl.inprogress" game="$ctrl.inprogress" controls="false"></game-in-progress>
+        <ion-list type="list-inset">
+          <h3>Latest game</h3>
+          <game-detail ng-show="!$ctrl.inprogress" game="$ctrl.lastGame"></game-detail>
+        </ion-list>
         <teams-list max="5"></teams-list>
       </div>
     </div>
