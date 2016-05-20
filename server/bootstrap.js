@@ -23,3 +23,4 @@ if (!admin) {
     console.log(e);
   }
 }
+console.log("Environment: " + process.env.NODE_ENV);
