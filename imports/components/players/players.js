@@ -17,10 +17,6 @@ class PlayersCtrl {
 
     this.showPlayerInfo = 0;
 
-    this.currentUser = function () { // todo: ??
-      return usersService.currentUser();
-    }
-
     this.isAdmin = function () {
       return usersService.isAdmin();
     }
@@ -43,13 +39,13 @@ class PlayersCtrl {
   }
 
   hasClaimed() {
-    if (Meteor.user()) {
+    if (Meteor.userId()) {
       const claimedPlayers = Players.find({
         belongsTo: { $exists: true}
       }).fetch();
 
       return claimedPlayers.some(function(p){
-        return p.belongsTo == Meteor.user()._id;
+        return p.belongsTo == Meteor.userId();
       });
     }
   }
@@ -70,7 +66,7 @@ class PlayersCtrl {
 
   canClaim(player) {
     if (this.hasClaimed()) return false; // the current user already claimed a player
-    return this.isClaimed(player); // the player is already claimed
+    return !this.isClaimed(player); // the player is already claimed
   }
 
   claimPlayer(player) {
