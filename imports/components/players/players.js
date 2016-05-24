@@ -47,6 +47,8 @@ class PlayersCtrl {
       return claimedPlayers.some(function(p){
         return p.belongsTo == Meteor.userId();
       });
+    } else {
+      return false;
     }
   }
 
@@ -64,9 +66,8 @@ class PlayersCtrl {
     return Meteor.users.findOne({ _id: player.belongsTo }).profile.firstname;
   }
 
-  canClaim(player) {
-    if (this.hasClaimed()) return false; // the current user already claimed a player
-    return !this.isClaimed(player); // the player is already claimed
+  canClaim() {
+    return Meteor.userId() != null;
   }
 
   claimPlayer(player) {
@@ -86,9 +87,11 @@ class PlayersCtrl {
     }
   }
 
-  canChangeName(player) {
-    if (Meteor.user()) {
-      return player.belongsTo == Meteor.user()._id
+  isMine(player) {
+    if (Meteor.userId()) {
+      return player.belongsTo == Meteor.userId();
+    } else {
+      return false;
     }
   }
 

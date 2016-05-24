@@ -15,17 +15,19 @@
     <ion-list type="list-inset">
       <ion-item ng-repeat="player in $ctrl.players | orderBy:'name'" class="item-text-wrap" type="item-text-wrap"
         ng-click="$ctrl.toggleInfo(player)"
-        ng-class="{'yours': $ctrl.canChangeName(player)}">
+        ng-class="{'yours': $ctrl.isMine(player)}">
         <h2><i class="icon" ng-class="$ctrl.isClaimed(player) ? 'ion-person-stalker': 'ion-person'"></i> {{ player.name }}</h2>
+        isMine: {{$ctrl.isMine(player)}}<br>
+        isClaimed: {{$ctrl.isClaimed(player)}}<br>
         <span class="badge" ng-class="player.elo < 1500 ? 'badge-assertive' : 'badge-balanced'">{{ player.elo }}</span>
         <span ng-if="$ctrl.showPlayerInfo == player._id">
           Joined {{ player.joinDate | calendar }}<br>
           <span ng-if="$ctrl.isClaimed(player)">Claimed by: {{ $ctrl.claimedBy(player) }}</span>
         </span>
-        <ion-option-button ng-if="$ctrl.canChangeName(player)" class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
+        <ion-option-button ng-if="$ctrl.isMine(player)" class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
           Change name
         </ion-option-button>
-        <ion-option-button ng-if="$ctrl.canClaim(player)" class="button-stable" ng-click="$ctrl.claimPlayer(player)">
+        <ion-option-button ng-if="$ctrl.canClaim() && !$ctrl.isClaimed(player) && !$ctrl.isMine(player) && !$ctrl.hasClaimed()" class="button-stable" ng-click="$ctrl.claimPlayer(player)">
           Claim player
         </ion-option-button>
         <ion-option-button ng-if="$ctrl.isAdmin()" class="button-assertive" ng-click="$ctrl.eloPenalty(player)">
