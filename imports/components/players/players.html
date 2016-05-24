@@ -17,8 +17,6 @@
         ng-click="$ctrl.toggleInfo(player)"
         ng-class="{'yours': $ctrl.isMine(player)}">
         <h2><i class="icon" ng-class="$ctrl.isClaimed(player) ? 'ion-person-stalker': 'ion-person'"></i> {{ player.name }}</h2>
-        isMine: {{$ctrl.isMine(player)}}<br>
-        isClaimed: {{$ctrl.isClaimed(player)}}<br>
         <span class="badge" ng-class="player.elo < 1500 ? 'badge-assertive' : 'badge-balanced'">{{ player.elo }}</span>
         <span ng-if="$ctrl.showPlayerInfo == player._id">
           Joined {{ player.joinDate | calendar }}<br>
