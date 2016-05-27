@@ -119,22 +119,18 @@ class PlayersCtrl {
        titleText: 'Really take ' + player.name + ' out of competition?',
        cancelText: 'Cancel',
        cancel: function() {
-          // add cancel code if needed ..
+         that.$ionicListDelegate.closeOptionButtons();
        },
        buttonClicked: function(index) {
          if(index == 0){
            that.retire(that.changePlayer);
            return true;
          }
+         that.$ionicListDelegate.closeOptionButtons();
          return true;
        }
      });
   };
-
-  // retireModal(player) {
-  //   this.changePlayer = player;
-  //   this.retiremodal.show();
-  // }
 
   submitName() {
     Players.update({ _id: this.changePlayer._id },
