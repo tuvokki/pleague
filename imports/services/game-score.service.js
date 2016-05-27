@@ -9,6 +9,48 @@ class GameScoreService {
     this.maxEloMovement = 75;
   }
 
+  revertScored(teamId, player, inprogress) {
+    // Team red
+    if (inprogress.teamRed._id == teamId) {
+      if (inprogress.teamRed.attacker._id == player) {
+        if (inprogress.teamRed.attacker.goals > 0) {
+          inprogress.teamRed.attacker.goals--;
+          Games.update(inprogress._id, {
+            $inc: { teamRedScore: -1 },
+            $set: { teamRed: inprogress.teamRed }
+          });
+        }
+      } else {
+        if (inprogress.teamRed.defender.goals > 0) {
+          inprogress.teamRed.defender.goals--;
+          Games.update(inprogress._id, {
+            $inc: { teamRedScore: -1 },
+            $set: { teamRed: inprogress.teamRed }
+          });
+        }
+      }
+    }
+
+    // Team blue
+    if (inprogress.teamBlue.attacker._id == player) {
+      if (inprogress.teamBlue.attacker.goals > 0) {
+        inprogress.teamBlue.attacker.goals--;
+        Games.update(inprogress._id, {
+          $inc: { teamBlueScore: -1 },
+          $set: { teamBlue: inprogress.teamBlue }
+        });
+      }
+    } else {
+      if (inprogress.teamBlue.defender.goals > 0) {
+        inprogress.teamBlue.defender.goals--;
+        Games.update(inprogress._id, {
+          $inc: { teamBlueScore: -1 },
+          $set: { teamBlue: inprogress.teamBlue }
+       });
+      }
+    }
+  }
+
   scored(teamId, player, inprogress) {
     if (inprogress.teamRed._id == teamId) // red scored
     {
@@ -25,6 +67,7 @@ class GameScoreService {
           $set: { teamRed: inprogress.teamRed }
         });
       }
+      // TODO this is F###ing unreadable. Use (++inprogress.teamRedScore === 7)
       if (inprogress.teamRedScore++ > 5) {
         var eloChange = this.updateELO(inprogress.teamRed._id, inprogress.teamBlue._id);
         Games.update(inprogress._id, {
@@ -51,6 +94,7 @@ class GameScoreService {
           $set: { teamBlue: inprogress.teamBlue }
         });
       }
+      // TODO this is F###ing unreadable. Use (++inprogress.teamBlueScore === 7)
       if (inprogress.teamBlueScore++ > 5) {
 
         var eloChange = this.updateELO(inprogress.teamBlue._id, inprogress.teamRed._id);
