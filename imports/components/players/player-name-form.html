@@ -1,13 +1,16 @@
 <ion-modal-view>
   <ion-header-bar>
-    <h1 class="title">Rename {{ $ctrl.changePlayer.name }}</h1>
+    <h1 class="title">Rename to {{ $ctrl.changePlayer.name }}</h1>
   </ion-header-bar>
   <ion-content>
+      <div ng-if="$ctrl.changePlayer.name.length > 26" class="item item-assertive item-text-wrap">
+        A name can not be longer than 26 characters.
+      </div>
     <div class="item item-input-inset">
       <label class="item-input-wrapper">
         <input type="text" placeholder="Name" ng-model="$ctrl.changePlayer.name">
       </label>
-      <button class="button button-small" ng-click="$ctrl.submitName()">
+      <button ng-disabled="$ctrl.changePlayer.name.length > 26" class="button button-small" ng-click="$ctrl.submitName()">
         Submit
       </button>
       <button class="button button-small" ng-click="$ctrl.closeModal()">

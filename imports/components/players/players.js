@@ -4,7 +4,6 @@ import { Players } from '/imports/api/players.js';
 
 import template from './players.html';
 import templateForm from './player-name-form.html';
-import templateRetireForm from './player-retire-form.html';
 
 class PlayersCtrl {
   constructor($scope, $ionicModal, $ionicListDelegate, $ionicActionSheet, usersService) {
@@ -125,9 +124,9 @@ class PlayersCtrl {
   };
 
   submitName() {
-    if (this.changePlayer.name.length > 80) {
+    if (this.changePlayer.name.length > 26) {
       throw new Meteor.Error('player-name-too-long',
-            'A player\'s name cannot be longer than 80 characters');
+            'A player\'s name cannot be longer than 26 characters');
     }
     Players.update({ _id: this.changePlayer._id },
     {
