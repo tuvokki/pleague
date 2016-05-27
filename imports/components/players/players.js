@@ -7,11 +7,11 @@ import templateForm from './player-name-form.html';
 import templateRetireForm from './player-retire-form.html';
 
 class PlayersCtrl {
-  constructor($scope, $ionicPopup, $ionicModal, $ionicListDelegate, usersService) {
+  constructor($scope, $ionicModal, $ionicListDelegate, $ionicActionSheet, usersService) {
     $scope.viewModel(this);
-    this.$ionicPopup = $ionicPopup;
-    this.$ionicListDelegate = $ionicListDelegate;
     this.$ionicModal = $ionicModal;
+    this.$ionicListDelegate = $ionicListDelegate;
+    this.$ionicActionSheet = $ionicActionSheet;
     this.usersService = usersService;
 
     console.log('in players controller');
@@ -109,10 +109,32 @@ class PlayersCtrl {
     this.modal.show();
   }
 
-  retireModal(player) {
+  retireModal(player){
+    let that = this;
     this.changePlayer = player;
-    this.retiremodal.show();
-  }
+    this.$ionicActionSheet.show({
+       buttons: [
+         { text: '<b>Retire player</b>' }
+       ],
+       titleText: 'Really take ' + player.name + ' out of competition?',
+       cancelText: 'Cancel',
+       cancel: function() {
+          // add cancel code if needed ..
+       },
+       buttonClicked: function(index) {
+         if(index == 0){
+           that.retire(that.changePlayer);
+           return true;
+         }
+         return true;
+       }
+     });
+  };
+
+  // retireModal(player) {
+  //   this.changePlayer = player;
+  //   this.retiremodal.show();
+  // }
 
   submitName() {
     Players.update({ _id: this.changePlayer._id },
@@ -175,7 +197,7 @@ export default angular.module('players', [
 ])
   .component('players', {
     templateUrl: 'imports/components/players/players.html',
-    controller: ['$scope', '$ionicPopup',  '$ionicModal', '$ionicListDelegate', 'usersService', PlayersCtrl]
+    controller: ['$scope', '$ionicModal', '$ionicListDelegate', '$ionicActionSheet', 'usersService', PlayersCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.players', {
