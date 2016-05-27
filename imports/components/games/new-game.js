@@ -20,7 +20,7 @@ class NewGameCtrl {
 
     this.helpers({
       players: () => {
-        return Players.find({ _id: { $nin: this.getReactively('selectedPlayers') } }, { sort: { name: 1 } });
+        return Players.find({ _id: { $nin: this.getReactively('selectedPlayers') }, retired: { $exists: false } }, { sort: { name: 1 } });
       }
     });
   }
