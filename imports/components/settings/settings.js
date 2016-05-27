@@ -13,8 +13,6 @@ class SettingsCtrl {
     this.$ionicListDelegate = $ionicListDelegate;
     this.usersService = usersService;
 
-    console.log('in settings controller');
-
     this.fullname = () => {
       if(Meteor.user())
       {

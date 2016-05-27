@@ -11,7 +11,6 @@ class NewUserCtrl {
     this.$ionicPopup = $ionicPopup;
     this.$ionicHistory = $ionicHistory;
 
-    console.log('in new-user controller');
     this.credentials = {};
 
     this.helpers({

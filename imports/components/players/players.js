@@ -14,8 +14,6 @@ class PlayersCtrl {
     this.$ionicActionSheet = $ionicActionSheet;
     this.usersService = usersService;
 
-    console.log('in players controller');
-
     this.showPlayerInfo = 0;
 
     this.isAdmin = function () {
@@ -154,7 +152,7 @@ class PlayersCtrl {
     let now = moment(Date.now());
     let retireDate = moment(player.retireDate);
     let diffDays = now.diff(retireDate, 'days');
-    console.log(diffDays);
+
     if ( diffDays < 7 ) {
       this.$ionicActionSheet.show({
         buttons: [

@@ -9,8 +9,6 @@ class LeaderboardCtrl {
   constructor($scope) {
     $scope.viewModel(this);
 
-    console.log('in leaderBoard controller');
-
     this.helpers({
       playersList() {
         return Players.find({ retired: { $exists: false }});

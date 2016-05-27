@@ -16,8 +16,6 @@ class GameInProgressCtrl {
     this.$ionicHistory = $ionicHistory;
     this.gameScoreService = gameScoreService;
 
-    console.log('in gameInProgress controller');
-
     this.enabled = true;
     this.showControls = this.controls;
 
@@ -54,7 +52,6 @@ class GameInProgressCtrl {
   }
 
   scored(teamId, player) {
-    console.log(teamId, player);
     this.gameScoreService.scored(teamId, player, this.game);
   }
 

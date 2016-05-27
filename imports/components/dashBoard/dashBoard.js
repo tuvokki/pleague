@@ -10,8 +10,6 @@ class DashboardCtrl {
     $scope.viewModel(this);
     this.$state = $state;
 
-    console.log('in dashBoard controller');
-
     this.helpers({
       playersList() {
         return Players.find();
