@@ -37,14 +37,6 @@ class PlayersCtrl {
       that.modal = modal;
     });
 
-    this.$ionicModal.fromTemplateUrl('imports/components/players/player-retire-form.html', {
-      scope: $scope,
-      animation: 'slide-in-up',
-      focusFirstInput: true
-    }).then(function(retiremodal) {
-      that.retiremodal = retiremodal;
-    });
-
   }
 
   hasClaimed() {
@@ -133,6 +125,10 @@ class PlayersCtrl {
   };
 
   submitName() {
+    if (this.changePlayer.name.length > 80) {
+      throw new Meteor.Error('player-name-too-long',
+            'A player\'s name cannot be longer than 80 characters');
+    }
     Players.update({ _id: this.changePlayer._id },
     {
       $set: { name: this.changePlayer.name }
@@ -163,7 +159,6 @@ class PlayersCtrl {
 
   closeModal() {
     this.modal.hide();
-    this.retiremodal.hide();
     this.$ionicListDelegate.closeOptionButtons();
   }
 
