@@ -30,12 +30,22 @@ class GameInProgressCtrl {
 
   redWinElo() {
     if (this.game)
-      return this.gameScoreService.getTeamEloOnWin(this.game.teamRed._id, this.game.teamBlue._id);
+      return this.gameScoreService.getTeamEloOnWin(this.game.teamRed._id, this.game.teamBlue._id).win;
   }
 
   blueWinElo() {
     if (this.game)
-      return this.gameScoreService.getTeamEloOnWin(this.game.teamBlue._id, this.game.teamRed._id);
+      return this.gameScoreService.getTeamEloOnWin(this.game.teamBlue._id, this.game.teamRed._id).win;
+  }
+
+ redWinChance() {
+    if (this.game)
+      return this.gameScoreService.getTeamEloOnWin(this.game.teamRed._id, this.game.teamBlue._id).percent;
+  }
+
+  blueWinChance() {
+    if (this.game)
+      return this.gameScoreService.getTeamEloOnWin(this.game.teamBlue._id, this.game.teamRed._id).percent;
   }
 
   duration() {
