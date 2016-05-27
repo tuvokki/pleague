@@ -13,7 +13,7 @@ class LeaderboardCtrl {
 
     this.helpers({
       playersList() {
-        return Players.find();
+        return Players.find({ retired: { $exists: false }});
       }
     });
   }
