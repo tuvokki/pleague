@@ -61,7 +61,7 @@ class GameInProgressCtrl {
       this.reverting = playerId;
       // startup the actual reverting
       this.revertTimer = this.$timeout(() => {
-        this.revertOK = true;
+        this.revertOK = playerId;
       }, 2000);
 
     }, 1000);

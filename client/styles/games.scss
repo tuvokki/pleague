@@ -30,10 +30,20 @@
     &.revertok {
       background-color: #fff;
       border-color: currentColor;
-      color: #ef473a;
-      h3 {
-        color: #ef473a;
+
+      &.button-positive {
+        color: #387ef5;
+        h3 {
+          color: #387ef5;
+        }
       }
+      &.button-assertive {
+        color: #ef473a;
+        h3 {
+          color: #ef473a;
+        }
+      }
+
     }
   }
 }
