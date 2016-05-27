@@ -8,11 +8,6 @@
   <div class="item item-text-wrap">
         <div class="row">
           <div class="col">
-            <h2>Playing for: {{ $ctrl.winElo() }} ELO points</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
             <h1>{{ $ctrl.game.teamRedScore }}</h1>
           </div>
           <div class="col">
@@ -55,6 +50,20 @@
             <span ng-if="!$ctrl.controls">
               <h3>{{ $ctrl.game.teamBlue.attacker._id | player_name }} scored {{ $ctrl.game.teamBlue.attacker.goals }} goals</h3>
             </span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <h2>Playing for</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h2>+{{ $ctrl.redWinElo() }} points</h2>
+          </div>
+          <div class="col">
+            <h2>+{{ $ctrl.blueWinElo() }} points</h2>
           </div>
         </div>
 

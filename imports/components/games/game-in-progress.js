@@ -28,9 +28,14 @@ class GameInProgressCtrl {
     });
   }
 
-  winElo() {
+  redWinElo() {
     if (this.game)
       return this.gameScoreService.getTeamEloOnWin(this.game.teamRed._id, this.game.teamBlue._id);
+  }
+
+  blueWinElo() {
+    if (this.game)
+      return this.gameScoreService.getTeamEloOnWin(this.game.teamBlue._id, this.game.teamRed._id);
   }
 
   duration() {
