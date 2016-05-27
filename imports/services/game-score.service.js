@@ -68,7 +68,7 @@ class GameScoreService {
 
   updateELO(winTeamId, looseTeamId) {
 
-    let eloChange = this.getTeamEloOnWin(winTeamId, looseTeamId);
+    let eloChange = this.getTeamEloOnWin(winTeamId, looseTeamId).win;
     console.log('ELO changed by: ', eloChange);
     let winTeam = Teams.findOne({ _id: winTeamId });
     let looseTeam = Teams.findOne({ _id: looseTeamId });
@@ -127,7 +127,7 @@ class GameScoreService {
     let looseelo = (loosep1.elo + loosep2.elo) / 2;
 
     let eloChanged = this.calculateELORatingChange(winelo, looseelo, this.maxEloMovement);
-    return eloChanged.win;
+    return eloChanged;
   }
   /**
    * This method will calculate the change in a player's
