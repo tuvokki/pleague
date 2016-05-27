@@ -4,6 +4,7 @@ import { Players } from '/imports/api/players.js';
 
 import template from './players.html';
 import templateForm from './player-name-form.html';
+import templateRetireForm from './player-retire-form.html';
 
 class PlayersCtrl {
   constructor($scope, $ionicPopup, $ionicModal, $ionicListDelegate, usersService) {
@@ -34,6 +35,14 @@ class PlayersCtrl {
       focusFirstInput: true
     }).then(function(modal) {
       that.modal = modal;
+    });
+
+    this.$ionicModal.fromTemplateUrl('imports/components/players/player-retire-form.html', {
+      scope: $scope,
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    }).then(function(retiremodal) {
+      that.retiremodal = retiremodal;
     });
 
   }
@@ -100,6 +109,11 @@ class PlayersCtrl {
     this.modal.show();
   }
 
+  retireModal(player) {
+    this.changePlayer = player;
+    this.retiremodal.show();
+  }
+
   submitName() {
     Players.update({ _id: this.changePlayer._id },
     {
@@ -110,8 +124,28 @@ class PlayersCtrl {
     this.$ionicListDelegate.closeOptionButtons();
   }
 
+  retire() {
+    Players.update({ _id: this.changePlayer._id },
+    {
+      $set: { retired: true, retireDate: new Date() }
+    });
+
+    this.retiremodal.hide();
+    this.$ionicListDelegate.closeOptionButtons();
+  }
+
+  activate(player) {
+    Players.update({ _id: player._id },
+    {
+      $unset: { retired: true, retireDate: new Date() }
+    });
+
+    this.$ionicListDelegate.closeOptionButtons();
+  }
+
   closeModal() {
     this.modal.hide();
+    this.retiremodal.hide();
     this.$ionicListDelegate.closeOptionButtons();
   }
 
