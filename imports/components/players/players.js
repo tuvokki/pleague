@@ -144,7 +144,6 @@ class PlayersCtrl {
       $set: { retired: true, retireDate: new Date() }
     });
 
-    this.retiremodal.hide();
     this.$ionicListDelegate.closeOptionButtons();
   }
 
