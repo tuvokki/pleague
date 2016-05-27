@@ -37,7 +37,7 @@
         <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && !player.retired" class="button-assertive" ng-click="$ctrl.retireModal(player)">
           Retire
         </ion-option-button>
-        <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && player.retired" class="button-assertive" ng-click="$ctrl.activate(player)">
+        <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && player.retired" class="button-assertive" ng-click="$ctrl.activateModal(player)">
           Activate
         </ion-option-button>
       </ion-item>

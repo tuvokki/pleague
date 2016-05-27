@@ -1,5 +1,6 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import moment from 'moment';
 import { Players } from '/imports/api/players.js';
 
 import template from './players.html';
@@ -144,6 +145,50 @@ class PlayersCtrl {
     });
 
     this.$ionicListDelegate.closeOptionButtons();
+  }
+
+  activateModal(player) {
+    let that = this;
+    this.changePlayer = player;
+
+    let now = moment(Date.now());
+    let retireDate = moment(player.retireDate);
+    let diffDays = now.diff(retireDate, 'days');
+    console.log(diffDays);
+    if ( diffDays < 7 ) {
+      this.$ionicActionSheet.show({
+        buttons: [
+        ],
+        titleText: 'Cannot activate ' + player.name + '. When a player is retired a mimimum of 7 days pause is required. ' + player.name + ' has only be suspended for ' + diffDays +' days.',
+        cancelText: 'Bummer',
+        cancel: function() {
+          that.$ionicListDelegate.closeOptionButtons();
+        },
+        buttonClicked: function(index) {
+          that.$ionicListDelegate.closeOptionButtons();
+          return true;
+        }
+      });
+    } else {
+      this.$ionicActionSheet.show({
+        buttons: [
+          { text: '<b>Activate player</b>' }
+        ],
+        titleText: 'Really add ' + player.name + ' to the arena again?',
+        cancelText: 'Cancel',
+        cancel: function() {
+          that.$ionicListDelegate.closeOptionButtons();
+        },
+        buttonClicked: function(index) {
+          if(index == 0){
+            that.activate(that.changePlayer);
+            return true;
+          }
+          that.$ionicListDelegate.closeOptionButtons();
+          return true;
+        }
+      });
+    }
   }
 
   activate(player) {
