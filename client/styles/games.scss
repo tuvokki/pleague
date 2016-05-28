@@ -23,4 +23,29 @@
     width: 100%;
     height: 8em;
   }
+
+  .button.reverting {
+    animation: shaking .1s infinite;
+
+    &.revertok {
+      background-color: #fff;
+      border-color: currentColor;
+      color: #ef473a;
+      h3 {
+        color: #ef473a;
+      }
+    }
+  }
+}
+
+@keyframes shaking {
+  0% {
+    transform: rotate(1deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
