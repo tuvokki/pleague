@@ -17,7 +17,7 @@
 
         <div class="row">
           <div class="col">
-            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)" ng-mousedown="$ctrl.prepareRevertGoal($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)" ng-mouseup="$ctrl.revertGoal($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id, $event)" ng-if="$ctrl.controls" ng-class="{reverting: $ctrl.reverting, revertok: $ctrl.revertOK}">
+            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamRed.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.defender.goals }})
             </button>
             <span ng-if="!$ctrl.controls">
