@@ -11,23 +11,28 @@ class GameScoreService {
     this.maxEloMovement = 75;
   }
 
-  scored(teamId, player, inprogress) {
-    if (inprogress.teamRed._id == teamId) // red scored
+  scored(game, color, position) {
+    console.log('game, color, position', game, color, position);
+  }
+  
+  scoredPPP(teamId, player, inprogress) {
+    console.log('teamId, player, inprogress', teamId, player, inprogress);
+    if (inprogress.teamRed._id == teamId)               // red scored
     {
-      if (inprogress.teamRed.attacker._id == player) {
+      if (inprogress.teamRed.attacker._id == player) {  //red attacker scored
         inprogress.teamRed.attacker.goals++;
         Games.update(inprogress._id, {
           $inc: { teamRedScore: 1 },
           $set: { teamRed: inprogress.teamRed }
         });
-      } else {
+      } else {                                          // red defender scored
         inprogress.teamRed.defender.goals++;
         Games.update(inprogress._id, {
           $inc: { teamRedScore: 1 },
           $set: { teamRed: inprogress.teamRed }
         });
       }
-      if (inprogress.teamRedScore++ > 5) {
+      if (inprogress.teamRedScore++ > 5) {              // red won
         var eloChange = this.updateELO(inprogress.teamRed._id, inprogress.teamBlue._id);
         Games.update(inprogress._id, {
           $set: {
@@ -39,21 +44,21 @@ class GameScoreService {
 
         console.log('red won!');
       }
-    } else {
-      if (inprogress.teamBlue.attacker._id == player) {
+    } else {                                            // blue scored
+      if (inprogress.teamBlue.attacker._id == player) { // blue attacker scored
         inprogress.teamBlue.attacker.goals++;
         Games.update(inprogress._id, {
           $inc: { teamBlueScore: 1 },
           $set: { teamBlue: inprogress.teamBlue }
         });
-      } else {
+      } else {                                          // blue defender scored
         inprogress.teamBlue.defender.goals++;
         Games.update(inprogress._id, {
           $inc: { teamBlueScore: 1 },
           $set: { teamBlue: inprogress.teamBlue }
         });
       }
-      if (inprogress.teamBlueScore++ > 5) {
+      if (inprogress.teamBlueScore++ > 5) {             // blue won
 
         var eloChange = this.updateELO(inprogress.teamBlue._id, inprogress.teamRed._id);
         Games.update(inprogress._id, {

@@ -17,7 +17,7 @@
 
         <div class="row">
           <div class="col">
-            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)" ng-if="$ctrl.controls">
+            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed.defender._id)" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamRed.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.defender.goals }})
             </button>
             <span ng-if="!$ctrl.controls">
@@ -25,7 +25,7 @@
             </span>
           </div>
           <div class="col">
-            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)" ng-if="$ctrl.controls">
+            <button class="button button-positive scorebutton" ng-click="$ctrl.blueDefenderScored()" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamBlue.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamBlue.defender.goals }})
             </button>
             <span ng-if="!$ctrl.controls">
@@ -36,7 +36,7 @@
 
         <div class="row">
           <div class="col">
-            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)" ng-if="$ctrl.controls">
+            <button class="button button-assertive scorebutton" ng-click="$ctrl.redAttackerScored()" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.attacker.goals }})
             </button>
             <span ng-if="!$ctrl.controls">
@@ -44,7 +44,7 @@
             </span>
           </div>
           <div class="col">
-            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)" ng-if="$ctrl.controls">
+            <button class="button button-positive scorebutton" ng-click="$ctrl.blueAttackerScored()" ng-if="$ctrl.controls">
               <h3>{{ $ctrl.game.teamBlue.attacker._id | player_name }}</h3>scored! ({{ $ctrl.game.teamBlue.attacker.goals }})
             </button>
             <span ng-if="!$ctrl.controls">

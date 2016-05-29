@@ -41,8 +41,39 @@ class GameInProgressCtrl {
       return this.$filter('duration')(this.game.startDate, Date.now());
   }
 
-  scored(teamId, player) {
-    this.gameScoreService.scored(teamId, player, this.game);
+  redDefenderScored() {
+    this.game.teamRed.defender.goals++;
+    Games.update(this.game._id, {
+      $inc: { teamRedScore: 1 },
+      $set: { teamRed: this.game.teamRed }
+    });
+    
+    this.gameScoreService.scored(this.game, 'Red', 'defender');
+  }
+
+  redAttackerScored() {
+    this.gameScoreService.scored(this.game, 'Red', 'attacker');
+  }
+
+  blueDefenderScored() {
+    this.gameScoreService.scored(this.game, 'Blue', 'defender');
+  }
+
+  blueAttackerScored() {
+    this.gameScoreService.scored(this.game, 'Blue', 'attacker');
+  }
+
+  scored(player) {
+    // this.gameScoreService.scored(teamId, player, this.game);
+    //find the key that belongs to the player and you know who he is ...
+    Object.prototype.getKey = function(value) {
+      var object = this;
+      for(var key in object){
+         if(object[key]==value) return key;
+      }
+    };
+    let found = Object.keys(this.game).or(o=>o[key] === player);
+    console.log(found);
   }
 
   trashGameInProgressModal() {
