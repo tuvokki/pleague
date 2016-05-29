@@ -30,7 +30,7 @@ class GameScoreService {
         Games.update(inprogress._id, {
           $set: {
             winner: inprogress.teamRed._id,
-            endDate: Date.now(),
+            endDate: new Date(),
             eloChange: eloChange
           }
         });
@@ -57,7 +57,7 @@ class GameScoreService {
         Games.update(inprogress._id, {
           $set: {
             winner: inprogress.teamBlue,
-            endDate: Date.now(),
+            endDate: new Date(),
             eloChange: eloChange
           }
         });
