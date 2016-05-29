@@ -7,13 +7,10 @@ import { Games } from '/imports/api/games.js';
 import template from '/imports/components/games/game-in-progress.html';
 
 class GameInProgressCtrl {
-  constructor($scope, $state, $filter, $interval, $ionicPopup, $ionicHistory, gameScoreService) {
+  constructor($scope, $filter, $ionicPopup, gameScoreService) {
     $scope.viewModel(this);
-    this.$state = $state;
     this.$filter = $filter;
-    this.$interval = $interval;
     this.$ionicPopup = $ionicPopup;
-    this.$ionicHistory = $ionicHistory;
     this.gameScoreService = gameScoreService;
 
     this.enabled = true;
@@ -66,7 +63,7 @@ export default angular.module('gameinprogress', [
 ])
   .component('gameInProgress', {
     templateUrl: 'imports/components/games/game-in-progress.html',
-    controller: ['$scope', '$state', '$filter', '$interval', '$ionicPopup', '$ionicHistory', 'gameScoreService', GameInProgressCtrl],
+    controller: ['$scope', '$filter', '$ionicPopup', 'gameScoreService', GameInProgressCtrl],
     bindings: {
       game: '<',
       controls: '<'
