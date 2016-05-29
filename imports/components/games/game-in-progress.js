@@ -24,7 +24,7 @@ class GameInProgressCtrl {
   }
 
   winStats() {
-    if (this.game)
+    if (this.game) {
       const redWins = this.gameScoreService.getTeamEloOnWin(this.game.teamRed._id, this.game.teamBlue._id);
       const blueWins = this.gameScoreService.getTeamEloOnWin(this.game.teamBlue._id, this.game.teamRed._id);
       return {
@@ -33,6 +33,7 @@ class GameInProgressCtrl {
         redWinChance: redWins.percent,
         blueWinChance: blueWins.percent
       }
+    }
   }
 
   duration() {
