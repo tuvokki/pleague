@@ -4,7 +4,9 @@ import { Teams } from '/imports/api/teams.js';
 import { Games } from '/imports/api/games.js';
 
 class GameScoreService {
-  constructor() {
+  constructor(playersService, teamsService) {
+    this.playersService = playersService;
+    this.teamsService = teamsService;
     // Maximum movement of ELO in 1 match
     this.maxEloMovement = 75;
   }
@@ -66,69 +68,35 @@ class GameScoreService {
     }
   }
 
-  updateELO(winTeamId, looseTeamId) {
+  updateELO(winTeamId, loseTeamId) {
 
-    let eloChange = this.getTeamEloOnWin(winTeamId, looseTeamId).win;
-    console.log('ELO changed by: ', eloChange);
     let winTeam = Teams.findOne({ _id: winTeamId });
-    let looseTeam = Teams.findOne({ _id: looseTeamId });
-    let winp1 = Players.findOne({ _id: winTeam.players[0] });
-    let winp2 = Players.findOne({ _id: winTeam.players[1] });
-    let loosep1 = Players.findOne({ _id: looseTeam.players[0] });
-    let loosep2 = Players.findOne({ _id: looseTeam.players[1] });
+    let loseTeam = Teams.findOne({ _id: loseTeamId });
 
-    Players.update({ _id: winp1._id },
-      {
-        $inc: { elo: eloChange }
-      }
-    )
-    Players.update({ _id: winp2._id },
-      {
-        $inc: { elo: eloChange }
-      }
-    )
-    Players.update({ _id: loosep1._id },
-      {
-        $inc: { elo: -eloChange }
-      }
-    )
-    Players.update({ _id: loosep2._id },
-      {
-        $inc: { elo: -eloChange }
-      }
-    )
+    let eloChange = this.getTeamEloOnWin(winTeam, loseTeam).win;
 
-    let teamEloChanged = this.calculateELORatingChange(winTeam.teamElo, looseTeam.teamElo, this.maxEloMovement);
+    this.playersService.eloInc(winTeam.players[0], eloChange);
+    this.playersService.eloInc(winTeam.players[1], eloChange);
+    this.playersService.eloInc(loseTeam.players[0], -eloChange);
+    this.playersService.eloInc(loseTeam.players[1], -eloChange);
+
+    let teamEloChanged = this.calculateELORatingChange(winTeam.teamElo, loseTeam.teamElo, this.maxEloMovement);
     console.log('Team ELO change by: ', teamEloChanged);
-
-    Teams.update({ _id: winTeam._id },
-      {
-        $inc: { teamElo: teamEloChanged.win }
-      }
-    );
-    Teams.update({ _id: looseTeam._id },
-      {
-        $inc: { teamElo: teamEloChanged.loss }
-      }
-    );
+    
+    this.teamsService.eloInc(winTeamId, teamEloChanged.win);
+    this.teamsService.eloInc(loseTeamId, teamEloChanged.loss);
 
     return eloChange;
   }
 
-  getTeamEloOnWin(winTeamId, looseTeamId) {
-    let winTeam = Teams.findOne({ _id: winTeamId });
-    let looseTeam = Teams.findOne({ _id: looseTeamId });
-    let winp1 = Players.findOne({ _id: winTeam.players[0] });
-    let winp2 = Players.findOne({ _id: winTeam.players[1] });
-    let loosep1 = Players.findOne({ _id: looseTeam.players[0] });
-    let loosep2 = Players.findOne({ _id: looseTeam.players[1] });
-
-    let winelo = (winp1.elo + winp2.elo) / 2;
-    let looseelo = (loosep1.elo + loosep2.elo) / 2;
-
-    let eloChanged = this.calculateELORatingChange(winelo, looseelo, this.maxEloMovement);
+  getTeamEloOnWin(winTeam, loseTeam) {
+    let eloChanged = this.calculateELORatingChange(
+      this.teamsService.getCombinedElo(winTeam),
+      this.teamsService.getCombinedElo(loseTeam),
+      this.maxEloMovement);
     return eloChanged;
   }
+
   /**
    * This method will calculate the change in a player's
    * Elo rating after playing a single game against another player.
@@ -144,13 +112,9 @@ class GameScoreService {
       percent: Math.round(percentage * 100)
     };
   }
-
-  static factory(){
-    return new GameScoreService();
-  }
 }
 
 export default angular.module('gameservice', [
   angularMeteor
 ])
-  .factory('gameScoreService', GameScoreService.factory);
+  .service('gameScoreService', ['playersService', 'teamsService', GameScoreService]);
