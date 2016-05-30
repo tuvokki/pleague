@@ -69,7 +69,6 @@ class GameScoreService {
           $set: { teamRed: inprogress.teamRed }
         });
       }
-      // TODO this is F###ing unreadable. Use (++inprogress.teamBlueScore === 7)
       if (inprogress.teamRedScore++ > 5) {
         var eloChange = this.updateELO(inprogress.teamRed._id, inprogress.teamBlue._id);
         Games.update(inprogress._id, {
@@ -96,7 +95,6 @@ class GameScoreService {
           $set: { teamBlue: inprogress.teamBlue }
         });
       }
-      // TODO this is F###ing unreadable. Use (++inprogress.teamBlueScore === 7)
       if (inprogress.teamBlueScore++ > 5) {
 
         var eloChange = this.updateELO(inprogress.teamBlue._id, inprogress.teamRed._id);
