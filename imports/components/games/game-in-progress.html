@@ -80,10 +80,10 @@
         </div>
         <div class="row">
           <div class="col">
-            <h2>+{{ $ctrl.redWinElo() }} points</h2>
+            <h2>+{{ $ctrl.winStats().redWinElo }} points ({{ $ctrl.winStats().redWinChance }}%)</h2>
           </div>
           <div class="col">
-            <h2>+{{ $ctrl.blueWinElo() }} points</h2>
+            <h2>+{{ $ctrl.winStats().blueWinElo }} points ({{ $ctrl.winStats().blueWinChance }}%)</h2>
           </div>
         </div>
 

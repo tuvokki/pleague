@@ -7,16 +7,12 @@ import { Games } from '/imports/api/games.js';
 import template from '/imports/components/games/game-in-progress.html';
 
 class GameInProgressCtrl {
-  constructor($scope, $state, $filter, $timeout, $ionicPopup, $ionicHistory, gameScoreService) {
+  constructor($scope, $filter, $timeout, $ionicPopup, gameScoreService) {
     $scope.viewModel(this);
-    this.$state = $state;
     this.$filter = $filter;
     this.$timeout = $timeout;
     this.$ionicPopup = $ionicPopup;
-    this.$ionicHistory = $ionicHistory;
     this.gameScoreService = gameScoreService;
-
-    console.log('in gameInProgress controller');
 
     this.enabled = true;
     this.showControls = this.controls;
@@ -28,14 +24,17 @@ class GameInProgressCtrl {
     });
   }
 
-  redWinElo() {
-    if (this.game)
-      return this.gameScoreService.getTeamEloOnWin(this.game.teamRed._id, this.game.teamBlue._id);
-  }
-
-  blueWinElo() {
-    if (this.game)
-      return this.gameScoreService.getTeamEloOnWin(this.game.teamBlue._id, this.game.teamRed._id);
+  winStats() {
+    if (this.game) {
+      const redWins = this.gameScoreService.getTeamEloOnWin(this.game.teamRed._id, this.game.teamBlue._id);
+      const blueWins = this.gameScoreService.getTeamEloOnWin(this.game.teamBlue._id, this.game.teamRed._id);
+      return {
+        redWinElo: redWins.win,
+        blueWinElo: blueWins.win,
+        redWinChance: redWins.percent,
+        blueWinChance: blueWins.percent
+      }
+    }
   }
 
   duration() {
@@ -44,7 +43,6 @@ class GameInProgressCtrl {
   }
 
   scored(teamId, player) {
-    console.log(teamId, player);
     this.gameScoreService.scored(teamId, player, this.game);
   }
 
@@ -77,7 +75,6 @@ class GameInProgressCtrl {
    */
   revertGoal(teamId, playerId, $event) {
     if (this.revertTimer && this.reverting === playerId && this.revertOK) {
-      //debugger;
       if ($event && $event.originalEvent) {
         $event.originalEvent.preventDefault();
         $event.originalEvent.stopPropagation();
@@ -121,7 +118,7 @@ export default angular.module('gameinprogress', [
 ])
   .component('gameInProgress', {
     templateUrl: 'imports/components/games/game-in-progress.html',
-    controller: ['$scope', '$state', '$filter', '$timeout', '$ionicPopup', '$ionicHistory', 'gameScoreService', GameInProgressCtrl],
+    controller: ['$scope', '$filter', '$timeout', '$ionicPopup', 'gameScoreService', GameInProgressCtrl],
     bindings: {
       game: '<',
       controls: '<'

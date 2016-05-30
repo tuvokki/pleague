@@ -10,8 +10,6 @@ class NewTeamCtrl {
     this.$state = $state;
     this.$ionicPopup = $ionicPopup;
     this.$ionicHistory = $ionicHistory;
-    
-    console.log('in new-team controller');
 
     this.helpers({
       players() {

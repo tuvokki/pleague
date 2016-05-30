@@ -13,15 +13,18 @@
 <ion-view view-title="Players">
   <ion-content>
     <ion-list type="list-inset">
-      <ion-item ng-repeat="player in $ctrl.players | orderBy:'name'" class="item-text-wrap" type="item-text-wrap"
+      <ion-item ng-repeat="player in $ctrl.players | orderBy:'name'" class="item-text-wrap player" type="item-text-wrap"
         ng-click="$ctrl.toggleInfo(player)"
         ng-class="{'yours': $ctrl.isMine(player)}">
-        <h2><i class="icon" ng-class="$ctrl.isClaimed(player) ? 'ion-person-stalker': 'ion-person'"></i> {{ player.name }}</h2>
+        <h2 ng-if="!player.retired"><i class="icon" ng-class="$ctrl.isClaimed(player) ? 'ion-person-stalker': 'ion-person'"></i> {{ player.name }}</h2>
+        <h2 ng-if="player.retired"><i class="icon ion-close-round"></i>{{ player.name }}<img src="/img/retired.png" class="retired"></h2>
         <span class="badge" ng-class="player.elo < 1500 ? 'badge-assertive' : 'badge-balanced'">{{ player.elo }}</span>
-        <span ng-if="$ctrl.showPlayerInfo == player._id">
-          Joined {{ player.joinDate | calendar }}<br>
+        <div  ng-if="$ctrl.showPlayerInfo == player._id" class="info">
+          <span>
+            Joined {{ player.joinDate | calendar }}<br>
+          </span>
           <span ng-if="$ctrl.isClaimed(player)">Claimed by: {{ $ctrl.claimedBy(player) }}</span>
-        </span>
+        </div>
         <ion-option-button ng-if="$ctrl.isMine(player)" class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
           Change name
         </ion-option-button>
@@ -30,6 +33,12 @@
         </ion-option-button>
         <ion-option-button ng-if="$ctrl.isAdmin()" class="button-assertive" ng-click="$ctrl.eloPenalty(player)">
           Elo penalty
+        </ion-option-button>
+        <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && !player.retired" class="button-assertive" ng-click="$ctrl.retireModal(player)">
+          Retire
+        </ion-option-button>
+        <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && player.retired" class="button-assertive" ng-click="$ctrl.activateModal(player)">
+          Activate
         </ion-option-button>
       </ion-item>
     </ion-list>

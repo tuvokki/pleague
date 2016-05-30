@@ -10,8 +10,6 @@ class NewPlayerCtrl {
     this.$ionicPopup = $ionicPopup;
     this.$ionicHistory = $ionicHistory;
 
-    console.log('in new-player controller');
-
     this.helpers({
         //   find all other users
         // users() {

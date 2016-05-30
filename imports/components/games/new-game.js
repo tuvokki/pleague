@@ -13,20 +13,17 @@ class NewGameCtrl {
     this.$ionicPopup = $ionicPopup;
     this.$ionicHistory = $ionicHistory;
 
-    console.log('in new-game controller');
-
     this.enabled = true;
     this.init();
 
     this.helpers({
       players: () => {
-        return Players.find({ _id: { $nin: this.getReactively('selectedPlayers') } }, { sort: { name: 1 } });
+        return Players.find({ _id: { $nin: this.getReactively('selectedPlayers') }, retired: { $exists: false } }, { sort: { name: 1 } });
       }
     });
   }
 
   selectPlayer(id) {
-    console.log("selected: " + id);
     this.selectedPlayers = this.selectedPlayers.concat([id]);
     // TODO: the following code relies heavily on the sequential nature of the team select and should be replaced with a selectstate
     if (this.selectTeam == 'red') {
@@ -126,8 +123,6 @@ class NewGameCtrl {
       [{ players }],
       { returnStubValue: true }
     );
-    if (teamStub)
-      console.log(teamStub);
     return teamStub;
   }
 

@@ -10,8 +10,6 @@ class GameDetailCtrl {
   constructor($scope) {
     $scope.viewModel(this);
 
-    console.log('in gamedetail controller');
-
     this.helpers({
       players: () => {
         return Players.find({}, { sort: { name: 1 } });

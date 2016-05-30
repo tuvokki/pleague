@@ -1,19 +1,18 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import moment from 'moment';
 import { Players } from '/imports/api/players.js';
 
 import template from './players.html';
 import templateForm from './player-name-form.html';
 
 class PlayersCtrl {
-  constructor($scope, $ionicPopup, $ionicModal, $ionicListDelegate, usersService) {
+  constructor($scope, $ionicModal, $ionicListDelegate, $ionicActionSheet, usersService) {
     $scope.viewModel(this);
-    this.$ionicPopup = $ionicPopup;
-    this.$ionicListDelegate = $ionicListDelegate;
     this.$ionicModal = $ionicModal;
+    this.$ionicListDelegate = $ionicListDelegate;
+    this.$ionicActionSheet = $ionicActionSheet;
     this.usersService = usersService;
-
-    console.log('in players controller');
 
     this.showPlayerInfo = 0;
 
@@ -100,13 +99,102 @@ class PlayersCtrl {
     this.modal.show();
   }
 
+  retireModal(player){
+    let that = this;
+    this.changePlayer = player;
+    this.$ionicActionSheet.show({
+       buttons: [
+         { text: '<b>Retire player</b>' }
+       ],
+       titleText: 'Really take ' + player.name + ' out of competition?',
+       cancelText: 'Cancel',
+       cancel: function() {
+         that.$ionicListDelegate.closeOptionButtons();
+       },
+       buttonClicked: function(index) {
+         if(index == 0){
+           that.retire(that.changePlayer);
+           return true;
+         }
+         that.$ionicListDelegate.closeOptionButtons();
+         return true;
+       }
+     });
+  };
+
   submitName() {
+    if (this.changePlayer.name.length > 26) {
+      throw new Meteor.Error('player-name-too-long',
+            'A player\'s name cannot be longer than 26 characters');
+    }
     Players.update({ _id: this.changePlayer._id },
     {
       $set: { name: this.changePlayer.name }
     });
 
     this.modal.hide();
+    this.$ionicListDelegate.closeOptionButtons();
+  }
+
+  retire() {
+    Players.update({ _id: this.changePlayer._id },
+    {
+      $set: { retired: true, retireDate: new Date() }
+    });
+
+    this.$ionicListDelegate.closeOptionButtons();
+  }
+
+  activateModal(player) {
+    let that = this;
+    this.changePlayer = player;
+
+    let now = moment(Date.now());
+    let retireDate = moment(player.retireDate);
+    let diffDays = now.diff(retireDate, 'days');
+
+    if ( diffDays < 7 ) {
+      this.$ionicActionSheet.show({
+        buttons: [
+        ],
+        titleText: 'Cannot activate ' + player.name + '. When a player is retired a mimimum of 7 days pause is required. ' + player.name + ' has only be suspended for ' + diffDays +' days.',
+        cancelText: 'Bummer',
+        cancel: function() {
+          that.$ionicListDelegate.closeOptionButtons();
+        },
+        buttonClicked: function(index) {
+          that.$ionicListDelegate.closeOptionButtons();
+          return true;
+        }
+      });
+    } else {
+      this.$ionicActionSheet.show({
+        buttons: [
+          { text: '<b>Activate player</b>' }
+        ],
+        titleText: 'Really add ' + player.name + ' to the arena again?',
+        cancelText: 'Cancel',
+        cancel: function() {
+          that.$ionicListDelegate.closeOptionButtons();
+        },
+        buttonClicked: function(index) {
+          if(index == 0){
+            that.activate(that.changePlayer);
+            return true;
+          }
+          that.$ionicListDelegate.closeOptionButtons();
+          return true;
+        }
+      });
+    }
+  }
+
+  activate(player) {
+    Players.update({ _id: player._id },
+    {
+      $unset: { retired: true, retireDate: new Date() }
+    });
+
     this.$ionicListDelegate.closeOptionButtons();
   }
 
@@ -141,7 +229,7 @@ export default angular.module('players', [
 ])
   .component('players', {
     templateUrl: 'imports/components/players/players.html',
-    controller: ['$scope', '$ionicPopup',  '$ionicModal', '$ionicListDelegate', 'usersService', PlayersCtrl]
+    controller: ['$scope', '$ionicModal', '$ionicListDelegate', '$ionicActionSheet', 'usersService', PlayersCtrl]
   })
   .config(($stateProvider) => {
       $stateProvider.state('tab.players', {

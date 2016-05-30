@@ -13,8 +13,6 @@ class GamesCtrl {
     this.gameScoreService = gameScoreService;
     this.$ionicListDelegate = $ionicListDelegate;
 
-    console.log('in games controller');
-
     this.helpers({
       isAdmin() {
         let user = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { profile: 1 } });

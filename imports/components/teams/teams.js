@@ -11,8 +11,6 @@ class TeamsCtrl {
   constructor($scope) {
     $scope.viewModel(this);
 
-    console.log('in teams controller');
-
     this.helpers({
       teamsList() {
         return Teams.find();
