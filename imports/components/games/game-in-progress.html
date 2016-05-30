@@ -16,7 +16,7 @@
         </div>
 
         <div class="row">
-          <div class="col">
+          <div class="col col-50">
             <button class="button button-assertive scorebutton"
                 ng-if="$ctrl.controls"
                 ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)"
@@ -29,7 +29,7 @@
               <h3>{{ $ctrl.game.teamRed.defender._id | player_name }} scored {{ $ctrl.game.teamRed.defender.goals }} goals</h3>
             </span>
           </div>
-          <div class="col">
+          <div class="col col-50">
             <button class="button button-positive scorebutton"
                 ng-if="$ctrl.controls"
                 ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)"
@@ -45,7 +45,7 @@
         </div>
 
         <div class="row">
-          <div class="col">
+          <div class="col col-50">
             <button class="button button-assertive scorebutton"
               ng-if="$ctrl.controls"
               ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)"
@@ -58,7 +58,7 @@
               <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }} scored {{ $ctrl.game.teamRed.attacker.goals }} goals</h3>
             </span>
           </div>
-          <div class="col">
+          <div class="col col-50">
             <button class="button button-positive scorebutton"
               ng-if="$ctrl.controls"
               ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)"
