@@ -16,16 +16,26 @@
         </div>
 
         <div class="row">
-          <div class="col">
-            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)" ng-if="$ctrl.controls">
+          <div class="col col-50">
+            <button class="button button-assertive scorebutton"
+                ng-if="$ctrl.controls"
+                ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)"
+                ng-mousedown="$ctrl.prepareRevertGoal($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id)"
+                ng-mouseup="$ctrl.revertGoal($ctrl.game.teamRed._id, $ctrl.game.teamRed.defender._id, $event)"
+                ng-class="{reverting: $ctrl.reverting === $ctrl.game.teamRed.defender._id, revertok: $ctrl.revertOK === $ctrl.game.teamRed.defender._id}">
               <h3>{{ $ctrl.game.teamRed.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.defender.goals }})
             </button>
             <span ng-if="!$ctrl.controls">
               <h3>{{ $ctrl.game.teamRed.defender._id | player_name }} scored {{ $ctrl.game.teamRed.defender.goals }} goals</h3>
             </span>
           </div>
-          <div class="col">
-            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)" ng-if="$ctrl.controls">
+          <div class="col col-50">
+            <button class="button button-positive scorebutton"
+                ng-if="$ctrl.controls"
+                ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)"
+                ng-mousedown="$ctrl.prepareRevertGoal($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id)"
+                ng-mouseup="$ctrl.revertGoal($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.defender._id, $event)"
+                ng-class="{reverting: $ctrl.reverting === $ctrl.game.teamBlue.defender._id, revertok: $ctrl.revertOK === $ctrl.game.teamBlue.defender._id}">
               <h3>{{ $ctrl.game.teamBlue.defender._id | player_name }}</h3>scored! ({{ $ctrl.game.teamBlue.defender.goals }})
             </button>
             <span ng-if="!$ctrl.controls">
@@ -35,16 +45,26 @@
         </div>
 
         <div class="row">
-          <div class="col">
-            <button class="button button-assertive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)" ng-if="$ctrl.controls">
+          <div class="col col-50">
+            <button class="button button-assertive scorebutton"
+              ng-if="$ctrl.controls"
+              ng-click="$ctrl.scored($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)"
+                ng-mousedown="$ctrl.prepareRevertGoal($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id)"
+                ng-mouseup="$ctrl.revertGoal($ctrl.game.teamRed._id, $ctrl.game.teamRed.attacker._id, $event)"
+                ng-class="{reverting: $ctrl.reverting === $ctrl.game.teamRed.attacker._id, revertok: $ctrl.revertOK === $ctrl.game.teamRed.attacker._id}">
               <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }}</h3>scored! ({{ $ctrl.game.teamRed.attacker.goals }})
             </button>
             <span ng-if="!$ctrl.controls">
               <h3>{{ $ctrl.game.teamRed.attacker._id | player_name }} scored {{ $ctrl.game.teamRed.attacker.goals }} goals</h3>
             </span>
           </div>
-          <div class="col">
-            <button class="button button-positive scorebutton" ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)" ng-if="$ctrl.controls">
+          <div class="col col-50">
+            <button class="button button-positive scorebutton"
+              ng-if="$ctrl.controls"
+              ng-click="$ctrl.scored($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)"
+                ng-mousedown="$ctrl.prepareRevertGoal($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id)"
+                ng-mouseup="$ctrl.revertGoal($ctrl.game.teamBlue._id, $ctrl.game.teamBlue.attacker._id, $event)"
+                ng-class="{reverting: $ctrl.reverting === $ctrl.game.teamBlue.attacker._id, revertok: $ctrl.revertOK === $ctrl.game.teamBlue.attacker._id}">
               <h3>{{ $ctrl.game.teamBlue.attacker._id | player_name }}</h3>scored! ({{ $ctrl.game.teamBlue.attacker.goals }})
             </button>
             <span ng-if="!$ctrl.controls">

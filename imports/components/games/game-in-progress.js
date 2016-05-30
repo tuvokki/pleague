@@ -7,9 +7,10 @@ import { Games } from '/imports/api/games.js';
 import template from '/imports/components/games/game-in-progress.html';
 
 class GameInProgressCtrl {
-  constructor($scope, $filter, $ionicPopup, gameScoreService) {
+  constructor($scope, $filter, $timeout, $ionicPopup, gameScoreService) {
     $scope.viewModel(this);
     this.$filter = $filter;
+    this.$timeout = $timeout;
     this.$ionicPopup = $ionicPopup;
     this.gameScoreService = gameScoreService;
 
@@ -45,6 +46,57 @@ class GameInProgressCtrl {
     this.gameScoreService.scored(teamId, player, this.game);
   }
 
+  /**
+   * Start preparing to revert a goal made by this player
+   *
+   * @param {number} teamId the team id
+   * @param {number} playerId the player id
+   *
+   * @return {void}
+   */
+  prepareRevertGoal(teamId, playerId) {
+    this.prepareTimer = this.$timeout(() => {
+      this.reverting = playerId;
+      // startup the actual reverting
+      this.revertTimer = this.$timeout(() => {
+        this.revertOK = playerId;
+      }, 2000);
+
+    }, 1000);
+  }
+
+  /**
+   * Revert a goal made by this user. The prepareRevertGoal() must be called prior to this method.
+   *
+   * @param {number} teamId the team id
+   * @param {number} playerId the player id
+   *
+   * @return {void}
+   */
+  revertGoal(teamId, playerId, $event) {
+    if (this.revertTimer && this.reverting === playerId && this.revertOK) {
+      if ($event && $event.originalEvent) {
+        $event.originalEvent.preventDefault();
+        $event.originalEvent.stopPropagation();
+      }
+
+      // Do the actual reverting
+      this.gameScoreService.revertScored(teamId, playerId, this.game);
+    }
+
+    // Let's cleanup after ourselves...
+    if (this.revertTimer) {
+      this.$timeout.cancel(this.revertTimer);
+      delete this.revertOK;
+      delete this.revertTimer;
+    }
+    if (this.prepareTimer) {
+      this.$timeout.cancel(this.prepareTimer);
+      delete this.reverting;
+      delete this.prepareTimer;
+    }
+  }
+
   trashGameInProgressModal() {
     let confirmPopup = this.$ionicPopup.confirm({
       title: 'Trash this game?',
@@ -66,7 +118,7 @@ export default angular.module('gameinprogress', [
 ])
   .component('gameInProgress', {
     templateUrl: 'imports/components/games/game-in-progress.html',
-    controller: ['$scope', '$filter', '$ionicPopup', 'gameScoreService', GameInProgressCtrl],
+    controller: ['$scope', '$filter', '$timeout', '$ionicPopup', 'gameScoreService', GameInProgressCtrl],
     bindings: {
       game: '<',
       controls: '<'
