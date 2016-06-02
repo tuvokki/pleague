@@ -11,7 +11,7 @@ class TeamsService {
   eloInc(teamId, elo) {
     Teams.update({ _id: teamId },
       {
-        $inc: { elo: elo }
+        $inc: { teamElo: elo }
       }
     );
   }
