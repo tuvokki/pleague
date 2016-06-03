@@ -2,6 +2,7 @@ import angularMeteor from 'angular-meteor';
 import { Players } from '/imports/api/players.js';
 import { Teams } from '/imports/api/teams.js';
 import { Games } from '/imports/api/games.js';
+import { Goals } from '/imports/api/goals.js';
 
 class GameScoreService {
   constructor(playersService, teamsService) {
@@ -16,6 +17,8 @@ class GameScoreService {
     if (inprogress.teamRed._id == teamId) {
       if (inprogress.teamRed.attacker._id == player) {
         if (inprogress.teamRed.attacker.goals > 0) {
+          const remGoal = inprogress.teamRed.goals.pop();
+          Meteor.apply('removeGoal', [remGoal]);
           inprogress.teamRed.attacker.goals--;
           Games.update(inprogress._id, {
             $inc: { teamRedScore: -1 },
@@ -24,6 +27,8 @@ class GameScoreService {
         }
       } else {
         if (inprogress.teamRed.defender.goals > 0) {
+          const remGoal = inprogress.teamRed.goals.pop();
+          Meteor.apply('removeGoal', [remGoal]);
           inprogress.teamRed.defender.goals--;
           Games.update(inprogress._id, {
             $inc: { teamRedScore: -1 },
@@ -31,24 +36,28 @@ class GameScoreService {
           });
         }
       }
-    }
-
-    // Team blue
-    if (inprogress.teamBlue.attacker._id == player) {
-      if (inprogress.teamBlue.attacker.goals > 0) {
-        inprogress.teamBlue.attacker.goals--;
-        Games.update(inprogress._id, {
-          $inc: { teamBlueScore: -1 },
-          $set: { teamBlue: inprogress.teamBlue }
-        });
-      }
     } else {
-      if (inprogress.teamBlue.defender.goals > 0) {
-        inprogress.teamBlue.defender.goals--;
-        Games.update(inprogress._id, {
-          $inc: { teamBlueScore: -1 },
-          $set: { teamBlue: inprogress.teamBlue }
-       });
+      // Team blue
+      if (inprogress.teamBlue.attacker._id == player) {
+        if (inprogress.teamBlue.attacker.goals > 0) {
+          const remGoal = inprogress.teamBlue.goals.pop();
+          Meteor.apply('removeGoal', [remGoal]);
+          inprogress.teamBlue.attacker.goals--;
+          Games.update(inprogress._id, {
+            $inc: { teamBlueScore: -1 },
+            $set: { teamBlue: inprogress.teamBlue }
+          });
+        }
+      } else {
+        if (inprogress.teamBlue.defender.goals > 0) {
+          const remGoal = inprogress.teamBlue.goals.pop();
+          Meteor.apply('removeGoal', [remGoal]);
+          inprogress.teamBlue.defender.goals--;
+          Games.update(inprogress._id, {
+            $inc: { teamBlueScore: -1 },
+            $set: { teamBlue: inprogress.teamBlue }
+        });
+        }
       }
     }
   }
@@ -57,12 +66,19 @@ class GameScoreService {
     if (inprogress.teamRed._id == teamId) // red scored
     {
       if (inprogress.teamRed.attacker._id == player) {
+        let goal = Meteor.apply('newGoal', [{ player, position: 'attacker', color: 'red', own: false, teamId: inprogress.teamRed._id }],
+        { returnStubValue: true });
+        inprogress.teamRed.goals.push(goal);
+
         inprogress.teamRed.attacker.goals++;
         Games.update(inprogress._id, {
           $inc: { teamRedScore: 1 },
           $set: { teamRed: inprogress.teamRed }
         });
       } else {
+        let goal = Meteor.apply('newGoal', [{ player, position: 'defender', color: 'red', own: false, teamid: inprogress.teamRed._id }],
+        { returnStubValue: true });
+        inprogress.teamRed.goals.push(goal);
         inprogress.teamRed.defender.goals++;
         Games.update(inprogress._id, {
           $inc: { teamRedScore: 1 },
@@ -83,12 +99,18 @@ class GameScoreService {
       }
     } else {
       if (inprogress.teamBlue.attacker._id == player) {
+        let goal = Meteor.apply('newGoal', [{ player, position: 'attacker', color: 'blue', own: false, teamid: inprogress.teamBlue._id }],
+        { returnStubValue: true });
+        inprogress.teamBlue.goals.push(goal);
         inprogress.teamBlue.attacker.goals++;
         Games.update(inprogress._id, {
           $inc: { teamBlueScore: 1 },
           $set: { teamBlue: inprogress.teamBlue }
         });
       } else {
+        let goal = Meteor.apply('newGoal', [{ player, position: 'defender', color: 'blue', own: false, teamid: inprogress.teamBlue._id }],
+        { returnStubValue: true });
+        inprogress.teamBlue.goals.push(goal);
         inprogress.teamBlue.defender.goals++;
         Games.update(inprogress._id, {
           $inc: { teamBlueScore: 1 },
