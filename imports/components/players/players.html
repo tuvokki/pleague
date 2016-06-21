@@ -19,25 +19,25 @@
         <h2 ng-if="!player.retired"><i class="icon" ng-class="$ctrl.isClaimed(player) ? 'ion-person-stalker': 'ion-person'"></i> {{ player.name }}</h2>
         <h2 ng-if="player.retired"><i class="icon ion-close-round"></i>{{ player.name }}<img src="/img/retired.png" class="retired"></h2>
         <span class="badge" ng-class="player.elo < 1500 ? 'badge-assertive' : 'badge-balanced'">{{ player.elo }}</span>
-        <div  ng-if="$ctrl.showPlayerInfo == player._id" class="info">
+        <div ng-if="$ctrl.showPlayerInfo == player._id" class="info">
           <span>
             Joined {{ player.joinDate | calendar }}<br>
           </span>
           <span ng-if="$ctrl.isClaimed(player)">Claimed by: {{ $ctrl.claimedBy(player) }}</span>
         </div>
-        <ion-option-button ng-if="$ctrl.isMine(player)" class="button-balanced" ng-click="$ctrl.changeNameModal(player)">
+        <ion-option-button ng-if="$ctrl.isMine(player)" class="button-balanced" ng-click="$ctrl.changeNameModal(player); $event.stopPropagation();">
           Change name
         </ion-option-button>
-        <ion-option-button ng-if="$ctrl.canClaim() && !$ctrl.isClaimed(player) && !$ctrl.isMine(player) && !$ctrl.hasClaimed()" class="button-stable" ng-click="$ctrl.claimPlayer(player)">
+        <ion-option-button ng-if="$ctrl.canClaim() && !$ctrl.isClaimed(player) && !$ctrl.isMine(player) && !$ctrl.hasClaimed()" class="button-stable" ng-click="$ctrl.claimPlayer(player); $event.stopPropagation();">
           Claim player
         </ion-option-button>
-        <ion-option-button ng-if="$ctrl.isAdmin()" class="button-assertive" ng-click="$ctrl.eloPenalty(player)">
+        <ion-option-button ng-if="$ctrl.isAdmin()" class="button-assertive" ng-click="$ctrl.eloPenalty(player); $event.stopPropagation();">
           Elo penalty
         </ion-option-button>
-        <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && !player.retired" class="button-assertive" ng-click="$ctrl.retireModal(player)">
+        <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && !player.retired" class="button-assertive" ng-click="$ctrl.retireModal(player); $event.stopPropagation();">
           Retire
         </ion-option-button>
-        <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && player.retired" class="button-assertive" ng-click="$ctrl.activateModal(player)">
+        <ion-option-button ng-if="($ctrl.isMine(player) || $ctrl.isAdmin()) && player.retired" class="button-assertive" ng-click="$ctrl.activateModal(player); $event.stopPropagation();">
           Activate
         </ion-option-button>
       </ion-item>

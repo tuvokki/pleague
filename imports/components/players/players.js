@@ -204,21 +204,28 @@ class PlayersCtrl {
   }
 
   eloPenalty(player) {
-    let confirmPopup = this.$ionicPopup.confirm({
-      title: 'Punish ' + player.name,
-      template: 'This will substract 100 ELO from the total of this player.<br><b>Do you want to punish '+player.name+'?</b>'
-    });
-
-    confirmPopup.then((res) => {
-      if (res) {
-        Players.update({ _id: player._id },
-        {
-          $inc: { elo: -100 } //decrese the elo by 100
-        })
-      } else {
-        return;
+    let that = this;
+    this.$ionicActionSheet.show({
+      buttons: [
+        { text: 'Punish <b>' + player.name + '</b>?' }
+      ],
+      titleText: 'This will substract 100 ELO from the total of this player.<br><b>Do you want to punish '+player.name+'?</b>',
+      cancelText: 'Cancel',
+      cancel: function () {
+        that.$ionicListDelegate.closeOptionButtons();
+      },
+      buttonClicked: function (index) {
+        if (index == 0) {
+          Players.update({ _id: player._id },
+          {
+            $inc: { elo: -100 } //decrese the elo by 100
+          })
+          that.$ionicListDelegate.closeOptionButtons();
+          return true;
+        }
+        that.$ionicListDelegate.closeOptionButtons();
+        return true;
       }
-      this.$ionicListDelegate.closeOptionButtons();
     });
   }
 
