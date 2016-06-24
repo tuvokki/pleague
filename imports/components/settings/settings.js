@@ -1,6 +1,7 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import { Players } from '../../api/players.js';
+import { Joined } from '/imports/api/joined.js';
 
 import template from './settings.html';
 
@@ -31,6 +32,9 @@ class SettingsCtrl {
     this.helpers({
       users() {
         return Meteor.users.find()
+      },
+      joined() {
+        return Joined.find()
       }
     });
   }

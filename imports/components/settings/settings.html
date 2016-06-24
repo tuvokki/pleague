@@ -39,5 +39,11 @@
         </ion-option-button>
       </ion-item>
     </ion-list>
+
+    <ion-list>
+      <ion-item ng-repeat="join in $ctrl.joined">
+        {{ join.value.name }} last played at {{ join.value.lpd }}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
