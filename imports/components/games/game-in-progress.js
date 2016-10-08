@@ -105,7 +105,18 @@ class GameInProgressCtrl {
 
     confirmPopup.then((res) => {
       if (res) {
-        Games.remove(this.game._id);
+        try {
+          Meteor.call('trashGame', this.game, (error) => {
+            if (error) {
+              console.log('Error removing game: ', error);
+            } else {
+              console.log('Game removed...');
+            }
+          });
+        } catch (e) {
+          console.log('Hjalp!!');
+          console.log(e);
+        }
       } else {
         return;
       }
