@@ -1,6 +1,11 @@
 const typeDefinitions = `
+type Player {
+  name: String
+  elo: Int
+}
+
 type Query {
-  testString: String
+ players: [Player]
 }
 
 schema {
