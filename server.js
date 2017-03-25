@@ -1,12 +1,11 @@
 import express from 'express';
-import Schema from './data/schema';
-import Resolvers from './data/resolvers';
-// import Mocks from './data/mocks';
+import bodyParser from 'body-parser';
 
 import { apolloExpress, graphiqlExpress } from 'apollo-server';
 import { makeExecutableSchema } from 'graphql-tools';
-// import { addMockFunctionsToSchema } from 'graphql-tools';
-import bodyParser from 'body-parser';
+
+import Schema from './data/schema';
+import Resolvers from './data/resolvers';
 
 const GRAPHQL_PORT = 8080;
 
@@ -18,12 +17,6 @@ const executableSchema = makeExecutableSchema({
     allowUndefinedInResolve: false,
     printErrors: true
 });
-
-// addMockFunctionsToSchema({
-//   schema: executableSchema,
-//   mocks: Mocks,
-//   preserveResolvers: true,
-// });
 
 // `context` must be an object and can't be undefined when using connectors
 graphQLServer.use('/graphql', bodyParser.json(), apolloExpress({

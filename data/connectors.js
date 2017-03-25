@@ -9,7 +9,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 const PlayerSchema = Mongoose.Schema({
     name: String,
-    elo: Number
+    elo: Number,
+    joinDate: Date,
+    retired: Boolean,
+    retireDate: Date,
+    claim: Boolean,
+    belongsTo: String,
+    lastPlayed: []
 });
 
 const Player = mongo.model('Player', PlayerSchema);
