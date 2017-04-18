@@ -1,0 +1,29 @@
+{
+  "_id": "Z5jdxxyE2R4QTWMvg",
+  "createdAt": ISODate("2016-04-16T14:28:06.899Z"),
+  "services": {
+    "password": {
+      "bcrypt": "$2a$10$JZMtPWqBhWlV9Sa3DvO90OV3pzoTJFCFvMvNoyy1evXSBa2CpdHFO"
+    },
+    "resume": {
+      "loginTokens": [
+        {
+          "when": ISODate("2017-03-20T14:09:23.450Z"),
+          "hashedToken": "Q7KnCAzGf7BF4Kb9w3zeCuaF2bjZP3/DmEBJZxIgGlE="
+        }
+      ]
+    }
+  },
+  "username": "admin",
+  "emails": [
+    {
+      "address": "tuvokki@gmail.com",
+      "verified": false
+    }
+  ],
+  "profile": {
+    "firstname": "Lt. Commander",
+    "lastname": "Tuvok",
+    "role": "admin"
+  }
+}
