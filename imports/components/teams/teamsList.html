@@ -1,5 +1,0 @@
-<ion-list type="list-inset">
-  <h3 ng-if="$ctrl.max">Team ranking</h3>
-  <team-detail ng-repeat="team in $ctrl.teamsList | orderBy:['teamElo']:true | limitTo:$ctrl.max" team="team" rank="$index + 1"></team-detail>
-  <button ui-sref="tab.teams" ng-if="$ctrl.max" class="button button-clear button-positive button-icon ion-more"></button>
-</ion-list>

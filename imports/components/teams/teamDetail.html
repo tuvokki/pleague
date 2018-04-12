@@ -1,8 +1,0 @@
-<ion-item
-      class="item-team item-remove-animate item-avatar"
-      type="item-text-wrap">
-  <span class="ranking">{{ $ctrl.rank }}</span>
-  <h3 ng-if="$ctrl.team.teamName">{{ $ctrl.team.teamName }}</h3>
-  {{ $ctrl.team.players[0] | player_name }} and {{ $ctrl.team.players[1] | player_name }}<br>
-  Team ELO: {{ $ctrl.team.teamElo }}
-</ion-item>
