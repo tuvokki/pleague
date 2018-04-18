@@ -2,10 +2,12 @@ defmodule Pleague.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Pleague.Accounts.Credential
 
   schema "users" do
-    field :name, :string
-    field :username, :string
+    field(:name, :string)
+    field(:username, :string)
+    has_one(:credential, Credential)
 
     timestamps()
   end
