@@ -1,1 +1,9 @@
 /* This file is for your main application css. */
+
+.fancy {
+    font-size: 14px;
+    color: white;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    background: rgb(76, 208, 204);
+}

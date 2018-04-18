@@ -1,0 +1,6 @@
+{
+  "name": "pleaue",
+  "dependencies": {
+    "simple-button": "SimpleElements/simple-button#^1.0.1"
+  }
+}

@@ -9,6 +9,8 @@
 
     <title>Hello Pleague!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="import" href="/bower_components/simple-button/simple-button.html">
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@^1.0.0/webcomponents-loader.js"></script>
   </head>
 
   <body>
