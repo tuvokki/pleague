@@ -36,7 +36,7 @@ defmodule PleagueWeb.Router do
         |> halt()
 
       user_id ->
-        assign(conn, :current_user, Hello.Accounts.get_user!(user_id))
+        assign(conn, :current_user, Pleague.Accounts.get_user!(user_id))
     end
   end
 end
