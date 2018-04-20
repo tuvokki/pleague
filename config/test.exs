@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :pleague, Pleague.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "pleague",
+  password: "elobeggers",
   database: "pleague_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
